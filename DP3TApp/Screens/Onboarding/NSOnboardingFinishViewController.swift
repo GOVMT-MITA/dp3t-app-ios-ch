@@ -20,14 +20,14 @@ class NSOnboardingFinishViewController: NSOnboardingContentViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        addArrangedView(foregroundImageView, spacing: NSPadding.medium)
+        addArrangedView(foregroundImageView, spacing: NSPadding.medium, insets: UIEdgeInsets(top: NSPadding.large * 4, left: 0, bottom: 0, right: 0))
         addArrangedView(titleLabel, spacing: NSPadding.medium, insets: UIEdgeInsets(top: 0, left: NSPadding.large, bottom: 0, right: NSPadding.large))
         addArrangedView(textLabel, spacing: NSPadding.large + NSPadding.medium, insets: UIEdgeInsets(top: 0, left: NSPadding.large, bottom: 0, right: NSPadding.large))
         addArrangedView(finishButton)
 
         titleLabel.text = "onboarding_go_title".ub_localized
         textLabel.text = "onboarding_go_text".ub_localized
-
+        
         titleLabel.accessibilityTraits = [.header]
     }
 }

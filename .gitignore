@@ -90,3 +90,10 @@ fastlane/test_output
 iOSInjectionProject/
 /.DS_Store
 .DS_Store
+
+# Custom
+signing/
+DP3TApp/Resources/Certificates/
+Environment.swift
+Environment+PublicKeys.swift
+URLSession+pinning.swift

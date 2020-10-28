@@ -17,7 +17,7 @@ class NSOnboardingInfoView: UIView {
 
     let labelAreaGuide = UILayoutGuide()
 
-    init(icon: UIImage, text: String, title: String? = nil, leftRightInset: CGFloat = 2 * NSPadding.medium, dynamicIconTintColor: UIColor? = nil) {
+    init(icon: UIImage, text: String, title: String? = nil, link: String, leftRightInset: CGFloat = 2 * NSPadding.medium, dynamicIconTintColor: UIColor? = nil) {
         self.leftRightInset = leftRightInset
 
         super.init(frame: .zero)
@@ -28,10 +28,20 @@ class NSOnboardingInfoView: UIView {
 
         let imgView = NSImageView(image: icon, dynamicColor: dynamicIconTintColor)
         imgView.ub_setContentPriorityRequired()
+        
+        let hasLink = !link.isEmpty
 
         let label = NSLabel(.textLight)
         label.text = text
         label.accessibilityLabel = text.ub_localized.replacingOccurrences(of: "BAG", with: "B. A. G.")
+        
+        if hasLink {
+            label.textColor = dynamicIconTintColor != nil ? dynamicIconTintColor : .ns_green
+            
+            let tap = UITapGestureRecognizer(target: self, action: #selector(NSOnboardingInfoView.linkTapFunction))
+            label.isUserInteractionEnabled = true
+            label.addGestureRecognizer(tap)
+        }
 
         addSubview(imgView)
         addSubview(label)
@@ -86,5 +96,12 @@ class NSOnboardingInfoView: UIView {
 
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc func linkTapFunction(sender: UITapGestureRecognizer) {
+        //todo: dynamic link
+        if let url = URL(string: "onboarding_privacy_link3".ub_localized) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
     }
 }

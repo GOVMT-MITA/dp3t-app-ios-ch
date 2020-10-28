@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>/mt/impressum.html</loc>
+    <priority>0</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="mt"
+                href="/mt/impressum.html"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="/en/impressum.html"
+                />
+  </url>
+  
+  <url>
+    <loc>/mt/licence.html</loc>
+    <priority>0</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="mt"
+                href="/mt/licence.html"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="/en/licence.html"
+                />
+  </url>
+  
+  <url>
+    <loc>/mt/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="mt"
+                href="/mt/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="/en/"
+                />
+  </url>
+  
+</urlset>

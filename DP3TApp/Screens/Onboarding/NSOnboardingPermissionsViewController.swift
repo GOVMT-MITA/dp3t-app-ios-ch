@@ -82,12 +82,12 @@ class NSOnboardingPermissionsViewController: NSOnboardingContentViewController {
         switch type {
         case .gapple:
             foregroundImageView.image = UIImage(named: "onboarding-bt-permission")!
-            titleLabel.text = "onboarding_gaen_title".ub_localized
-            textLabel.text = "onboarding_gaen_text_ios".ub_localized
-            permissionButton.title = "onboarding_gaen_button_activate".ub_localized
+            titleLabel.text = "onboarding_tracing_title".ub_localized
+            textLabel.text = "onboarding_tracing_text_ios".ub_localized
+            permissionButton.title = "onboarding_tracing_button_activate".ub_localized
 
-            let info1 = NSOnboardingInfoView(icon: UIImage(named: "ic-verschluesselt")!, text: "onboarding_gaen_info_text_1".ub_localized, title: "onboarding_gaen_info_title_1".ub_localized, dynamicIconTintColor: .ns_blue)
-            let info2 = NSOnboardingInfoView(icon: UIImage(named: "ic-battery")!, text: "onboarding_gaen_info_text_2".ub_localized, title: "onboarding_gaen_info_title_2".ub_localized, dynamicIconTintColor: .ns_blue)
+            let info1 = NSOnboardingInfoView(icon: UIImage(named: "ic-verschluesselt")!, text: "onboarding_tracing_info_text_1".ub_localized, title: "onboarding_tracing_info_title_1".ub_localized, link: "")
+            let info2 = NSOnboardingInfoView(icon: UIImage(named: "ic-battery")!.ub_image(with: .ns_blue), text: "onboarding_tracing_info_text_2".ub_localized, title: "onboarding_tracing_info_title_2".ub_localized, link: "")
             elements.append(info1)
             elements.append(info2)
 
@@ -102,14 +102,13 @@ class NSOnboardingPermissionsViewController: NSOnboardingContentViewController {
                 make.leading.trailing.equalToSuperview()
                 make.bottom.equalToSuperview().inset(2 * NSPadding.medium)
             }
-
         case .push:
-            foregroundImageView.image = UIImage(named: "onboarding-meldung-permission")!
+            foregroundImageView.image = UIImage(named: "onboarding-report-permission")!
             titleLabel.text = "onboarding_push_title".ub_localized
             textLabel.text = "onboarding_push_text".ub_localized
             permissionButton.title = "onboarding_push_button".ub_localized
 
-            let info = NSOnboardingInfoView(icon: UIImage(named: "ic-meldung")!, text: "onboarding_push_gtk_text1".ub_localized, title: "onboarding_push_gtk_title1".ub_localized, dynamicIconTintColor: .ns_blue)
+            let info = NSOnboardingInfoView(icon: UIImage(named: "ic-report")!, text: "onboarding_push_gtk_text1".ub_localized, title: "onboarding_push_gtk_title1".ub_localized, link: "", dynamicIconTintColor: .ns_blue)
             elements.append(info)
             goodToKnowContainer.addSubview(info)
             info.snp.makeConstraints { make in

@@ -13,6 +13,6 @@ import Foundation
 
 extension Environment {
     var appStoreURL: URL {
-        URL(string: "itms-apps://itunes.apple.com/app/apple-store/id1509275381?mt=8")!
+        URL(string: "itms-apps://itunes.apple.com/app/apple-store/id1513522951?mt=8")!
     }
 }

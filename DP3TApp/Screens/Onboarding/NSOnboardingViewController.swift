@@ -16,7 +16,8 @@ class NSOnboardingViewController: NSViewController {
     private let rightSwipeRecognizer = UISwipeGestureRecognizer()
 
     private let splashVC = NSSplashViewController()
-
+    
+    private let step0VC = NSOnboardingLanguageSelectionViewController()
     private let step1VC = NSOnboardingStepViewController(model: NSOnboardingStepModel.step1)
     private let step2VC = NSOnboardingStepViewController(model: NSOnboardingStepModel.step2)
     private let step3VC = NSOnboardingStepViewController(model: NSOnboardingStepModel.step3)
@@ -27,7 +28,11 @@ class NSOnboardingViewController: NSViewController {
     private let step8VC = NSOnboardingFinishViewController()
 
     private var stepViewControllers: [NSOnboardingContentViewController] {
-        [step1VC, step2VC, step3VC, step4VC, step5VC, step6VC, step7VC, step8VC]
+        [step0VC, step1VC, step2VC, step3VC, step4VC, step5VC, step6VC, step7VC, step8VC]
+    }
+
+    private var languageSelectionStepIndex: Int {
+        return stepViewControllers.firstIndex(of: step0VC)!
     }
 
     private var tracingPermissionStepIndex: Int {
@@ -47,7 +52,7 @@ class NSOnboardingViewController: NSViewController {
     }
 
     private var stepsWithoutContinue: [Int] {
-        [tracingPermissionStepIndex, pushPermissionStepIndex, finalStepIndex]
+        [languageSelectionStepIndex, tracingPermissionStepIndex, pushPermissionStepIndex, finalStepIndex]
     }
 
     private let continueContainer = UIView()
@@ -60,6 +65,16 @@ class NSOnboardingViewController: NSViewController {
         super.viewDidLoad()
 
         setupButtons()
+
+        step0VC.languageENButton.touchUpCallback = { [weak self] in
+            LanguageHelper.setAppLocale(localeCode: LanguageHelper.LANGUAGE_EN)
+            self?.animateToNextStep()
+        }
+
+        step0VC.languageMTButton.touchUpCallback = { [weak self] in
+            LanguageHelper.setAppLocale(localeCode: LanguageHelper.LANGUAGE_MT)
+            self?.animateToNextStep()
+        }
 
         step5VC.permissionButton.touchUpCallback = { [weak self] in
             TracingManager.shared.requestTracingPermission { _ in
@@ -248,7 +263,7 @@ class NSOnboardingViewController: NSViewController {
             view.insertSubview(vc.view, belowSubview: finishButton)
             vc.view.snp.makeConstraints { make in
                 make.top.leading.trailing.equalToSuperview()
-                if vc is NSOnboardingPermissionsViewController || vc is NSOnboardingFinishViewController {
+                if vc is NSOnboardingLanguageSelectionViewController || vc is NSOnboardingPermissionsViewController || vc is NSOnboardingFinishViewController {
                     make.bottom.equalToSuperview()
                 } else {
                     make.bottom.equalTo(continueContainer.snp.top)
@@ -293,7 +308,7 @@ class NSOnboardingViewController: NSViewController {
         guard splashVC.view.alpha == 0 else {
             return false
         }
-        if [pushPermissionStepIndex, tracingPermissionStepIndex, disclaimerStepIndex].contains(currentStep) {
+        if [languageSelectionStepIndex, pushPermissionStepIndex, tracingPermissionStepIndex, disclaimerStepIndex].contains(currentStep) {
             // Disable swipe forward on permission screens
             return false
         }

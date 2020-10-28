@@ -25,12 +25,8 @@ class NSOnboardingDisclaimerViewController: NSOnboardingContentViewController {
 
     private var elements: [Any] = []
 
-    private let privacyHeader = NSExpandableDisclaimerViewHeader(title: "onboarding_disclaimer_data_protection_statement".ub_localized)
-    private let privacyBody = NSExpandableDisclaimerViewBody(content: .privacy)
-
-    private let conditionOfUseHeader = NSExpandableDisclaimerViewHeader(title: "onboarding_disclaimer_conditions_of_use".ub_localized)
-    private let conditionOfUseBody = NSExpandableDisclaimerViewBody(content: .conditionOfUse)
-
+    private let privacyButton = NSExternalLinkButton(style: .normal(color: .ns_blue))
+    
     override init() {
         super.init()
         continueButtonText = "onboarding_accept_button".ub_localized
@@ -77,46 +73,14 @@ class NSOnboardingDisclaimerViewController: NSOnboardingContentViewController {
             }
         }
 
-        addDivider()
-
-        addArrangedView(privacyHeader)
-        privacyHeader.snp.makeConstraints { make in
-            make.width.equalTo(self.stackScrollView.stackView)
-        }
-        addArrangedView(privacyBody)
-        privacyBody.snp.makeConstraints { make in
-            make.width.equalTo(self.stackScrollView.stackView)
-        }
-        privacyBody.superview?.isHidden = true
-        privacyHeader.didExpand = { [weak self] expanded in
-            guard let self = self else { return }
-            self.privacyBody.superview?.isHidden = !expanded
-            UIAccessibility.post(notification: .screenChanged, argument: expanded ? self.privacyBody : self.privacyHeader)
-        }
-        privacyBody.privacyButton.touchUpCallback = { [weak self] in
-            self?.openPrivacyLink()
+        privacyButton.title = "onboarding_disclaimer_legal_button".ub_localized
+        privacyButton.accessibilityHint = "accessibility_faq_button_hint".ub_localized
+        addArrangedView(privacyButton, spacing: NSPadding.large)
+        privacyButton.snp.makeConstraints { make in
+            make.leading.trailing.equalTo(self.stackScrollView.stackView).inset(NSPadding.large)
         }
 
-        addDivider()
-
-        addArrangedView(conditionOfUseHeader)
-        conditionOfUseHeader.snp.makeConstraints { make in
-            make.width.equalTo(self.stackScrollView.stackView)
-        }
-        addArrangedView(conditionOfUseBody)
-        conditionOfUseBody.snp.makeConstraints { make in
-            make.width.equalTo(self.stackScrollView.stackView)
-        }
-
-        // superview is used here to get a nice stackview animation
-        // since the views get wrapped in a UIView
-        conditionOfUseBody.superview?.isHidden = true
-        conditionOfUseHeader.didExpand = { [weak self] expanded in
-            guard let self = self else { return }
-            self.conditionOfUseBody.superview?.isHidden = !expanded
-            UIAccessibility.post(notification: .screenChanged, argument: expanded ? self.conditionOfUseBody : self.conditionOfUseHeader)
-        }
-        conditionOfUseBody.privacyButton.touchUpCallback = { [weak self] in
+        privacyButton.touchUpCallback = { [weak self] in
             self?.openPrivacyLink()
         }
 

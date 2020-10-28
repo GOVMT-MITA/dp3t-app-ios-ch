@@ -15,7 +15,7 @@ class NSAboutViewController: NSWebViewController {
 
     init() {
         super.init(mode: .local("impressum"), closeable: true)
-        title = "menu_impressum".ub_localized
+        title = "menu_about".ub_localized
     }
 
     required init?(coder _: NSCoder) {

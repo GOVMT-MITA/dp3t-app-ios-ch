@@ -115,7 +115,7 @@ class NSInfoBoxView: UIView {
                 addSubview(imageView)
 
                 imageView.snp.makeConstraints { make in
-                    make.top.equalTo(self.snp.bottom)
+                    make.top.equalTo(self.snp.top)
                     make.left.equalToSuperview().inset(NSPadding.large)
                 }
             }
@@ -143,7 +143,7 @@ class NSInfoBoxView: UIView {
         }
 
         titleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(topBottomPadding + 3.0)
+            make.top.equalToSuperview().inset(topBottomPadding)
             make.leading.equalTo(self.leadingIconImageView.snp.trailing).offset(NSPadding.medium)
             if illustrationImageView.image == nil {
                 make.trailing.equalToSuperview().inset(NSPadding.medium)

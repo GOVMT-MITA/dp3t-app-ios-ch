@@ -15,18 +15,21 @@ class NSHomescreenViewController: NSTitleViewScrollViewController {
     // MARK: - Views
 
     private let infoBoxView = HomescreenInfoBoxView()
-    private let handshakesModuleView = NSBegegnungenModuleView()
-    private let meldungView = NSMeldungView()
+    private let informationView = NSInformationView()
+    private let handshakesModuleView = NSEncountersModuleView()
+    private let reportsView = NSReportsModuleView()
 
-    private let whatToDoSymptomsButton = NSWhatToDoButton(title: "whattodo_title_symptoms".ub_localized, subtitle: "whattodo_subtitle_symptoms".ub_localized, image: UIImage(named: "illu-symptome"))
+    private let whatToDoSymptomsButton = NSWhatToDoButton(title: "whattodo_title_symptoms".ub_localized, subtitle: "whattodo_subtitle_symptoms".ub_localized, image: UIImage(named: "img_symptoms"))
 
-    private let whatToDoPositiveTestButton = NSWhatToDoButton(title: "whattodo_title_positivetest".ub_localized, subtitle: "whattodo_subtitle_positivetest".ub_localized, image: UIImage(named: "illu-positiv-getestet"))
+    private let whatToDoPositiveTestButton = NSWhatToDoButton(title: "whattodo_title_positivetest".ub_localized, subtitle: "whattodo_subtitle_positivetest".ub_localized, image: UIImage(named: "img_get_tested"))
 
     private let debugScreenButton = NSButton(title: "debug_settings_title".ub_localized, style: .outlineUppercase(.ns_red))
 
     private var lastState: UIStateModel = .init()
 
     private let appTitleView = NSAppTitleView()
+    
+    private var languageSelectionButton = UIBarButtonItem()
 
     // MARK: - View
 
@@ -34,12 +37,13 @@ class NSHomescreenViewController: NSTitleViewScrollViewController {
         super.init()
 
         titleView = appTitleView
-        title = "app_name".ub_localized
+        //Append spaces to allow space for menu
+        title = ("app_name".ub_localized + "        \u{200c}")
 
         tabBarItem.image = UIImage(named: "ic-tracing")
         tabBarItem.title = "tab_tracing_title".ub_localized
 
-        // always load view at init, even if app starts at meldungen detail
+        // always load view at init, even if app starts at reports detail
         loadViewIfNeeded()
     }
 
@@ -51,9 +55,15 @@ class NSHomescreenViewController: NSTitleViewScrollViewController {
 
         setupLayout()
 
-        meldungView.touchUpCallback = { [weak self] in
+        informationView.touchUpCallback = {
+            if let url = URL(string: "faq_button_url".ub_localized) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }
+
+        reportsView.touchUpCallback = { [weak self] in
             guard let strongSelf = self else { return }
-            strongSelf.presentMeldungenDetail()
+            strongSelf.presentReportsDetail()
         }
 
         UIStateManager.shared.addObserver(self, block: { [weak self] state in
@@ -63,7 +73,7 @@ class NSHomescreenViewController: NSTitleViewScrollViewController {
 
         handshakesModuleView.touchUpCallback = { [weak self] in
             guard let strongSelf = self else { return }
-            strongSelf.presentBegegnungenDetail()
+            strongSelf.presentEncountersDetail()
         }
 
         whatToDoPositiveTestButton.touchUpCallback = { [weak self] in
@@ -119,82 +129,39 @@ class NSHomescreenViewController: NSTitleViewScrollViewController {
 
     private func setupLayout() {
         // navigation bar
+        let defaultLanguageSelectionTitle = LanguageHelper.getAppLocale() == LanguageHelper.LANGUAGE_EN ? "EN/mt" : "en/MT"
+        languageSelectionButton = UIBarButtonItem(title: defaultLanguageSelectionTitle, style: .plain, target: self, action: #selector(languageButtonPressed))
+        languageSelectionButton.tintColor = .ns_text
+        languageSelectionButton.accessibilityLabel = defaultLanguageSelectionTitle
+        
         let image = UIImage(named: "ic-info-outline")
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: image, landscapeImagePhone: image, style: .plain, target: self, action: #selector(infoButtonPressed))
-        navigationItem.rightBarButtonItem?.tintColor = .ns_blue
-        navigationItem.rightBarButtonItem?.accessibilityLabel = "accessibility_info_button".ub_localized
+        let aboutButton = UIBarButtonItem(image: image, landscapeImagePhone: image, style: .plain, target: self, action: #selector(infoButtonPressed))
+        aboutButton.tintColor = .ns_text
+        aboutButton.accessibilityLabel = "accessibility_info_button".ub_localized
+        
+        navigationItem.setRightBarButtonItems([aboutButton, languageSelectionButton], animated: true)
 
         // other views
         stackScrollView.addArrangedView(infoBoxView)
+        stackScrollView.addSpacerView(NSPadding.medium)
+    
+        stackScrollView.addArrangedView(informationView)
+        stackScrollView.addSpacerView(NSPadding.medium)
 
         stackScrollView.addArrangedView(handshakesModuleView)
-        stackScrollView.addSpacerView(NSPadding.large)
+        stackScrollView.addSpacerView(NSPadding.medium)
 
-        stackScrollView.addArrangedView(meldungView)
-        stackScrollView.addSpacerView(2.0 * NSPadding.large)
+        stackScrollView.addArrangedView(reportsView)
+        stackScrollView.addSpacerView(NSPadding.medium)
 
         stackScrollView.addArrangedView(whatToDoSymptomsButton)
-        stackScrollView.addSpacerView(NSPadding.large + NSPadding.medium)
+        stackScrollView.addSpacerView(NSPadding.medium)
+        
         stackScrollView.addArrangedView(whatToDoPositiveTestButton)
-        stackScrollView.addSpacerView(2.0 * NSPadding.large)
-
-        #if ENABLE_TESTING
-            #if ENABLE_STATUS_OVERRIDE
-                // DEBUG version for testing
-                var previewWarningViewModel = NSInfoBoxView.ViewModel(title: "preview_warning_title".ub_localized,
-                                                                      subText: "preview_warning_text".ub_localized,
-                                                                      titleColor: .gray,
-                                                                      subtextColor: .gray)
-                previewWarningViewModel.image = UIImage(named: "ic-error")!
-                let previewWarning = NSInfoBoxView(viewModel: previewWarningViewModel)
-                stackScrollView.addArrangedView(previewWarning)
-
-                stackScrollView.addSpacerView(NSPadding.large)
-            #endif
-
-            let debugScreenContainer = UIView()
-
-            if Environment.current != Environment.prod {
-                debugScreenContainer.addSubview(debugScreenButton)
-                debugScreenButton.snp.makeConstraints { make in
-                    make.left.right.lessThanOrEqualToSuperview().inset(NSPadding.medium)
-                    make.top.bottom.centerX.equalToSuperview()
-                }
-
-                debugScreenButton.touchUpCallback = { [weak self] in
-                    guard let strongSelf = self else { return }
-                    strongSelf.presentDebugScreen()
-                }
-
-                stackScrollView.addArrangedView(debugScreenContainer)
-
-                stackScrollView.addSpacerView(NSPadding.large)
-            }
-            debugScreenContainer.alpha = 0
-        #endif
-
-        #if ENABLE_LOGGING
-            let uploadDBContainer = UIView()
-            uploadDBContainer.addSubview(uploadDBButton)
-            uploadDBButton.snp.makeConstraints { make in
-                make.left.right.lessThanOrEqualToSuperview().inset(NSPadding.medium)
-                make.top.bottom.centerX.equalToSuperview()
-            }
-
-            uploadDBButton.touchUpCallback = { [weak self] in
-                guard let strongSelf = self else { return }
-                strongSelf.uploadDatabaseForDebugPurposes()
-            }
-
-            stackScrollView.addArrangedView(uploadDBContainer)
-
-            stackScrollView.addSpacerView(NSPadding.large)
-            uploadDBContainer.alpha = 0
-        #endif
-        // End DEBUG version for testing
+        stackScrollView.addSpacerView(NSPadding.medium)
 
         handshakesModuleView.alpha = 0
-        meldungView.alpha = 0
+        reportsView.alpha = 0
         whatToDoSymptomsButton.alpha = 0
         whatToDoPositiveTestButton.alpha = 0
 
@@ -208,7 +175,7 @@ class NSHomescreenViewController: NSTitleViewScrollViewController {
             }, completion: nil)
 
             UIView.animate(withDuration: 0.3, delay: 0.5, options: [.allowUserInteraction], animations: {
-                self.meldungView.alpha = 1
+                self.reportsView.alpha = 1
             }, completion: nil)
 
             UIView.animate(withDuration: 0.3, delay: 0.65, options: [.allowUserInteraction], animations: {
@@ -219,26 +186,26 @@ class NSHomescreenViewController: NSTitleViewScrollViewController {
                 self.whatToDoPositiveTestButton.alpha = 1
             }, completion: nil)
 
-            #if ENABLE_TESTING
-                UIView.animate(withDuration: 0.3, delay: 0.7, options: [.allowUserInteraction], animations: {
-                    debugScreenContainer.alpha = 1
-                }, completion: nil)
-            #endif
-
-            #if ENABLE_LOGGING
-                UIView.animate(withDuration: 0.3, delay: 0.7, options: [.allowUserInteraction], animations: {
-                    uploadDBContainer.alpha = 1
-                }, completion: nil)
-            #endif
+//            #if ENABLE_TESTING
+//                UIView.animate(withDuration: 0.3, delay: 0.7, options: [.allowUserInteraction], animations: {
+//                    debugScreenContainer.alpha = 1
+//                }, completion: nil)
+//            #endif
+//
+//            #if ENABLE_LOGGING
+//                UIView.animate(withDuration: 0.3, delay: 0.7, options: [.allowUserInteraction], animations: {
+//                    uploadDBContainer.alpha = 1
+//                }, completion: nil)
+//            #endif
         }
     }
 
     func updateState(_ state: UIStateModel) {
         appTitleView.uiState = state.homescreen.header
-        handshakesModuleView.uiState = state.homescreen.begegnungen
-        meldungView.uiState = state.homescreen
+        handshakesModuleView.uiState = state.homescreen.encounters
+        reportsView.uiState = state.homescreen
 
-        let isInfected = state.homescreen.meldungen.meldung == .infected
+        let isInfected = state.homescreen.reports.report == .infected
         whatToDoSymptomsButton.isHidden = isInfected
         whatToDoPositiveTestButton.isHidden = isInfected
 
@@ -261,12 +228,12 @@ class NSHomescreenViewController: NSTitleViewScrollViewController {
 
     // MARK: - Details
 
-    private func presentBegegnungenDetail() {
-        navigationController?.pushViewController(NSBegegnungenDetailViewController(initialState: lastState.begegnungenDetail), animated: true)
+    private func presentEncountersDetail() {
+        navigationController?.pushViewController(NSEncountersDetailViewController(initialState: lastState.encountersDetail), animated: true)
     }
 
-    func presentMeldungenDetail(animated: Bool = true) {
-        navigationController?.pushViewController(NSMeldungenDetailViewController(), animated: animated)
+    func presentReportsDetail(animated: Bool = true) {
+        navigationController?.pushViewController(NSReportsDetailViewController(), animated: animated)
     }
 
     #if ENABLE_TESTING
@@ -281,6 +248,14 @@ class NSHomescreenViewController: NSTitleViewScrollViewController {
 
     private func presentWhatToDoSymptoms() {
         navigationController?.pushViewController(NSWhatToDoSymptomViewController(), animated: true)
+    }
+
+    @objc private func languageButtonPressed() {
+        let currentLocale = LanguageHelper.getAppLocale()
+        let newLocale = currentLocale == LanguageHelper.LANGUAGE_EN ? LanguageHelper.LANGUAGE_MT : LanguageHelper.LANGUAGE_EN
+        LanguageHelper.setAppLocale(localeCode: newLocale)
+        languageSelectionButton.title = newLocale == LanguageHelper.LANGUAGE_EN ? "EN/mt" : "en/MT"
+        navigationController?.setViewControllers([NSHomescreenViewController()], animated: true)
     }
 
     @objc private func infoButtonPressed() {

@@ -8,6 +8,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import SafariServices
 import UIKit
 
 class NSWhatToDoSymptomViewController: NSViewController {
@@ -72,23 +73,42 @@ class NSWhatToDoSymptomViewController: NSViewController {
 
         stackScrollView.addArrangedView(titleContentStackView)
 
-        stackScrollView.addSpacerView(NSPadding.large)
+        stackScrollView.addSpacerView(NSPadding.medium)
 
-        let imageView = UIImageView(image: UIImage(named: "illu-symptome-title"))
+        let imageView = UIImageView(image: UIImage(named: "illu-symptoms-title"))
         imageView.contentMode = .scaleAspectFit
         stackScrollView.addArrangedView(imageView)
 
-        stackScrollView.addSpacerView(NSPadding.large)
+        stackScrollView.addSpacerView(NSPadding.medium)
 
         stackScrollView.addArrangedView(symptomView)
 
-        stackScrollView.addSpacerView(3.0 * NSPadding.large)
+        stackScrollView.addSpacerView(NSPadding.medium)
 
-        let infoView = NSOnboardingInfoView(icon: UIImage(named: "ic-check-round")!, text: "symptom_faq1_text".ub_localized, title: "symptom_faq1_title".ub_localized, leftRightInset: 0, dynamicIconTintColor: .ns_purple)
+        let infoView = NSOnboardingInfoView(icon: UIImage(named: "ic-check-round")!, text: "symptom_faq1_text".ub_localized, title: "symptom_faq1_title".ub_localized, link: "", leftRightInset: 0, dynamicIconTintColor: .ns_purple)
 
         stackScrollView.addArrangedView(infoView)
 
-        stackScrollView.addSpacerView(NSPadding.large)
+        stackScrollView.addSpacerView(NSPadding.medium)
+        
+        let checkSymptomsButton = NSExternalLinkButton(style: .normal(color: .ns_purple))
+        checkSymptomsButton.title = "symptom_detail_box_button".ub_localized
+        checkSymptomsButton.accessibilityHint = "symptom_detail_box_button".ub_localized
+        checkSymptomsButton.touchUpCallback = { [weak self] in
+            if let url = URL(string: "symptom_detail_corona_check_url".ub_localized) {
+                let vc = SFSafariViewController(url: url)
+                vc.modalPresentationStyle = .popover
+                self?.present(vc, animated: true)
+            }
+        }
+
+        stackScrollView.addArrangedView(checkSymptomsButton)
+
+        stackScrollView.addSpacerView(NSPadding.medium)
+
+        stackScrollView.addArrangedView(NSButton.faqButton(color: .ns_purple))
+
+        stackScrollView.addSpacerView(NSPadding.medium)
     }
 
     private func setupAccessibility() {

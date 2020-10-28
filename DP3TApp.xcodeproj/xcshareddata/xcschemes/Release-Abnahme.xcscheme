@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "8E81CC94241FCC7D006F2437"
-               BuildableName = "DP3TApp.app"
+               BuildableName = "COVID Alert Malta.app"
                BlueprintName = "DP3TApp"
                ReferencedContainer = "container:DP3TApp.xcodeproj">
             </BuildableReference>
@@ -45,7 +45,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8E81CC94241FCC7D006F2437"
-            BuildableName = "DP3TApp.app"
+            BuildableName = "COVID Alert Malta.app"
             BlueprintName = "DP3TApp"
             ReferencedContainer = "container:DP3TApp.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8E81CC94241FCC7D006F2437"
-            BuildableName = "DP3TApp.app"
+            BuildableName = "COVID Alert Malta.app"
             BlueprintName = "DP3TApp"
             ReferencedContainer = "container:DP3TApp.xcodeproj">
          </BuildableReference>

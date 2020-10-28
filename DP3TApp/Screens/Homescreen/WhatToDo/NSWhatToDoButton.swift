@@ -14,7 +14,7 @@ class NSWhatToDoButton: UBButton {
     // MARK: - Views
 
     private let titleTextLabel = NSLabel(.textBold)
-    private let subtitleLabel = NSLabel(.textLight)
+    private let subtitleLabel = NSLabel(.textBold)
 
     private let leftImageView: UIImageView
 
@@ -29,6 +29,7 @@ class NSWhatToDoButton: UBButton {
 
         titleTextLabel.text = title
         subtitleLabel.text = subtitle
+        subtitleLabel.textColor = .ns_purple
 
         setupBackground()
         setup()
@@ -70,7 +71,9 @@ class NSWhatToDoButton: UBButton {
 
         leftImageView.ub_setContentPriorityRequired()
         leftImageView.snp.makeConstraints { make in
-            make.left.bottom.equalToSuperview().inset(NSPadding.medium)
+            make.centerY.equalToSuperview()
+            make.leading.equalToSuperview().inset(NSPadding.medium)
+            make.height.equalToSuperview().inset(NSPadding.small)
         }
 
         rightCaretImageView.tintColor = .ns_text
@@ -81,15 +84,15 @@ class NSWhatToDoButton: UBButton {
         }
 
         textViewContainer.snp.makeConstraints { make in
-            make.left.equalTo(self.leftImageView.snp.right).offset(NSPadding.medium)
-            make.right.equalTo(self.rightCaretImageView.snp.left).offset(-NSPadding.medium)
-            make.top.greaterThanOrEqualToSuperview().inset(NSPadding.medium + NSPadding.small)
-            make.bottom.lessThanOrEqualToSuperview().inset(NSPadding.medium + NSPadding.small)
+            make.left.equalTo(self.leftImageView.snp.right).offset(NSPadding.large)
+            make.right.equalTo(self.rightCaretImageView.snp.left).offset(-NSPadding.large)
+            make.top.greaterThanOrEqualToSuperview().inset(NSPadding.medium)
+            make.bottom.lessThanOrEqualToSuperview().inset(NSPadding.medium)
             make.centerY.equalToSuperview()
         }
 
         snp.makeConstraints { make in
-            make.height.greaterThanOrEqualTo(88)
+            make.height.greaterThanOrEqualTo(75)
         }
     }
 }

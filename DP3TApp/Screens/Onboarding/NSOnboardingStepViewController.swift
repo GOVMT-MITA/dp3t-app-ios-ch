@@ -11,7 +11,7 @@
 import UIKit
 
 class NSOnboardingStepViewController: NSOnboardingContentViewController {
-    private let headingLabel = NSLabel(.textLight)
+    private let headingLabel = NSLabel(.subtitle)
     private let foregroundImageView = UIImageView()
     private let titleLabel = NSLabel(.title, textAlignment: .center)
 
@@ -38,9 +38,9 @@ class NSOnboardingStepViewController: NSOnboardingContentViewController {
             make.left.right.equalToSuperview().inset(NSPadding.medium)
             make.top.bottom.equalToSuperview()
         }
-        addArrangedView(headingContainer, spacing: NSPadding.medium)
+        addArrangedView(headingContainer, spacing: NSPadding.large)
 
-        addArrangedView(foregroundImageView, spacing: NSPadding.medium)
+        addArrangedView(foregroundImageView)
 
         let titleContainer = UIView()
         titleContainer.addSubview(titleLabel)
@@ -48,10 +48,10 @@ class NSOnboardingStepViewController: NSOnboardingContentViewController {
             make.left.right.equalToSuperview().inset(NSPadding.medium)
             make.top.bottom.equalToSuperview()
         }
-        addArrangedView(titleContainer, spacing: NSPadding.large + NSPadding.small)
+        addArrangedView(titleContainer, spacing: NSPadding.large)
 
-        for (icon, text) in model.textGroups {
-            let v = NSOnboardingInfoView(icon: icon, text: text, dynamicIconTintColor: model.headingColor)
+        for (icon, text, link) in model.textGroups {
+            let v = NSOnboardingInfoView(icon: icon, text: text, link: link, dynamicIconTintColor: model.headingColor)
             addArrangedView(v)
             v.snp.makeConstraints { make in
                 make.leading.trailing.equalTo(self.stackScrollView.stackView)
@@ -63,7 +63,7 @@ class NSOnboardingStepViewController: NSOnboardingContentViewController {
             make.height.equalTo(40)
         }
         addArrangedView(bottomSpacer)
-
+            
         headingLabel.accessibilityTraits = [.header]
     }
 

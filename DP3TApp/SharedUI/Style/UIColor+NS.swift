@@ -14,14 +14,17 @@ extension UIColor {
     public static var ns_red = UIColor(ub_hexString: "#e20008")!
     public static var ns_text = UIColor(ub_hexString: "#4a4969")!.withHighContrastColor(color: .black)
 
-    public static var ns_blue = UIColor(ub_hexString: "#5094bf")!.withHighContrastColor(color: UIColor(ub_hexString: "#2769a3")!)
+    public static var ns_blue = UIColor(ub_hexString: "#63a0c7")!.withHighContrastColor(color: UIColor(ub_hexString: "#59738A")!)
     public static var ns_blueBackground = UIColor(ub_hexString: "#eff5f9")!
-    public static var ns_green = UIColor(ub_hexString: "#009e89")!.withHighContrastColor(color: UIColor(ub_hexString: "#007363")!)
+    public static var ns_green = UIColor(ub_hexString: "#00bfa6")!.withHighContrastColor(color: UIColor(ub_hexString: "#047E74")!)
     public static var ns_greenBackground = UIColor(ub_hexString: "#e5f8f6")!
     public static var ns_purple = UIColor(ub_hexString: "#8d6a9f")!.withHighContrastColor(color: UIColor(ub_hexString: "#6e3f86")!)
     public static var ns_purpleBackground = UIColor(ub_hexString: "#f3f0f5")!
+    public static var ns_yellow = UIColor(ub_hexString: "#ffc15d")!.withHighContrastColor(color: UIColor(ub_hexString: "#754800")!)
+    public static var ns_yellowBackground = UIColor(ub_hexString: "#ffdea8")!
 
     public static var ns_darkBlueBackground = UIColor(ub_hexString: "#4a4969")!
+    public static var ns_lightBlueBackground = UIColor(ub_hexString: "#706e9e")!
 
     public static var ns_background = UIColor.white
     public static var ns_backgroundSecondary = UIColor(ub_hexString: "#f7f7f7")!

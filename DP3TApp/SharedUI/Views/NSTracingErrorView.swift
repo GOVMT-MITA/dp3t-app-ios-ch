@@ -154,7 +154,7 @@ class NSTracingErrorView: UIView {
             return NSTracingErrorViewModel(icon: UIImage(named: "ic-bluetooth-disabled")!,
                                            title: "tracing_permission_error_title_ios".ub_localized,
                                            text: "tracing_permission_error_text_ios".ub_localized,
-                                           buttonTitle: "onboarding_gaen_button_activate".ub_localized,
+                                           buttonTitle: "onboarding_tracing_button_activate".ub_localized,
                                            errorCode: code,
                                            action: { _ in
                                                guard let settingsUrl = URL(string: UIApplication.openSettingsURLString),
@@ -176,8 +176,8 @@ class NSTracingErrorView: UIView {
                                            action: nil)
         case .unexpectedError:
             return NSTracingErrorViewModel(icon: UIImage(named: "ic-error")!,
-                                           title: "begegnungen_restart_error_title".ub_localized,
-                                           text: "begegnungen_restart_error_text".ub_localized,
+                                           title: "bluetooth_restart_error_title".ub_localized,
+                                           text: "bluetooth_restart_error_text".ub_localized,
                                            buttonTitle: nil,
                                            action: nil)
         default:

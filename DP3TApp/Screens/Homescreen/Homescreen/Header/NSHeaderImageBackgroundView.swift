@@ -15,16 +15,12 @@ class NSHeaderImageBackgroundView: UIView {
     private let colorView = UIView()
 
     private static let headerImages = [
-        UIImage(named: "header-image-basel"),
-        UIImage(named: "header-image-bern"),
-        UIImage(named: "header-image-chur"),
-        UIImage(named: "header-image-geneva"),
-        UIImage(named: "header-image-lausanne"),
-        UIImage(named: "header-image-locarno"),
-        UIImage(named: "header-image-lugano"),
-        UIImage(named: "header-image-luzern"),
-        UIImage(named: "header-image-st-gallen"),
-        UIImage(named: "header-image-zurich"),
+        UIImage(named: "img_header_1"),
+        UIImage(named: "img_header_2"),
+        UIImage(named: "img_header_3"),
+        UIImage(named: "img_header_4"),
+        UIImage(named: "img_header_5"),
+        UIImage(named: "img_header_6"),
     ].compactMap { $0 }
 
     static var activeImage: UIImage = NSHeaderImageBackgroundView.headerImages.randomElement()!

@@ -43,7 +43,7 @@ class TracingManager: NSObject {
 
     func initialize() {
         do {
-            let bucketBaseUrl = Environment.current.configService.baseURL
+            let bucketBaseUrl = Environment.current.publishService.baseURL
             let reportBaseUrl = Environment.current.publishService.baseURL
             // JWT is not supported for now since the backend keeps rotating the private key
 
@@ -150,7 +150,7 @@ class TracingManager: NSObject {
         UIStateManager.shared.refresh()
     }
 
-    func deleteMeldungen() {
+    func deleteReports() {
         // delete all visible messages
         try? DP3TTracing.resetExposureDays()
 

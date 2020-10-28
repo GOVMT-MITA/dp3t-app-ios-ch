@@ -14,62 +14,17 @@ class NSSplashViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .ns_backgroundOnboardingSplashscreen
+        view.backgroundColor = .ns_background
 
-        let title = NSLabel(.splashTitle, textAlignment: .center)
+        let imgView = UIImageView(image: UIImage(named: "splash"))
 
-        title.text = "oboarding_splashscreen_title".ub_localized
+        view.addSubview(imgView)
 
-        let piktoWrapper = UIView()
-        let pikto = UIImageView(image: UIImage(named: "ic-pikto"))
-
-        piktoWrapper.addSubview(pikto)
-
-        let bagLogo = UIImageView(image: UIImage(named: "bag-logo"))
-
-        let bagLogoWrapper = UIView()
-        bagLogoWrapper.addSubview(bagLogo)
-
-        let badgeImage = UIImageView(image: UIImage.localizedImage(prefix: "spashboarding_badge_"))
-
-        view.addSubview(badgeImage)
-        view.addSubview(title)
-        view.addSubview(piktoWrapper)
-        view.addSubview(bagLogoWrapper)
-
-        badgeImage.snp.makeConstraints { make in
-            make.left.equalToSuperview()
-            make.top.equalTo(self.view.safeAreaLayoutGuide).inset(NSPadding.large)
+        imgView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview()
         }
 
-        bagLogo.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-            make.top.equalToSuperview().inset(NSPadding.large)
-            make.bottom.equalTo(self.view.safeAreaLayoutGuide).inset(NSPadding.large).priority(.low)
-            make.bottom.lessThanOrEqualTo(self.view.snp.bottom).inset(NSPadding.large)
-        }
-
-        bagLogo.ub_setContentPriorityRequired()
-
-        bagLogoWrapper.snp.makeConstraints { make in
-            make.left.right.bottom.equalToSuperview()
-        }
-
-        bagLogoWrapper.backgroundColor = .ns_background
-
-        title.snp.makeConstraints { make in
-            make.left.right.equalToSuperview().inset(NSPadding.large)
-            make.top.equalTo(badgeImage.snp.bottom).offset(NSPadding.large)
-        }
-
-        piktoWrapper.snp.makeConstraints { make in
-            make.left.right.equalToSuperview().inset(NSPadding.large)
-            make.top.equalTo(title.snp.bottom).offset(NSPadding.large).priority(.low)
-            make.bottom.equalTo(bagLogoWrapper.snp.top).offset(-NSPadding.large).priority(.low)
-        }
-
-        pikto.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-        }
+        imgView.ub_setContentPriorityRequired()
     }
 }

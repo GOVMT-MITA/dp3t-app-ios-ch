@@ -83,31 +83,14 @@ class CertificateEvaluator: NSObject, URLSessionDelegate {
 
         let bundle = Bundle.main
 
-        // all these hosts have a seperate certificate
-        let hosts = ["www.pt1.bfs.admin.ch",
-                     "www.pt1-d.bfs.admin.ch",
-                     "www.pt1-a.bfs.admin.ch",
-                     "www.pt1-t.bfs.admin.ch",
-                     "codegen-service.bag.admin.ch",
-                     "codegen-service-d.bag.admin.ch",
-                     "codegen-service-a.bag.admin.ch",
-                     "codegen-service-t.bag.admin.ch"]
-        for host in hosts {
-            if let certificate = bundle.getCertificate(with: host) {
-                let evaluator = UBPinnedCertificatesTrustEvaluator(certificates: [certificate], validateHost: true)
-                evaluators[host] = evaluator
-            } else {
-                assertionFailure("Could not load certificate for pinned host")
-            }
-        }
-
-        // for these host we just pin the intermediate certificate of quoVadis
-        if let c = bundle.getCertificate(with: "QuoVadis") {
+        if let c = bundle.getCertificate(with: "star.azurewebsites.net") {
             let evaluator = UBPinnedCertificatesTrustEvaluator(certificates: [c], validateHost: true)
-            evaluators["www.pt-d.bfs.admin.ch"] = evaluator
-            evaluators["www.pt-a.bfs.admin.ch"] = evaluator
-            evaluators["www.pt-t.bfs.admin.ch"] = evaluator
-            evaluators["www.pt.bfs.admin.ch"] = evaluator
+            evaluators["dummy-auth-url.com"] = evaluator
+            evaluators["dummy-config-url.com"] = evaluator
+            evaluators["dummy-ws-url.com"] = evaluator
+            evaluators["staging-dummy-auth-url.com"] = evaluator
+            evaluators["staging-config-auth-url.com"] = evaluator
+            evaluators["staging-ws-auth-url.com"] = evaluator
         }
 
         return UBServerTrustManager(evaluators: evaluators)

@@ -105,7 +105,7 @@
 
         #if ENABLE_STATUS_OVERRIDE
             private func update(_ state: UIStateModel) {
-                switch state.homescreen.begegnungen {
+                switch state.homescreen.encounters {
                 case .tracingActive:
                     tracingLabel.text = "tracing_active_title".ub_localized
                 case .tracingDisabled, .bluetoothTurnedOff, .bluetoothPermissionError, .tracingEnded, .timeInconsistencyError, .unexpectedError, .tracingPermissionError:
@@ -128,7 +128,7 @@
         #endif
 
         private func dateFormatter(_ date: Date?) -> String {
-            guard let d = date else { return "–" }
+            guard let d = date else { return "â€“" }
 
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "dd.MM.yyyy HH:mm"
@@ -137,7 +137,7 @@
         }
 
         private func handshakes(_ n: Int?) -> String {
-            (n == nil) ? "–" : String(n!)
+            (n == nil) ? "â€“" : String(n!)
         }
 
         private func yesOrNo(_ value: Bool) -> String {

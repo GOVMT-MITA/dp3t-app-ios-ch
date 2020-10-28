@@ -73,7 +73,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         window?.makeKey()
         window?.rootViewController = NSNavigationController(rootViewController: NSHomescreenViewController())
-
+        
         setupAppearance()
 
         window?.makeKeyAndVisible()
@@ -92,7 +92,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     private func willAppearAfterColdstart(_: UIApplication, coldStart: Bool, backgroundTime: TimeInterval) {
         // Logic for coldstart / background
-
         // if app is cold-started or comes from background > 30 minutes,
         if coldStart || backgroundTime > 30.0 * 60.0 {
             if !jumpToMessageIfRequired(onlyFirst: true) {
@@ -115,17 +114,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func jumpToMessageIfRequired(onlyFirst: Bool) -> Bool {
         let shouldJump: Bool
         if onlyFirst {
-            shouldJump = UIStateManager.shared.uiState.shouldStartAtMeldungenDetail
+            shouldJump = UIStateManager.shared.uiState.shouldStartAtReportsDetail
         } else {
-            shouldJump = UIStateManager.shared.uiState.shouldStartAtMeldungenDetail && UIStateManager.shared.uiState.meldungenDetail.showMeldungWithAnimation
+            shouldJump = UIStateManager.shared.uiState.shouldStartAtReportsDetail && UIStateManager.shared.uiState.reportsDetail.showReportWithAnimation
         }
         if shouldJump,
             let navigationController = window?.rootViewController as? NSNavigationController,
             let homescreenVC = navigationController.viewControllers.first as? NSHomescreenViewController {
-            // no need to present NSMeldungenDetailViewController if its already showing
-            if !(navigationController.viewControllers.last is NSMeldungenDetailViewController) {
+            // no need to present NSReportsDetailViewController if its already showing
+            if !(navigationController.viewControllers.last is NSReportsDetailViewController) {
                 navigationController.popToRootViewController(animated: false)
-                homescreenVC.presentMeldungenDetail(animated: false)
+                homescreenVC.presentReportsDetail(animated: false)
             }
             return true
         } else {
@@ -158,13 +157,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     // MARK: - Force update
-
     private func startForceUpdateCheck() {
         ConfigManager().startConfigRequest(window: window)
     }
 
     // MARK: - Appearance
-
     private func setupAppearance() {
         UIBarButtonItem.appearance().tintColor = .ns_text
 

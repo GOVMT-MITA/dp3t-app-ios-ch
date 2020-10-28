@@ -121,10 +121,10 @@
 
         private func updateCertificatePinningView() {
             if URLSession.evaluator.useCertificatePinning {
-                certificatePinningView.title = "certificate_pinning_title".ub_localized + "🔒"
+                certificatePinningView.title = "certificate_pinning_title".ub_localized + "ðŸ”’"
                 certificatePinningButton.setTitle("certificate_pinning_button_disable".ub_localized, for: .normal)
             } else {
-                certificatePinningView.title = "certificate_pinning_title".ub_localized + "🔓"
+                certificatePinningView.title = "certificate_pinning_title".ub_localized + "ðŸ”“"
                 certificatePinningButton.setTitle("certificate_pinning_button_enable".ub_localized, for: .normal)
             }
         }
