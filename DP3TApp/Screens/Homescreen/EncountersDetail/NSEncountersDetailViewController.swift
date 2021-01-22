@@ -39,7 +39,7 @@ class NSEncountersDetailViewController: NSTitleViewScrollViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .ns_backgroundSecondary
+        view.backgroundColor = .setColorsForTheme(lightColor: .ns_backgroundSecondary, darkColor: .ns_background)
         setup()
     }
 
@@ -80,15 +80,15 @@ class NSEncountersDetailViewController: NSTitleViewScrollViewController {
 
         stackScrollView.addSpacerView(NSPadding.medium)
 
-        stackScrollView.addArrangedView(NSOnboardingInfoView(icon: UIImage(named: "ic-tracing")!, text: "encounter_detail_faq1_text".ub_localized, title: "encounter_detail_faq1_title".ub_localized, link: "", leftRightInset: 0, dynamicIconTintColor: .ns_blue))
+        stackScrollView.addArrangedView(NSOnboardingInfoView(icon: UIImage(named: "ic-tracing")!, text: "begegnungen_detail_faq1_text".ub_localized, title: "begegnungen_detail_faq1_title".ub_localized, link: "", leftRightInset: 0, dynamicIconTintColor: .ns_blue))
 
         stackScrollView.addSpacerView(NSPadding.medium)
 
-        stackScrollView.addArrangedView(NSOnboardingInfoView(icon: UIImage(named: "ic-encrypted")!, text: "encounter_detail_faq2_text".ub_localized, title: "encounter_detail_faq2_title".ub_localized, link: "", leftRightInset: 0, dynamicIconTintColor: .ns_blue))
+        stackScrollView.addArrangedView(NSOnboardingInfoView(icon: UIImage(named: "ic-encrypted")!, text: "begegnungen_detail_faq2_text".ub_localized, title: "begegnungen_detail_faq2_title".ub_localized, link: "", leftRightInset: 0, dynamicIconTintColor: .ns_blue))
 
         stackScrollView.addSpacerView(NSPadding.medium)
 
-        stackScrollView.addArrangedView(NSOnboardingInfoView(icon: UIImage(named: "ic-bt")!, text: "encounters_detail_faq3_text".ub_localized, title: "encounters_detail_faq3_title".ub_localized, link: "", leftRightInset: 0, dynamicIconTintColor: .ns_blue))
+        stackScrollView.addArrangedView(NSOnboardingInfoView(icon: UIImage(named: "ic-bt")!, text: "begegnungen_detail_faq3_text".ub_localized, title: "begegnungen_detail_faq3_title".ub_localized, link: "", leftRightInset: 0, dynamicIconTintColor: .ns_blue))
 
         stackScrollView.addSpacerView(NSPadding.medium)
 
@@ -101,6 +101,7 @@ class NSEncountersDetailViewController: NSTitleViewScrollViewController {
             lastSyncronizationControl.isChevronImageViewHidden = false
         #else
             lastSyncronizationControl.isChevronImageViewHidden = true
+            lastSyncronizationControl.isUserInteractionEnabled = false
         #endif
     }
 

@@ -37,15 +37,17 @@ class NSReportsDetailPositiveTestedViewController: NSTitleViewScrollViewControll
     // MARK: - Setup
 
     private func setupLayout() {
-        let whiteBoxView = NSSimpleModuleBaseView(title: "report_detail_positive_test_box_title".ub_localized, subtitle: "report_detail_positive_test_box_subtitle".ub_localized, subview: nil, text: "report_detail_positive_test_box_text".ub_localized, image: UIImage(named: "illu-self-isolation"), subtitleColor: .ns_purple, bottomPadding: false)
+        let whiteBoxView = NSSimpleModuleBaseView(title: "meldung_detail_positive_test_box_title".ub_localized, subtitle: "meldung_detail_positive_test_box_subtitle".ub_localized, subview: nil, text: "meldung_detail_positive_test_box_text".ub_localized, image: UIImage(named: "illu-self-isolation"), subtitleColor: .ns_purple, bottomPadding: false)
 
         addDeleteButton(whiteBoxView)
+        
+        stackScrollView.addSpacerView(NSPadding.large)
 
         stackScrollView.addArrangedView(whiteBoxView)
 
         stackScrollView.addSpacerView(2 * NSPadding.large)
 
-        stackScrollView.addArrangedView(NSOnboardingInfoView(icon: UIImage(named: "ic-tracing")!.ub_image(with: .ns_purple)!, text: "messages_positive_tested_faq1_text".ub_localized, title: "messages_positive_tested_faq1_title".ub_localized, link: "", leftRightInset: 0, dynamicIconTintColor: .ns_purple))
+        stackScrollView.addArrangedView(NSOnboardingInfoView(icon: UIImage(named: "ic-tracing")!.ub_image(with: .ns_purple)!, text: "meldungen_positive_tested_faq1_text".ub_localized, title: "meldungen_positive_tested_faq1_title".ub_localized, link: "", leftRightInset: 0, dynamicIconTintColor: .ns_purple))
 
         stackScrollView.addSpacerView(3 * NSPadding.large)
 

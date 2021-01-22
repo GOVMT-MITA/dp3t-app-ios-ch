@@ -94,6 +94,3 @@ iOSInjectionProject/
 # Custom
 signing/
 DP3TApp/Resources/Certificates/
-Environment.swift
-Environment+PublicKeys.swift
-URLSession+pinning.swift

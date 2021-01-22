@@ -23,15 +23,33 @@ protocol UserNotificationCenter {
 
 extension UNUserNotificationCenter: UserNotificationCenter {}
 
-protocol ExposureIdentifierProvider {
-    var exposureIdentifiers: [String]? { get }
+struct Exposure: Comparable {
+    let identifier: String
+    let date: Date
+
+    init(exposureDay: ExposureDay) {
+        self.init(identifier: exposureDay.identifier.uuidString, date: exposureDay.exposedDate)
+    }
+
+    init(identifier: String, date: Date) {
+        self.identifier = identifier
+        self.date = date
+    }
+
+    static func < (lhs: Exposure, rhs: Exposure) -> Bool {
+        lhs.date < rhs.date
+    }
 }
 
-extension TracingState: ExposureIdentifierProvider {
-    var exposureIdentifiers: [String]? {
+protocol ExposureProvider {
+    var exposures: [Exposure]? { get }
+}
+
+extension TracingState: ExposureProvider {
+    var exposures: [Exposure]? {
         switch infectionStatus {
         case let .exposed(matches):
-            return matches.map { $0.identifier.uuidString }
+            return matches.map(Exposure.init(exposureDay:))
         case .healthy:
             return []
         case .infected:
@@ -41,7 +59,7 @@ extension TracingState: ExposureIdentifierProvider {
 }
 
 /// Helper to show a local push notification when the state of the user changes from not-exposed to exposed
-class TracingLocalPush: NSObject {
+class TracingLocalPush: NSObject, LocalPushProtocol {
     static let shared = TracingLocalPush()
 
     private var center: UserNotificationCenter
@@ -50,13 +68,28 @@ class TracingLocalPush: NSObject {
         center = notificationCenter
         _exposureIdentifiers.keychain = keychain
         _scheduledErrorIdentifiers.keychain = keychain
+        _lastestExposureDate.keychain = keychain
         super.init()
         center.delegate = self
     }
 
-    func update(provider: ExposureIdentifierProvider) {
-        if let identifers = provider.exposureIdentifiers {
-            exposureIdentifiers = identifers
+    func scheduleExposureNotificationsIfNeeded(provider: ExposureProvider) {
+        // sort the exposures from newset to oldest
+        if let exposures = provider.exposures?.sorted(by: >) {
+            for exposure in exposures {
+                // check if the exposure is new and if the latesExposureDate is prior to the new Exposure
+                // we only schedule the notification in these cases
+                if !exposureIdentifiers.contains(exposure.identifier), (lastestExposureDate ?? .distantPast) < exposure.date {
+                    // we schedule the notification
+                    scheduleNotification(identifier: exposure.identifier)
+                    // and update the latestExpsoureDate
+                    lastestExposureDate = exposure.date
+
+                    break
+                }
+            }
+            // store all new identifiers
+            exposureIdentifiers = exposures.map(\.identifier)
         }
     }
 
@@ -64,17 +97,15 @@ class TracingLocalPush: NSObject {
         center.removeAllDeliveredNotifications()
     }
 
-    @KeychainPersisted(key: "exposureIdentifiers", defaultValue: [])
-    private var exposureIdentifiers: [String] {
-        didSet {
-            for identifier in exposureIdentifiers {
-                if !oldValue.contains(identifier) {
-                    scheduleNotification(identifier: identifier)
-                    return
-                }
-            }
-        }
+    var now: Date {
+        .init()
     }
+
+    @KeychainPersisted(key: "lastestExposureDate", defaultValue: nil)
+    private var lastestExposureDate: Date?
+
+    @KeychainPersisted(key: "exposureIdentifiers", defaultValue: [])
+    private var exposureIdentifiers: [String]
 
     @KeychainPersisted(key: "scheduledErrorIdentifiers", defaultValue: [])
     private var scheduledErrorIdentifiers: [ErrorIdentifiers]
@@ -88,37 +119,54 @@ class TracingLocalPush: NSObject {
         let content = UNMutableNotificationContent()
         content.title = "push_exposed_title".ub_localized
         content.body = "push_exposed_text".ub_localized
+        content.sound = .default
 
         let request = UNNotificationRequest(identifier: identifier, content: content, trigger: nil)
         center.add(request, withCompletionHandler: nil)
     }
 
     private func alreadyShowsReport() -> Bool {
-        if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
-            let navigationVC = appDelegate.window?.rootViewController as? NSNavigationController {
-            if navigationVC.viewControllers.last is NSReportsDetailViewController {
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+            if appDelegate.navigationController.viewControllers.last is NSReportsDetailViewController {
                 return true
             }
         }
         return false
     }
 
-    private func jumpToReport() {
+    func jumpToReport(animated: Bool = true) {
         guard !alreadyShowsReport() else {
             return
         }
 
-        if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
-            let navigationVC = appDelegate.window?.rootViewController as? NSNavigationController {
-            navigationVC.popToRootViewController(animated: false)
-            (navigationVC.viewControllers.first as? NSHomescreenViewController)?.presentReportsDetail()
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+            // Dismiss any modal views (if even present)
+            appDelegate.navigationController.dismiss(animated: false)
+
+            // Pop to root view controller
+            appDelegate.navigationController.popToRootViewController(animated: false)
+
+            // Reset tab bar back to homescreen tab
+            appDelegate.tabBarController.currentTab = .homescreen
+
+            // Present detail from home screen view controller
+            appDelegate.tabBarController.homescreen.presentReportsDetail(animated: animated)
         }
     }
 
     // MARK: - Sync warnings
 
-    // If sync doesnt work for 2 days, we show a notification
-    // User should open app to fix issues
+    // 1: If the background tak doesnt work for 2 days we show a notification
+    //    User should open app to fix issues
+
+    private func scheduleSyncWarningNotification(delay: TimeInterval, identifier: String) {
+        let content = UNMutableNotificationContent()
+        content.title = "sync_warning_notification_title".ub_localized
+        content.body = "sync_warning_notification_text".ub_localized
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: delay, repeats: false)
+        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+        center.add(request, withCompletionHandler: nil)
+    }
 
     private let notificationIdentifier1 = "ch.admin.bag.notification.syncWarning1"
     private let notificationIdentifier2 = "ch.admin.bag.notification.syncWarning2"
@@ -127,35 +175,31 @@ class TracingLocalPush: NSObject {
     private let timeInterval2: TimeInterval = 60 * 60 * 24 * 7 // Seven days
 
     func removeSyncWarningTriggers() {
-        center.removePendingNotificationRequests(withIdentifiers: [notificationIdentifier1, notificationIdentifier2])
+        center.removePendingNotificationRequests(withIdentifiers: [notificationIdentifier1, notificationIdentifier2, syncErrorNotificationIdentifier])
     }
 
-    func resetSyncWarningTriggers(tracingState: TracingState) {
-        if TracingManager.shared.isActivated {
-            if let lastSync = tracingState.lastSync {
-                resetSyncWarningTriggers(lastSuccess: lastSync)
-            }
-        } else {
-            removeSyncWarningTriggers()
-        }
-    }
-
-    func resetSyncWarningTriggers(lastSuccess: Date) {
-        let content = UNMutableNotificationContent()
-        content.title = "sync_warning_notification_title".ub_localized
-        content.body = "sync_warning_notification_text".ub_localized
-
-        let timePassed = lastSuccess.timeIntervalSinceNow
-
-        let trigger1 = UNTimeIntervalNotificationTrigger(timeInterval: timeInterval1 - timePassed, repeats: false)
-        let request1 = UNNotificationRequest(identifier: notificationIdentifier1, content: content, trigger: trigger1)
-
-        let trigger2 = UNTimeIntervalNotificationTrigger(timeInterval: timeInterval2 - timePassed, repeats: false)
-        let request2 = UNNotificationRequest(identifier: notificationIdentifier2, content: content, trigger: trigger2)
-
+    // This method gets called everytime we get executed in the backgrund or if the app was launched manually
+    func resetBackgroundTaskWarningTriggers() {
         // Adding a request with the same identifier again automatically cancels an existing request with that identifier, if present
-        center.add(request1, withCompletionHandler: nil)
-        center.add(request2, withCompletionHandler: nil)
+        scheduleSyncWarningNotification(delay: timeInterval1, identifier: notificationIdentifier1)
+        scheduleSyncWarningNotification(delay: timeInterval2, identifier: notificationIdentifier2)
+    }
+
+    // 1: If a error happens during sync we show a notification after 1 day
+    //    we cancel the notification if the error was resolved in the meantime
+
+    private let syncErrorNotificationIdentifier = "ch.admin.bag.notification.syncWarning1"
+    private let syncErrorNotificationDelay: TimeInterval = 60 * 60 * 24 * 1 // One days
+
+    func handleSync(result: SyncResult) {
+        switch result {
+        case .failure:
+            scheduleSyncWarningNotification(delay: syncErrorNotificationDelay, identifier: syncErrorNotificationIdentifier)
+        case .success:
+            center.removePendingNotificationRequests(withIdentifiers: [syncErrorNotificationIdentifier])
+        case .skipped:
+            break
+        }
     }
 
     func handleTracingState(_ state: DP3TSDK.TrackingState) {
@@ -188,8 +232,8 @@ class TracingLocalPush: NSObject {
 
     private func schedulePermissonErrorNotification() {
         scheduleErrorNotification(identifier: .permission,
-                                  title: "tracing_permission_error_title_ios".ub_localized,
-                                  text: "tracing_permission_error_text_ios".ub_localized)
+                                  title: "gaen_permission_error_title_ios".ub_localized.replaceSettingsString,
+                                  text: "gaen_permission_error_text_ios".ub_localized.replaceSettingsString)
     }
 
     private func handleENError(_ error: ENError) {
@@ -207,13 +251,22 @@ class TracingLocalPush: NSObject {
         guard !scheduledErrorIdentifiers.contains(identifier) else {
             return
         }
+
+        // skip if hour is between 23:00 and 07:00 in order to not schedule notifications during the night
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.hour], from: now)
+        guard let hour = components.hour,
+            hour > 7,
+            hour < 23 else {
+            return
+        }
+
         scheduledErrorIdentifiers.append(identifier)
 
         let content = UNMutableNotificationContent()
         content.title = title
         content.body = text
-        content.sound = .default
-        // set the notification to trigger in 1 minute since the state could only be temporÃ¤ry
+        // set the notification to trigger in 1 minute since the state could only be temporary
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 60, repeats: false)
         let request = UNNotificationRequest(identifier: identifier.rawValue, content: content, trigger: trigger)
         center.add(request, withCompletionHandler: nil)

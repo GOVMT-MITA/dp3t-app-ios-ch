@@ -17,15 +17,15 @@ class NSReportsDetailNoReportsTitleView: NSTitleView {
 
     private let imageView = UIImageView(image: UIImage(named: "ic-check-circle"))
     private let titleLabel = NSLabel(.title, textColor: .ns_green, textAlignment: .center)
-    private let textLabel = NSLabel(.textLight, textAlignment: .center)
+    private let textLabel = NSLabel(.textLight, textColor: .ns_defaultTextColor, textAlignment: .center)
 
     // MARK: - Init
 
     init() {
         super.init(frame: .zero)
 
-        titleLabel.text = "messages_no_messages_title".ub_localized
-        textLabel.text = "messages_no_messages_subtitle".ub_localized
+        titleLabel.text = "meldungen_no_meldungen_title".ub_localized
+        textLabel.text = "meldungen_no_meldungen_subtitle".ub_localized
 
         backgroundColor = UIColor.ns_greenBackground
         setup()

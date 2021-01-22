@@ -41,7 +41,7 @@ class NSHomescreenViewController: NSTitleViewScrollViewController {
         title = ("app_name".ub_localized + "        \u{200c}")
 
         tabBarItem.image = UIImage(named: "ic-tracing")
-        tabBarItem.title = "tab_tracing_title".ub_localized
+        tabBarItem.title = "bottom_nav_tab_home".ub_localized
 
         // always load view at init, even if app starts at reports detail
         loadViewIfNeeded()
@@ -51,7 +51,7 @@ class NSHomescreenViewController: NSTitleViewScrollViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .ns_backgroundSecondary
+        view.backgroundColor = .setColorsForTheme(lightColor: .ns_backgroundSecondary, darkColor: .ns_background)
 
         setupLayout()
 
@@ -114,6 +114,10 @@ class NSHomescreenViewController: NSTitleViewScrollViewController {
                 }
             }
         }
+
+        if UIAccessibility.isVoiceOverRunning {
+            stackScrollView.scrollView.setContentOffset(.zero, animated: false)
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -128,19 +132,6 @@ class NSHomescreenViewController: NSTitleViewScrollViewController {
     // MARK: - Setup
 
     private func setupLayout() {
-        // navigation bar
-        let defaultLanguageSelectionTitle = LanguageHelper.getAppLocale() == LanguageHelper.LANGUAGE_EN ? "EN/mt" : "en/MT"
-        languageSelectionButton = UIBarButtonItem(title: defaultLanguageSelectionTitle, style: .plain, target: self, action: #selector(languageButtonPressed))
-        languageSelectionButton.tintColor = .ns_text
-        languageSelectionButton.accessibilityLabel = defaultLanguageSelectionTitle
-        
-        let image = UIImage(named: "ic-info-outline")
-        let aboutButton = UIBarButtonItem(image: image, landscapeImagePhone: image, style: .plain, target: self, action: #selector(infoButtonPressed))
-        aboutButton.tintColor = .ns_text
-        aboutButton.accessibilityLabel = "accessibility_info_button".ub_localized
-        
-        navigationItem.setRightBarButtonItems([aboutButton, languageSelectionButton], animated: true)
-
         // other views
         stackScrollView.addArrangedView(infoBoxView)
         stackScrollView.addSpacerView(NSPadding.medium)
@@ -185,18 +176,6 @@ class NSHomescreenViewController: NSTitleViewScrollViewController {
             UIView.animate(withDuration: 0.3, delay: 0.7, options: [.allowUserInteraction], animations: {
                 self.whatToDoPositiveTestButton.alpha = 1
             }, completion: nil)
-
-//            #if ENABLE_TESTING
-//                UIView.animate(withDuration: 0.3, delay: 0.7, options: [.allowUserInteraction], animations: {
-//                    debugScreenContainer.alpha = 1
-//                }, completion: nil)
-//            #endif
-//
-//            #if ENABLE_LOGGING
-//                UIView.animate(withDuration: 0.3, delay: 0.7, options: [.allowUserInteraction], animations: {
-//                    uploadDBContainer.alpha = 1
-//                }, completion: nil)
-//            #endif
         }
     }
 
@@ -248,18 +227,6 @@ class NSHomescreenViewController: NSTitleViewScrollViewController {
 
     private func presentWhatToDoSymptoms() {
         navigationController?.pushViewController(NSWhatToDoSymptomViewController(), animated: true)
-    }
-
-    @objc private func languageButtonPressed() {
-        let currentLocale = LanguageHelper.getAppLocale()
-        let newLocale = currentLocale == LanguageHelper.LANGUAGE_EN ? LanguageHelper.LANGUAGE_MT : LanguageHelper.LANGUAGE_EN
-        LanguageHelper.setAppLocale(localeCode: newLocale)
-        languageSelectionButton.title = newLocale == LanguageHelper.LANGUAGE_EN ? "EN/mt" : "en/MT"
-        navigationController?.setViewControllers([NSHomescreenViewController()], animated: true)
-    }
-
-    @objc private func infoButtonPressed() {
-        present(NSNavigationController(rootViewController: NSAboutViewController()), animated: true)
     }
 
     #if ENABLE_LOGGING

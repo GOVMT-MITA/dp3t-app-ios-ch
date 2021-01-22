@@ -28,6 +28,7 @@ struct UIStateModel: Equatable {
         case bluetoothTurnedOff
         case bluetoothPermissionError
         case tracingPermissionError(code: String?)
+        case tracingAuthorizationUnknown
         case timeInconsistencyError
         case unexpectedError(code: String?)
         case tracingEnded
@@ -100,8 +101,17 @@ struct UIStateModel: Equatable {
 
             enum DebugInfectionStatus: Equatable {
                 case healthy
-                case exposed
+                case exposed1 // exposed with 1 contact
+                case exposed5 // exposed with 5 contact
+                case exposed10 // exposed with 10 contact
+                case exposed20 // exposed with 20 contact
                 case infected
+                
+                static let exposedStates: [Self] = [.exposed1, .exposed5, .exposed10, .exposed20]
+
+                var isExposed: Bool {
+                    Self.exposedStates.contains(self)
+                }
             }
         }
     #endif

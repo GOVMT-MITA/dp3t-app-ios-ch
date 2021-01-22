@@ -112,12 +112,14 @@ public final class UBPinnedCertificatesTrustEvaluator: UBServerTrustEvaluator {
             try trust.performValidation(forHost: host)
         }
 
+        #if !DEBUG && !ENABLE_TESTING
         let serverCertificatesData = Set(trust.certificateData)
         let pinnedCertificatesData = Set(certificates.data)
         let pinnedCertificatesInServerData = !serverCertificatesData.isDisjoint(with: pinnedCertificatesData)
         if !pinnedCertificatesInServerData {
             throw CertificateValidationError.validationFailed
         }
+        #endif
     }
 }
 

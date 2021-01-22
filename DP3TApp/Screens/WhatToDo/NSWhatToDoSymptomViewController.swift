@@ -8,8 +8,8 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import SafariServices
 import UIKit
+import SafariServices
 
 class NSWhatToDoSymptomViewController: NSViewController {
     // MARK: - Views
@@ -34,8 +34,8 @@ class NSWhatToDoSymptomViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = UIColor.ns_backgroundSecondary
-
+        view.backgroundColor = .setColorsForTheme(lightColor: .ns_backgroundSecondary, darkColor: .ns_background)
+        
         setupStackScrollView()
         setupLayout()
 

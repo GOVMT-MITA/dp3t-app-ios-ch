@@ -37,7 +37,9 @@ public enum NSLabelType: UBLabelType {
     case smallLight
     case textBold
     case smallBold
+    case ultraSmallBold
     case button // used for button
+    case smallButton // used for button
     case uppercaseBold
     case date
     case smallRegular
@@ -66,9 +68,11 @@ public enum NSLabelType: UBLabelType {
         case .splashTitle: return UIFont(name: boldFontName, size: bfs + 11.0)!
         case .textLight: return UIFont(name: lightFontName, size: bfs)!
         case .smallLight: return UIFont(name: lightFontName, size: bfs - 3.0)!
-        case .textBold: return UIFont(name: boldFontName, size: bfs)!
+        case .textBold: return UIFont(name: boldFontName, size: bfs - 1.0)!
         case .smallBold: return UIFont(name: boldFontName, size: bfs - 3.0)!
+        case .ultraSmallBold: return UIFont(name: boldFontName, size: bfs - 5.0)!
         case .button: return UIFont(name: boldFontName, size: bfs)!
+        case .smallButton: return UIFont(name: boldFontName, size: bfs - 3.0)!
         case .uppercaseBold: return UIFont(name: boldFontName, size: bfs)!
         case .date: return UIFont(name: boldFontName, size: bfs - 3.0)!
         case .smallRegular: return UIFont(name: regularFontName, size: bfs - 3.0)!

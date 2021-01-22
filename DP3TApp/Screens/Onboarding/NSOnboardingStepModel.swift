@@ -38,21 +38,21 @@ struct NSOnboardingStepModel {
                                                  (UIImage(named: "ic_info_green")!, "onboarding_privacy_text3".ub_localized, "onboarding_privacy_link3".ub_localized),
                                              ])
 
-    static let step3 = NSOnboardingStepModel(heading: "onboarding_bluetooth_heading".ub_localized,
+    static let step3 = NSOnboardingStepModel(heading: "onboarding_begegnungen_heading".ub_localized,
                                              headingColor: .ns_blue,
                                              foregroundImage: UIImage(named: "img_bluetooth")!,
-                                             title: "onboarding_bluetooth_title".ub_localized,
+                                             title: "onboarding_begegnungen_title".ub_localized,
                                              textGroups: [
-                                                 (UIImage(named: "ic-tracing-onboarding")!, "onboarding_bluetooth_text1".ub_localized, ""),
-                                                 (UIImage(named: "ic-bt")!, "onboarding_bluetooth_text2".ub_localized, ""),
+                                                 (UIImage(named: "ic-tracing-onboarding")!, "onboarding_begegnungen_text1".ub_localized, ""),
+                                                 (UIImage(named: "ic-bt")!, "onboarding_begegnungen_text2".ub_localized, ""),
                                              ])
 
-    static let step6 = NSOnboardingStepModel(heading: "onboarding_report_heading".ub_localized,
+    static let step6 = NSOnboardingStepModel(heading: "onboarding_meldung_heading".ub_localized,
                                              headingColor: .ns_blue,
                                              foregroundImage: UIImage(named: "img_report")!,
-                                             title: "onboarding_report_title".ub_localized,
+                                             title: "onboarding_meldung_title".ub_localized,
                                              textGroups: [
-                                                 (UIImage(named: "ic-report")!, "onboarding_report_text1".ub_localized, ""),
-                                                 (UIImage(named: "ic-isolation")!, "onboarding_report_text2".ub_localized, ""),
+                                                 (UIImage(named: "ic-report")!, "onboarding_meldung_text1".ub_localized, ""),
+                                                 (UIImage(named: "ic-isolation")!, "onboarding_meldung_text2".ub_localized, ""),
                                              ])
 }

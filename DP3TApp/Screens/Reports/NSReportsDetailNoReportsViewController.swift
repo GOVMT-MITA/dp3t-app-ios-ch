@@ -28,12 +28,12 @@ class NSReportsDetailNoReportsViewController: NSTitleViewScrollViewController {
     // MARK: - Setup
 
     private func setupLayout() {
-        let whiteBoxView = NSSimpleModuleBaseView(title: "no_messages_box_title".ub_localized, subtitle: "no_messages_box_subtitle".ub_localized, text: "no_messages_box_text".ub_localized, image: UIImage(named: "illu-no-message"), subtitleColor: .ns_green)
+        let whiteBoxView = NSSimpleModuleBaseView(title: "no_meldungen_box_title".ub_localized, subtitle: "no_meldungen_box_subtitle".ub_localized, text: "no_meldungen_box_text".ub_localized, image: UIImage(named: "illu-no-message"), subtitleColor: .ns_green)
 
         let buttonView = UIView()
 
         let externalLinkButton = NSExternalLinkButton(style: .normal(color: .ns_green))
-        externalLinkButton.title = "no_messages_box_link".ub_localized
+        externalLinkButton.title = "no_meldungen_box_link".ub_localized
         externalLinkButton.accessibilityHint = "accessibility_faq_button_hint".ub_localized
         externalLinkButton.touchUpCallback = { [weak self] in
             guard let strongSelf = self else { return }
@@ -48,16 +48,18 @@ class NSReportsDetailNoReportsViewController: NSTitleViewScrollViewController {
 
         whiteBoxView.contentView.addSpacerView(NSPadding.medium)
         whiteBoxView.contentView.addArrangedView(buttonView)
-
+        
+        stackScrollView.addSpacerView(NSPadding.large)
+        
         stackScrollView.addArrangedView(whiteBoxView)
 
         stackScrollView.addSpacerView(NSPadding.medium)
 
-        stackScrollView.addArrangedView(NSOnboardingInfoView(icon: UIImage(named: "ic-report")!, text: "messages_nomessages_faq1_text".ub_localized, title: "messages_nomessages_faq1_title".ub_localized, link: "", leftRightInset: 0, dynamicIconTintColor: .ns_green))
+        stackScrollView.addArrangedView(NSOnboardingInfoView(icon: UIImage(named: "ic-report")!, text: "meldungen_nomeldungen_faq1_text".ub_localized, title: "meldungen_nomeldungen_faq1_title".ub_localized, link: "", leftRightInset: 0, dynamicIconTintColor: .ns_green))
 
         stackScrollView.addSpacerView(NSPadding.medium)
 
-        stackScrollView.addArrangedView(NSOnboardingInfoView(icon: UIImage(named: "ic-tracing")!, text: "messages_nomessages_faq2_text".ub_localized, title: "messages_nomessages_faq2_titel".ub_localized, link: "", leftRightInset: 0, dynamicIconTintColor: .ns_green))
+        stackScrollView.addArrangedView(NSOnboardingInfoView(icon: UIImage(named: "ic-tracing")!, text: "meldungen_nomeldungen_faq2_text".ub_localized, title: "meldungen_nomeldungen_faq2_title".ub_localized, link: "", leftRightInset: 0, dynamicIconTintColor: .ns_green))
 
         stackScrollView.addSpacerView(NSPadding.medium)
 
@@ -77,7 +79,7 @@ class NSReportsDetailNoReportsViewController: NSTitleViewScrollViewController {
     // MARK: - Logic
 
     private func externalLinkPressed() {
-        if let url = URL(string: "no_messages_box_url".ub_localized) {
+        if let url = URL(string: "no_meldungen_box_url".ub_localized) {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
     }

@@ -19,8 +19,8 @@ class NSReportsModuleView: NSModuleBaseView {
     // section views
 
     let noReportsView: NSInfoBoxView = {
-        var viewModel = NSInfoBoxView.ViewModel(title: "messages_no_messages_title".ub_localized,
-                                                subText: "messages_no_messages_subtitle".ub_localized,
+        var viewModel = NSInfoBoxView.ViewModel(title: "meldungen_no_meldungen_title".ub_localized,
+                                                subText: "meldungen_no_meldungen_subtitle".ub_localized,
                                                 image: UIImage(named: "ic-check"),
                                                 titleColor: .ns_green,
                                                 subtextColor: .ns_text)
@@ -31,8 +31,8 @@ class NSReportsModuleView: NSModuleBaseView {
     }()
 
     let exposedView: NSInfoBoxView = {
-        var viewModel = NSInfoBoxView.ViewModel(title: "messages_report_title".ub_localized,
-                                                subText: "messages_report_text".ub_localized,
+        var viewModel = NSInfoBoxView.ViewModel(title: "meldungen_meldung_title".ub_localized,
+                                                subText: "meldungen_meldung_text".ub_localized,
                                                 image: UIImage(named: "ic-info"),
                                                 titleColor: .white,
                                                 subtextColor: .white)
@@ -43,8 +43,8 @@ class NSReportsModuleView: NSModuleBaseView {
     }()
 
     let infectedView: NSInfoBoxView = {
-        var viewModel = NSInfoBoxView.ViewModel(title: "report_homescreen_positiv_title".ub_localized,
-                                                subText: "report_homescreen_positiv_text".ub_localized,
+        var viewModel = NSInfoBoxView.ViewModel(title: "meldung_homescreen_positiv_title".ub_localized,
+                                                subText: "meldung_homescreen_positiv_text".ub_localized,
                                                 image: UIImage(named: "ic-info"),
                                                 titleColor: .white,
                                                 subtextColor: .white)
@@ -61,13 +61,13 @@ class NSReportsModuleView: NSModuleBaseView {
         UIApplication.shared.open(settingsUrl)
     }))
 
-    private let tracingDisabledView = NSTracingErrorView(model: NSTracingErrorView.NSTracingErrorViewModel(icon: UIImage(named: "ic-error")!, title: "messages_tracing_turned_off_title".ub_localized, text: "messages_tracing_not_active_warning".ub_localized, buttonTitle: "activate_tracing_button".ub_localized, action: { _ in
-        TracingManager.shared.isActivated = true
+    private let tracingDisabledView = NSTracingErrorView(model: NSTracingErrorView.NSTracingErrorViewModel(icon: UIImage(named: "ic-error")!, title: "meldungen_tracing_turned_off_title".ub_localized, text: "meldungen_tracing_not_active_warning".ub_localized, buttonTitle: "activate_tracing_button".ub_localized, action: { _ in
+        TracingManager.shared.startTracing()
     }))
 
     private let unexpectedErrorView = NSTracingErrorView(model: NSTracingErrorView.NSTracingErrorViewModel(icon: UIImage(named: "ic-error")!, title: "unexpected_error_title".ub_localized, text: "unexpected_error_title".ub_localized, buttonTitle: nil, action: nil))
 
-    private let unexpectedErrorWithRetryView = NSTracingErrorView(model: NSTracingErrorView.NSTracingErrorViewModel(icon: UIImage(named: "ic-error")!, title: "unexpected_error_title".ub_localized, text: "unexpected_error_with_retry".ub_localized, buttonTitle: "homescreen_report_data_outdated_retry_button".ub_localized, action: { view in
+    private let unexpectedErrorWithRetryView = NSTracingErrorView(model: NSTracingErrorView.NSTracingErrorViewModel(icon: UIImage(named: "ic-error")!, title: "unexpected_error_title".ub_localized, text: "unexpected_error_with_retry".ub_localized, buttonTitle: "homescreen_meldung_data_outdated_retry_button".ub_localized, action: { view in
         view?.startAnimating()
         view?.isEnabled = false
         DatabaseSyncer.shared.forceSyncDatabase {
@@ -76,7 +76,7 @@ class NSReportsModuleView: NSModuleBaseView {
         }
     }))
 
-    private let syncProblemView = NSTracingErrorView(model: NSTracingErrorView.NSTracingErrorViewModel(icon: UIImage(named: "ic-error")!, title: "homescreen_report_data_outdated_title".ub_localized, text: "homescreen_report_data_outdated_text".ub_localized, buttonTitle: "homescreen_report_data_outdated_retry_button".ub_localized, action: { view in
+    private let syncProblemView = NSTracingErrorView(model: NSTracingErrorView.NSTracingErrorViewModel(icon: UIImage(named: "ic-error")!, title: "homescreen_meldung_data_outdated_title".ub_localized, text: "homescreen_meldung_data_outdated_text".ub_localized, buttonTitle: "homescreen_meldung_data_outdated_retry_button".ub_localized, action: { view in
         view?.startAnimating()
         view?.isEnabled = false
         DatabaseSyncer.shared.forceSyncDatabase {
@@ -85,12 +85,7 @@ class NSReportsModuleView: NSModuleBaseView {
         }
     }))
 
-    private let backgroundFetchProblemView = NSTracingErrorView(model: NSTracingErrorView.NSTracingErrorViewModel(icon: UIImage(named: "ic-refresh")!, title: "messages_background_error_title".ub_localized, text: "messages_background_error_text".ub_localized, buttonTitle: "messages_background_error_button".ub_localized, action: { _ in
-        guard let settingsUrl = URL(string: UIApplication.openSettingsURLString),
-            UIApplication.shared.canOpenURL(settingsUrl) else { return }
-
-        UIApplication.shared.open(settingsUrl)
-    }))
+     private let backgroundFetchProblemView = NSTracingErrorView(model: NSTracingErrorView.NSTracingErrorViewModel(icon: UIImage(named: "ic-refresh")!, title: "meldungen_background_error_title".ub_localized, text: "meldungen_background_error_text".ub_localized, buttonTitle: nil, action: nil))
 
     override init() {
         super.init()
@@ -137,7 +132,7 @@ class NSReportsModuleView: NSModuleBaseView {
             } else if showTracingDisabledErrorIfNeeded() {
             } else if reportsState.syncProblemNetworkingError {
                 views.append(syncProblemView)
-                syncProblemView.model?.text = reportsState.errorMessage ?? "homescreen_report_data_outdated_text".ub_localized
+                syncProblemView.model?.text = reportsState.errorMessage ?? "homescreen_meldung_data_outdated_text".ub_localized
                 syncProblemView.model?.errorCode = reportsState.errorCode
             } else if reportsState.backgroundUpdateProblem {
                 views.append(backgroundFetchProblemView)
@@ -162,7 +157,7 @@ class NSReportsModuleView: NSModuleBaseView {
             showTracingDisabledErrorIfNeeded()
         case .infected:
             views.append(infectedView)
-            views.append(NSMoreInfoView(line1: "report_homescreen_positive_info_line1".ub_localized, line2: "report_homescreen_positive_info_line2".ub_localized))
+            views.append(NSMoreInfoView(line1: "meldung_homescreen_positive_info_line1".ub_localized, line2: "meldung_homescreen_positive_info_line2".ub_localized))
         }
 
         return views
