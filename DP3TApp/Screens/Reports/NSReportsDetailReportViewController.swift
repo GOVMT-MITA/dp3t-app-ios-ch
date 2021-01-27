@@ -41,9 +41,6 @@ class NSReportsDetailReportViewController: NSTitleViewScrollViewController {
 
     override init() {
         super.init()
-        titleView = NSReportsDetailReportTitleView(overlapInset: titleHeight - startPositionScrollView)
-
-        stackScrollView.hitTestDelegate = self
     }
 
     override var useFullScreenHeaderAnimation: Bool {
@@ -56,6 +53,11 @@ class NSReportsDetailReportViewController: NSTitleViewScrollViewController {
 
     override var startPositionScrollView: CGFloat {
         return titleHeight - 30
+    }
+
+    func updateHeightConstraints() {
+        useTitleViewHeight = true
+        view.setNeedsLayout()
     }
 
     override func startHeaderAnimation() {
@@ -71,6 +73,16 @@ class NSReportsDetailReportViewController: NSTitleViewScrollViewController {
     // MARK: - Views
 
     override func viewDidLoad() {
+        let titleHeader = NSReportsDetailReportSingleTitleHeader(fullscreen: showReportWithAnimation)
+        titleHeader.headerView = self
+
+        titleView = titleHeader
+
+        stackScrollView.hitTestDelegate = self
+
+        if !showReportWithAnimation {
+            useTitleViewHeight = true
+        }
         super.viewDidLoad()
 
         setupLayout()
@@ -91,7 +103,7 @@ class NSReportsDetailReportViewController: NSTitleViewScrollViewController {
 
         stackScrollView.addSpacerView(2 * NSPadding.large)
 
-        stackScrollView.addArrangedView(NSOnboardingInfoView(icon: UIImage(named: "ic-call")!, text: "messages_messages_faq1_text".ub_localized, title: "messages_messages_faq1_title".ub_localized, link: "", leftRightInset: 0, dynamicIconTintColor: .ns_blue))
+        stackScrollView.addArrangedView(NSOnboardingInfoView(icon: UIImage(named: "ic-call")!, text: "meldungen_meldungen_faq1_text".ub_localized, title: "meldungen_meldungen_faq1_title".ub_localized, link: "", leftRightInset: 0, dynamicIconTintColor: .ns_blue))
 
         stackScrollView.addSpacerView(3 * NSPadding.large)
 
@@ -103,7 +115,7 @@ class NSReportsDetailReportViewController: NSTitleViewScrollViewController {
     // MARK: - Update
 
     private func update() {
-        if let tv = titleView as? NSReportsDetailReportTitleView {
+        if let tv = titleView as? NSReportsDetailReportSingleTitleHeader {
             tv.reports = reports
         }
 
@@ -114,10 +126,16 @@ class NSReportsDetailReportViewController: NSTitleViewScrollViewController {
         if let lastReportId = reports.last?.identifier,
             let lastCall = UserStorage.shared.lastPhoneCall(for: lastReportId) {
             callLabels.forEach {
-                $0.text = "messages_detail_call_last_call".ub_localized.replacingOccurrences(of: "{DATE}", with: DateFormatter.ub_string(from: lastCall))
+                $0.text = "meldungen_detail_call_last_call".ub_localized.replacingOccurrences(of: "{DATE}", with: DateFormatter.ub_string(from: lastCall))
             }
-            daysLeftLabels.forEach {
-                $0.text = DateFormatter.ub_inDays(until: lastCall.addingTimeInterval(60 * 60 * 24 * 10)) // 10 days after last exposure
+            let quarantinePeriod: TimeInterval = 60 * 60 * 24 * 10
+            if let latestExposure: Date = reports.map(\.timestamp).sorted(by: >).first {
+                let endQuarentineDate = latestExposure.addingTimeInterval(quarantinePeriod)
+                if endQuarentineDate.timeIntervalSinceNow > 0 {
+                    daysLeftLabels.forEach {
+                        $0.text = DateFormatter.ub_inDays(until: endQuarentineDate)
+                    }
+                }
             }
         }
     }
@@ -125,11 +143,11 @@ class NSReportsDetailReportViewController: NSTitleViewScrollViewController {
     // MARK: - Detail Views
 
     private func makeNotYetCalledView() -> NSSimpleModuleBaseView {
-        let whiteBoxView = NSSimpleModuleBaseView(title: "messages_detail_call".ub_localized, subtitle: "report_detail_positive_test_box_subtitle".ub_localized, boldText: "infoline_tel_number".ub_localized, text: "messages_detail_call_text".ub_localized, image: UIImage(named: "illu-call"), subtitleColor: .ns_blue, bottomPadding: false)
+        let whiteBoxView = NSSimpleModuleBaseView(title: "meldungen_detail_call".ub_localized, subtitle: "meldung_detail_positive_test_box_subtitle".ub_localized, boldText: "infoline_tel_number".ub_localized, text: "meldungen_detail_call_text".ub_localized, image: UIImage(named: "illu-call"), subtitleColor: .ns_blue, bottomPadding: false)
 
         whiteBoxView.contentView.addSpacerView(NSPadding.medium)
 
-        let callButton = NSButton(title: "messages_detail_call_button".ub_localized, style: .uppercase(.ns_blue))
+        let callButton = NSButton(title: "meldungen_detail_call_button".ub_localized, style: .uppercase(.ns_blue))
 
         callButton.touchUpCallback = { [weak self] in
             guard let strongSelf = self else { return }
@@ -147,11 +165,11 @@ class NSReportsDetailReportViewController: NSTitleViewScrollViewController {
     }
 
     private func makeAlreadyCalledView() -> NSSimpleModuleBaseView {
-        let whiteBoxView = NSSimpleModuleBaseView(title: "messages_detail_call_thankyou_title".ub_localized, subtitle: "messages_detail_call_thankyou_subtitle".ub_localized, text: "messages_detail_guard_text".ub_localized, image: UIImage(named: "illu-behaviour"), subtitleColor: .ns_blue, bottomPadding: false)
+        let whiteBoxView = NSSimpleModuleBaseView(title: "meldungen_detail_call_thankyou_title".ub_localized, subtitle: "meldungen_detail_call_thankyou_subtitle".ub_localized, text: "meldungen_detail_guard_text".ub_localized, image: UIImage(named: "illu-behaviour"), subtitleColor: .ns_blue, bottomPadding: false)
 
         whiteBoxView.contentView.addSpacerView(NSPadding.medium)
 
-        let callButton = NSButton(title: "messages_detail_call_again_button".ub_localized, style: .outlineUppercase(.ns_blue))
+        let callButton = NSButton(title: "meldungen_detail_call_again_button".ub_localized, style: .outlineUppercase(.ns_blue))
 
         callButton.touchUpCallback = { [weak self] in
             guard let strongSelf = self else { return }
@@ -171,11 +189,11 @@ class NSReportsDetailReportViewController: NSTitleViewScrollViewController {
     }
 
     private func makeCallAgainView() -> NSSimpleModuleBaseView {
-        let whiteBoxView = NSSimpleModuleBaseView(title: "messages_detail_call_again".ub_localized, subtitle: "report_detail_positive_test_box_subtitle".ub_localized, boldText: "infoline_tel_number".ub_localized, text: "messages_detail_guard_text".ub_localized, image: UIImage(named: "iillu-call"), subtitleColor: .ns_blue, bottomPadding: false)
+        let whiteBoxView = NSSimpleModuleBaseView(title: "meldungen_detail_call_again".ub_localized, subtitle: "meldung_detail_positive_test_box_subtitle".ub_localized, boldText: "infoline_tel_number".ub_localized, text: "meldungen_detail_guard_text".ub_localized, image: UIImage(named: "iillu-call"), subtitleColor: .ns_blue, bottomPadding: false)
 
         whiteBoxView.contentView.addSpacerView(NSPadding.medium)
 
-        let callButton = NSButton(title: "messages_detail_call_button".ub_localized, style: .uppercase(.ns_blue))
+        let callButton = NSButton(title: "meldungen_detail_call_button".ub_localized, style: .uppercase(.ns_blue))
 
         callButton.touchUpCallback = { [weak self] in
             guard let strongSelf = self else { return }
@@ -233,7 +251,7 @@ class NSReportsDetailReportViewController: NSTitleViewScrollViewController {
     }
 
     private func createExplanationView() -> UIView {
-        let ev = NSExplanationView(title: "messages_detail_explanation_title".ub_localized, texts: ["messages_detail_explanation_text1".ub_localized, "messages_detail_explanation_text2".ub_localized, "messages_detail_explanation_text4".ub_localized], edgeInsets: .zero)
+        let ev = NSExplanationView(title: "meldungen_detail_explanation_title".ub_localized, texts: ["meldungen_detail_explanation_text1".ub_localized, "meldungen_detail_explanation_text2".ub_localized, "meldungen_detail_explanation_text4".ub_localized], edgeInsets: .zero)
 
         let wrapper = UIView()
         let daysLeftLabel = NSLabel(.textBold)
@@ -247,8 +265,8 @@ class NSReportsDetailReportViewController: NSTitleViewScrollViewController {
         ev.stackView.insertArrangedSubview(wrapper, at: 3)
         ev.stackView.setCustomSpacing(NSPadding.small, after: ev.stackView.arrangedSubviews[2])
 
-        var infoBoxViewModel = NSInfoBoxView.ViewModel(title: "messages_detail_free_test_title".ub_localized,
-                                                       subText: "messages_detail_free_test_text".ub_localized,
+        var infoBoxViewModel = NSInfoBoxView.ViewModel(title: "meldungen_detail_free_test_title".ub_localized,
+                                                       subText: "meldungen_detail_free_test_text".ub_localized,
                                                        titleColor: .ns_text,
                                                        subtextColor: .ns_text)
         infoBoxViewModel.image = UIImage(named: "ic-info-on")
@@ -265,22 +283,33 @@ class NSReportsDetailReportViewController: NSTitleViewScrollViewController {
     // MARK: - Logic
 
     private func call() {
-        guard let lastReport = reports.last else { return }
+        guard let newestReport = reports.first else { return }
 
         let phoneNumber = "infoline_tel_number".ub_localized
         PhoneCallHelper.call(phoneNumber)
 
-        UserStorage.shared.registerPhoneCall(identifier: lastReport.identifier)
+        UserStorage.shared.registerPhoneCall(identifier: newestReport.identifier)
         UIStateManager.shared.refresh()
     }
 }
 
 extension NSReportsDetailReportViewController: NSHitTestDelegate {
-    func overrideHitTest(_ point: CGPoint, with _: UIEvent?) -> Bool {
+    func overrideHitTest(_ point: CGPoint, with event: UIEvent?) -> Bool {
         if overrideHitTestAnyway, useFullScreenHeaderAnimation {
             return true
         }
 
-        return point.y + stackScrollView.scrollView.contentOffset.y < startPositionScrollView
+        // if point is inside titleView
+        if point.y + stackScrollView.scrollView.contentOffset.y < (titleView?.frame.height ?? startPositionScrollView) {
+            guard let titleView = titleView else {
+                return true
+            }
+            // translate point into stackview space
+            let translatedPoint = point.applying(.init(translationX: 0, y: stackScrollView.scrollView.contentOffset.y))
+            // and the hitTest Succeed we foreward the touch event
+            return titleView.hitTest(translatedPoint, with: event) != nil
+        }
+
+        return false
     }
 }

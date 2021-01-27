@@ -65,7 +65,7 @@ class NSOnboardingDisclaimerViewController: NSOnboardingContentViewController {
 
         func addDivider(spacing: CGFloat? = nil) {
             let spacer = UIView()
-            spacer.backgroundColor = .ns_text_secondary
+            spacer.backgroundColor = .ns_dividerColor
             addArrangedView(spacer, spacing: spacing)
             spacer.snp.makeConstraints { make in
                 make.width.equalTo(self.stackScrollView.stackView)
@@ -74,7 +74,7 @@ class NSOnboardingDisclaimerViewController: NSOnboardingContentViewController {
         }
 
         privacyButton.title = "onboarding_disclaimer_legal_button".ub_localized
-        privacyButton.accessibilityHint = "accessibility_faq_button_hint".ub_localized
+        privacyButton.accessibilityHint = "onboarding_disclaimer_legal_button".ub_localized
         addArrangedView(privacyButton, spacing: NSPadding.large)
         privacyButton.snp.makeConstraints { make in
             make.leading.trailing.equalTo(self.stackScrollView.stackView).inset(NSPadding.large)

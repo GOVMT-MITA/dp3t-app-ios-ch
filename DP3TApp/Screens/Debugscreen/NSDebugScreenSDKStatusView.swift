@@ -108,7 +108,7 @@
                 switch state.homescreen.encounters {
                 case .tracingActive:
                     tracingLabel.text = "tracing_active_title".ub_localized
-                case .tracingDisabled, .bluetoothTurnedOff, .bluetoothPermissionError, .tracingEnded, .timeInconsistencyError, .unexpectedError, .tracingPermissionError:
+                case .tracingDisabled, .bluetoothTurnedOff, .bluetoothPermissionError, .tracingEnded, .timeInconsistencyError, .unexpectedError, .tracingPermissionError, .tracingAuthorizationUnknown:
                     tracingLabel.text = "bluetooth_setting_tracking_inactive".ub_localized
                 }
 
@@ -120,7 +120,7 @@
                 let isInfected = state.debug.infectionStatus == .infected
                 texts.append("\("debug_sdk_state_self_exposed".ub_localized)\(yesOrNo(isInfected))")
 
-                let isExposed = state.debug.infectionStatus == .exposed
+                let isExposed = state.debug.infectionStatus.isExposed
                 texts.append("\("debug_sdk_state_contact_exposed".ub_localized)\(yesOrNo(isExposed))")
 
                 commentsLabel.text = texts.joined(separator: "\n")

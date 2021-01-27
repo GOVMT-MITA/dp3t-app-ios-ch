@@ -56,17 +56,7 @@ class DatabaseSyncer {
         }
         Logger.log("Start Database Sync", appState: true)
 
-        let runningInBackground: () -> Bool = {
-            if Thread.isMainThread {
-                return UIApplication.shared.applicationState == .background
-            } else {
-                return DispatchQueue.main.sync {
-                    UIApplication.shared.applicationState == .background
-                }
-            }
-        }
-
-        DP3TTracing.sync(runningInBackground: runningInBackground()) { result in
+        DP3TTracing.sync { result in
             switch result {
             case let .failure(e):
 
@@ -84,7 +74,7 @@ class DatabaseSyncer {
                             // Certificate error
                             UIStateManager.shared.immediatelyShowSyncError = false
                             UIStateManager.shared.syncErrorIsNetworkError = true
-                        case let .HTTPFailureResponse(status: status, data: _) where (502 ... 504).contains(status):
+                        case .HTTPFailureResponse:
                             // this means the backend is under maintanance
                             UIStateManager.shared.immediatelyShowSyncError = false
                             UIStateManager.shared.syncErrorIsNetworkError = true
@@ -138,8 +128,7 @@ class DatabaseSyncer {
                     UIStateManager.shared.syncError = nil
                 }
 
-                // wait another 2 days befor warning
-                TracingLocalPush.shared.resetSyncWarningTriggers(lastSuccess: Date())
+                TracingLocalPush.shared.resetBackgroundTaskWarningTriggers()
 
                 // reload status, user could have been exposed
                 TracingManager.shared.updateStatus(completion: nil)
@@ -147,6 +136,9 @@ class DatabaseSyncer {
                 NotificationCenter.default.post(name: Notification.syncFinishedNotification, object: nil)
                 completionHandler?(.newData)
             }
+
+            TracingLocalPush.shared.handleSync(result: result)
+
             if taskIdentifier != .invalid {
                 UIApplication.shared.endBackgroundTask(taskIdentifier)
                 taskIdentifier = .invalid

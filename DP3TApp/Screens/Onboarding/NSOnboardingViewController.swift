@@ -15,9 +15,10 @@ class NSOnboardingViewController: NSViewController {
     private let leftSwipeRecognizer = UISwipeGestureRecognizer()
     private let rightSwipeRecognizer = UISwipeGestureRecognizer()
 
+    private let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .regular))
+
     private let splashVC = NSSplashViewController()
     
-    private let step0VC = NSOnboardingLanguageSelectionViewController()
     private let step1VC = NSOnboardingStepViewController(model: NSOnboardingStepModel.step1)
     private let step2VC = NSOnboardingStepViewController(model: NSOnboardingStepModel.step2)
     private let step3VC = NSOnboardingStepViewController(model: NSOnboardingStepModel.step3)
@@ -28,12 +29,12 @@ class NSOnboardingViewController: NSViewController {
     private let step8VC = NSOnboardingFinishViewController()
 
     private var stepViewControllers: [NSOnboardingContentViewController] {
-        [step0VC, step1VC, step2VC, step3VC, step4VC, step5VC, step6VC, step7VC, step8VC]
+        [step1VC, step2VC, step3VC, step4VC, step5VC, step6VC, step7VC, step8VC]
     }
 
-    private var languageSelectionStepIndex: Int {
-        return stepViewControllers.firstIndex(of: step0VC)!
-    }
+//    private var languageSelectionStepIndex: Int {
+//        return stepViewControllers.firstIndex(of: step0VC)!
+//    }
 
     private var tracingPermissionStepIndex: Int {
         return stepViewControllers.firstIndex(of: step5VC)!
@@ -52,7 +53,7 @@ class NSOnboardingViewController: NSViewController {
     }
 
     private var stepsWithoutContinue: [Int] {
-        [languageSelectionStepIndex, tracingPermissionStepIndex, pushPermissionStepIndex, finalStepIndex]
+        [tracingPermissionStepIndex, pushPermissionStepIndex, finalStepIndex]
     }
 
     private let continueContainer = UIView()
@@ -64,45 +65,18 @@ class NSOnboardingViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        view.backgroundColor = .setColorsForTheme(lightColor: .ns_background, darkColor: .ns_darkModeBackground2)
+
         setupButtons()
-
-        step0VC.languageENButton.touchUpCallback = { [weak self] in
-            LanguageHelper.setAppLocale(localeCode: LanguageHelper.LANGUAGE_EN)
-            self?.animateToNextStep()
-        }
-
-        step0VC.languageMTButton.touchUpCallback = { [weak self] in
-            LanguageHelper.setAppLocale(localeCode: LanguageHelper.LANGUAGE_MT)
-            self?.animateToNextStep()
-        }
-
-        step5VC.permissionButton.touchUpCallback = { [weak self] in
-            TracingManager.shared.requestTracingPermission { _ in
-                self?.animateToNextStep()
-            }
-        }
-
-        step7VC.permissionButton.touchUpCallback = {
-            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { _, _ in
-
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    self.setOnboardingStep(self.currentStep + 1, animated: true)
-                }
-            }
-        }
-
-        step8VC.finishButton.touchUpCallback = finishAnimation
 
         setupSwipeRecognizers()
         addStepViewControllers()
-        addSplashViewController()
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
         setOnboardingStep(0, animated: true)
-        startSplashCountDown()
     }
 
     private func addSplashViewController() {
@@ -110,14 +84,6 @@ class NSOnboardingViewController: NSViewController {
         view.addSubview(splashVC.view)
         splashVC.view.snp.makeConstraints { make in
             make.edges.equalToSuperview()
-        }
-    }
-
-    private func startSplashCountDown() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-            UIView.animate(withDuration: 0.5) {
-                self.splashVC.view.alpha = 0
-            }
         }
     }
 
@@ -153,7 +119,7 @@ class NSOnboardingViewController: NSViewController {
 
         let vcToShow = stepViewControllers[step]
         vcToShow.view.isHidden = false
-
+        
         vcToShow.view.setNeedsLayout()
         vcToShow.view.layoutIfNeeded()
 
@@ -215,7 +181,23 @@ class NSOnboardingViewController: NSViewController {
     }
 
     private func setupButtons() {
-        continueContainer.backgroundColor = .ns_background
+        step5VC.permissionButton.touchUpCallback = { [weak self] in
+            TracingManager.shared.requestTracingPermission { _ in
+                self?.animateToNextStep()
+            }
+        }
+
+        step7VC.permissionButton.touchUpCallback = {
+            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { _, _ in
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    self.setOnboardingStep(self.currentStep + 1, animated: true)
+                }
+            }
+        }
+
+        step8VC.finishButton.touchUpCallback = finishAnimation
+        
+        continueContainer.backgroundColor = .setColorsForTheme(lightColor: .ns_background, darkColor: .ns_backgroundTertiary)
         continueContainer.ub_addShadow(radius: 4, opacity: 0.1, xOffset: 0, yOffset: -1)
 
         continueContainer.addSubview(continueButton)
@@ -263,7 +245,7 @@ class NSOnboardingViewController: NSViewController {
             view.insertSubview(vc.view, belowSubview: finishButton)
             vc.view.snp.makeConstraints { make in
                 make.top.leading.trailing.equalToSuperview()
-                if vc is NSOnboardingLanguageSelectionViewController || vc is NSOnboardingPermissionsViewController || vc is NSOnboardingFinishViewController {
+                if vc is NSOnboardingPermissionsViewController || vc is NSOnboardingFinishViewController {
                     make.bottom.equalToSuperview()
                 } else {
                     make.bottom.equalTo(continueContainer.snp.top)
@@ -308,7 +290,7 @@ class NSOnboardingViewController: NSViewController {
         guard splashVC.view.alpha == 0 else {
             return false
         }
-        if [languageSelectionStepIndex, pushPermissionStepIndex, tracingPermissionStepIndex, disclaimerStepIndex].contains(currentStep) {
+        if [/*languageSelectionStepIndex,*/ pushPermissionStepIndex, tracingPermissionStepIndex, disclaimerStepIndex].contains(currentStep) {
             // Disable swipe forward on permission screens
             return false
         }
@@ -326,5 +308,12 @@ class NSOnboardingViewController: NSViewController {
         setOnboardingStep(currentStep - 1, animated: true)
 
         return true
+    }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        if previousTraitCollection?.userInterfaceStyle != traitCollection.userInterfaceStyle {
+            continueContainer.ub_addShadow(with: .ns_text, radius: 4, opacity: 0.1, xOffset: 0, yOffset: -1)
+        }
     }
 }

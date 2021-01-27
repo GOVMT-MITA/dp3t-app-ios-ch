@@ -64,7 +64,6 @@
 		242D2200245C4BD8005DAEA8 /* NSModuleHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF73662242F2DC90051E34A /* NSModuleHeaderView.swift */; };
 		242D2201245C4BD8005DAEA8 /* NSModuleBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24780B19242DFDAE003BB26C /* NSModuleBaseView.swift */; };
 		242D2202245C4BD8005DAEA8 /* NSOnboardingPermissionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC175E412430C4F900BD2AD6 /* NSOnboardingPermissionsViewController.swift */; };
-		242D2203245C4BD8005DAEA8 /* NSReportsDetailReportTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E330878245098E900913B0E /* NSReportsDetailReportTitleView.swift */; };
 		242D2204245C4BD8005DAEA8 /* NSEncountersDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EFB097424459B870097BD3D /* NSEncountersDetailViewController.swift */; };
 		242D2205245C4BD8005DAEA8 /* NSOnboardingStepModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC56B8B8242EA7760077B99C /* NSOnboardingStepModel.swift */; };
 		242D2206245C4BD8005DAEA8 /* NSWhatToDoSymptomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E33086324503D0900913B0E /* NSWhatToDoSymptomViewController.swift */; };
@@ -152,7 +151,6 @@
 		242D2268245C4BD8005DAEA8 /* Inter-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6E7C0D2B242D04290017C4F9 /* Inter-Regular.ttf */; };
 		242D2269245C4BD8005DAEA8 /* Impressum in Resources */ = {isa = PBXBuildFile; fileRef = 6EC7E820245B27E10015A55B /* Impressum */; };
 		242D226A245C4BD8005DAEA8 /* Inter-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6E7C0D2C242D04290017C4F9 /* Inter-Medium.ttf */; };
-		242D2275245C4BE6005DAEA8 /* DP3TSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 242D2274245C4BE6005DAEA8 /* DP3TSDK */; };
 		242D2276245D62D8005DAEA8 /* UserStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24780B06242DFCD9003BB26C /* UserStorage.swift */; };
 		242D2277245D62D9005DAEA8 /* UserStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24780B06242DFCD9003BB26C /* UserStorage.swift */; };
 		242D2279245D64BA005DAEA8 /* Environment+PublicKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242D2278245D64BA005DAEA8 /* Environment+PublicKeys.swift */; };
@@ -187,11 +185,32 @@
 		2485F4802459631A00C3D8C3 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2485F47F2459631A00C3D8C3 /* NetworkError.swift */; };
 		24D5EF682448CAB900C197D6 /* UIStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D5EF672448CAB900C197D6 /* UIStateManager.swift */; };
 		24F4D967246C33610011DC90 /* UIDevice+ScreenType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BBA10F246BFCBC00E42EE7 /* UIDevice+ScreenType.swift */; };
+		2801AC252555585900C85520 /* DP3TSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 2801AC242555585900C85520 /* DP3TSDK */; };
+		2801AC4C2555628C00C85520 /* NSTutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2801AC492555628C00C85520 /* NSTutorialViewController.swift */; };
+		2801AC4D2555628C00C85520 /* NSSettingsTutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2801AC4A2555628C00C85520 /* NSSettingsTutorialViewController.swift */; };
+		2801AC4E2555628C00C85520 /* NSTutorialListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2801AC4B2555628C00C85520 /* NSTutorialListItemView.swift */; };
+		2801AC7E255562A100C85520 /* NSTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2801AC7D255562A100C85520 /* NSTabBarController.swift */; };
+		2801AC84255562B400C85520 /* NSReportDetailMoreDaysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2801AC83255562B400C85520 /* NSReportDetailMoreDaysView.swift */; };
+		2801AC94255567B400C85520 /* LocalPushProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2801AC92255567B400C85520 /* LocalPushProtocol.swift */; };
+		2801AC9A2555681000C85520 /* DebugStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2801AC992555681000C85520 /* DebugStrings.strings */; };
+		284FAFE32588F47500288190 /* LocalPushProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2801AC92255567B400C85520 /* LocalPushProtocol.swift */; };
+		284FAFE82588F47E00288190 /* NSTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2801AC7D255562A100C85520 /* NSTabBarController.swift */; };
+		284FAFED2588F48C00288190 /* NSSettingsTutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2801AC4A2555628C00C85520 /* NSSettingsTutorialViewController.swift */; };
+		284FAFF22588F49200288190 /* NSInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28880E1624D4297F008E461B /* NSInformationView.swift */; };
+		284FAFF72588F49600288190 /* NSReportDetailMoreDaysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2801AC83255562B400C85520 /* NSReportDetailMoreDaysView.swift */; };
+		284FAFFC2588F54D00288190 /* NSTutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2801AC492555628C00C85520 /* NSTutorialViewController.swift */; };
+		284FB0012588F59D00288190 /* NSTutorialListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2801AC4B2555628C00C85520 /* NSTutorialListItemView.swift */; };
 		28880E1724D4297F008E461B /* NSInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28880E1624D4297F008E461B /* NSInformationView.swift */; };
 		28880E1924D4299A008E461B /* NSFaqLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28880E1824D4299A008E461B /* NSFaqLabel.swift */; };
-		2889B2BC24D42BF200FE1ABF /* star.azurewebsites.net.der in Resources */ = {isa = PBXBuildFile; fileRef = 2889B2BB24D42BF200FE1ABF /* star.azurewebsites.net.der */; };
+		288F60DB258BB02D00BCD219 /* star_ws_covidalert_gov_mt.der in Resources */ = {isa = PBXBuildFile; fileRef = 288F60DA258BB02D00BCD219 /* star_ws_covidalert_gov_mt.der */; };
+		288F60DC258BB02D00BCD219 /* star_ws_covidalert_gov_mt.der in Resources */ = {isa = PBXBuildFile; fileRef = 288F60DA258BB02D00BCD219 /* star_ws_covidalert_gov_mt.der */; };
+		2891548B2574D4B60099EFB1 /* NSLanguageSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2891548A2574D4B60099EFB1 /* NSLanguageSelectionViewController.swift */; };
+		2891548C2574D4B60099EFB1 /* NSLanguageSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2891548A2574D4B60099EFB1 /* NSLanguageSelectionViewController.swift */; };
+		2893B1B62588D312004205F2 /* LanguageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A0ACB424F3A123005C35FD /* LanguageHelper.swift */; };
+		2899F347255D625D00EA4105 /* StatisticsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2899F345255D625D00EA4105 /* StatisticsResponse.swift */; };
+		2899F348255D625D00EA4105 /* StatisticsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2899F346255D625D00EA4105 /* StatisticsLoader.swift */; };
 		28A0ACB524F3A123005C35FD /* LanguageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A0ACB424F3A123005C35FD /* LanguageHelper.swift */; };
-		28A36C6E24EFF67A00724225 /* NSOnboardingLanguageSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A36C6D24EFF67A00724225 /* NSOnboardingLanguageSelectionViewController.swift */; };
+		28A1B2052566709300F59775 /* DP3TSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 28A1B2042566709300F59775 /* DP3TSDK */; };
 		6E1771542440B09A0008D73D /* NSCodeInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1771532440B09A0008D73D /* NSCodeInputViewController.swift */; };
 		6E1771562440B5140008D73D /* NSCodeInputControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1771552440B5140008D73D /* NSCodeInputControl.swift */; };
 		6E33085F24502BBD00913B0E /* NSWhatToDoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E33085E24502BBD00913B0E /* NSWhatToDoButton.swift */; };
@@ -206,7 +225,6 @@
 		6E33087324507B6A00913B0E /* NSReportsDetailNoReportsTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E33087224507B6A00913B0E /* NSReportsDetailNoReportsTitleView.swift */; };
 		6E3308752450885300913B0E /* NSReportsDetailPositiveTestedTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3308742450885300913B0E /* NSReportsDetailPositiveTestedTitleView.swift */; };
 		6E33087724508CFF00913B0E /* NSTitleViewScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E33087624508CFF00913B0E /* NSTitleViewScrollViewController.swift */; };
-		6E330879245098E900913B0E /* NSReportsDetailReportTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E330878245098E900913B0E /* NSReportsDetailReportTitleView.swift */; };
 		6E3F65F72449B61A00980A4E /* NSDebugscreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3F65F62449B61A00980A4E /* NSDebugscreenViewController.swift */; };
 		6E3F65F92449CC9F00980A4E /* NSDebugScreenMockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3F65F82449CC9F00980A4E /* NSDebugScreenMockView.swift */; };
 		6E3F65FB2449CF0900980A4E /* NSSimpleModuleBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3F65FA2449CF0900980A4E /* NSSimpleModuleBaseView.swift */; };
@@ -306,7 +324,6 @@
 		DF3BA22324520EE3009086E7 /* NSDebugDatabaseUploadHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3BA22224520EE3009086E7 /* NSDebugDatabaseUploadHelper.swift */; };
 		F80E735A245AD7B400C934B8 /* URLSession+pinning.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80E7359245AD7B400C934B8 /* URLSession+pinning.swift */; };
 		F80E7376245AF74C00C934B8 /* UBPinnedCertificatesTrustEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80E7375245AF74C00C934B8 /* UBPinnedCertificatesTrustEvaluator.swift */; };
-		F8287D17246ABCAF0022CFD9 /* DP3TSDK in Frameworks */ = {isa = PBXBuildFile; productRef = F8287D16246ABCAF0022CFD9 /* DP3TSDK */; };
 		F830799424929090005D3C65 /* LoggingStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F830798E24928EC4005D3C65 /* LoggingStorage.swift */; };
 		F83E31D9249A0F2000C08C31 /* Bundle+BuildInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85ED9A22499EF93007EBC49 /* Bundle+BuildInfo.swift */; };
 		F84089EC2493695200A66CD1 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84089EB2493695200A66CD1 /* Keychain.swift */; };
@@ -353,7 +370,6 @@
 		242D2280245D7363005DAEA8 /* build.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; name = build.yml; path = .github/workflows/build.yml; sourceTree = SOURCE_ROOT; };
 		242D2281245D7386005DAEA8 /* Fastfile */ = {isa = PBXFileReference; lastKnownFileType = text; name = Fastfile; path = fastlane/Fastfile; sourceTree = SOURCE_ROOT; };
 		2443947A2445F062003ED582 /* NSHeaderArcView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSHeaderArcView.swift; sourceTree = "<group>"; };
-		2443947C2445F8A1003ED582 /* LICENCE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENCE.md; sourceTree = "<group>"; };
 		2443947D2445F8A1003ED582 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		245626A0245265340058D11F /* ConfigLoadOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigLoadOperation.swift; sourceTree = "<group>"; };
 		2462BA122451F0F60046906D /* CodeValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeValidator.swift; sourceTree = "<group>"; };
@@ -382,13 +398,22 @@
 		2485F47F2459631A00C3D8C3 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		24D5EF672448CAB900C197D6 /* UIStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStateManager.swift; sourceTree = "<group>"; };
 		24D5EF692448CAE800C197D6 /* UIStateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStateModel.swift; sourceTree = "<group>"; };
+		2801AC492555628C00C85520 /* NSTutorialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSTutorialViewController.swift; sourceTree = "<group>"; };
+		2801AC4A2555628C00C85520 /* NSSettingsTutorialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSSettingsTutorialViewController.swift; sourceTree = "<group>"; };
+		2801AC4B2555628C00C85520 /* NSTutorialListItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSTutorialListItemView.swift; sourceTree = "<group>"; };
+		2801AC7D255562A100C85520 /* NSTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSTabBarController.swift; sourceTree = "<group>"; };
+		2801AC83255562B400C85520 /* NSReportDetailMoreDaysView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSReportDetailMoreDaysView.swift; sourceTree = "<group>"; };
+		2801AC92255567B400C85520 /* LocalPushProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalPushProtocol.swift; sourceTree = "<group>"; };
+		2801AC992555681000C85520 /* DebugStrings.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = DebugStrings.strings; sourceTree = "<group>"; };
 		28880E1624D4297F008E461B /* NSInformationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSInformationView.swift; sourceTree = "<group>"; };
 		28880E1824D4299A008E461B /* NSFaqLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSFaqLabel.swift; sourceTree = "<group>"; };
 		28880E1A24D42B13008E461B /* mt-MT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "mt-MT"; path = "mt-MT.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		28880E1B24D42B26008E461B /* mt-MT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "mt-MT"; path = "mt-MT.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
-		2889B2BB24D42BF200FE1ABF /* star.azurewebsites.net.der */ = {isa = PBXFileReference; lastKnownFileType = file; path = star.azurewebsites.net.der; sourceTree = "<group>"; };
+		288F60DA258BB02D00BCD219 /* star_ws_covidalert_gov_mt.der */ = {isa = PBXFileReference; lastKnownFileType = file; path = star_ws_covidalert_gov_mt.der; sourceTree = "<group>"; };
+		2891548A2574D4B60099EFB1 /* NSLanguageSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSLanguageSelectionViewController.swift; sourceTree = "<group>"; };
+		2899F345255D625D00EA4105 /* StatisticsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatisticsResponse.swift; sourceTree = "<group>"; };
+		2899F346255D625D00EA4105 /* StatisticsLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatisticsLoader.swift; sourceTree = "<group>"; };
 		28A0ACB424F3A123005C35FD /* LanguageHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageHelper.swift; sourceTree = "<group>"; };
-		28A36C6D24EFF67A00724225 /* NSOnboardingLanguageSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSOnboardingLanguageSelectionViewController.swift; sourceTree = "<group>"; };
 		6E1771532440B09A0008D73D /* NSCodeInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSCodeInputViewController.swift; sourceTree = "<group>"; };
 		6E1771552440B5140008D73D /* NSCodeInputControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSCodeInputControl.swift; sourceTree = "<group>"; };
 		6E33085E24502BBD00913B0E /* NSWhatToDoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSWhatToDoButton.swift; sourceTree = "<group>"; };
@@ -403,7 +428,6 @@
 		6E33087224507B6A00913B0E /* NSReportsDetailNoReportsTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSReportsDetailNoReportsTitleView.swift; sourceTree = "<group>"; };
 		6E3308742450885300913B0E /* NSReportsDetailPositiveTestedTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSReportsDetailPositiveTestedTitleView.swift; sourceTree = "<group>"; };
 		6E33087624508CFF00913B0E /* NSTitleViewScrollViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSTitleViewScrollViewController.swift; sourceTree = "<group>"; };
-		6E330878245098E900913B0E /* NSReportsDetailReportTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSReportsDetailReportTitleView.swift; sourceTree = "<group>"; };
 		6E3F65F62449B61A00980A4E /* NSDebugscreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSDebugscreenViewController.swift; sourceTree = "<group>"; };
 		6E3F65F82449CC9F00980A4E /* NSDebugScreenMockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSDebugScreenMockView.swift; sourceTree = "<group>"; };
 		6E3F65FA2449CF0900980A4E /* NSSimpleModuleBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSSimpleModuleBaseView.swift; sourceTree = "<group>"; };
@@ -525,8 +549,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				28A1B2052566709300F59775 /* DP3TSDK in Frameworks */,
 				F870A5B92492C6DE00C34FFA /* SQLite in Frameworks */,
-				F8287D17246ABCAF0022CFD9 /* DP3TSDK in Frameworks */,
 				242D2254245C4BD8005DAEA8 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -535,8 +559,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2801AC252555585900C85520 /* DP3TSDK in Frameworks */,
 				F870A5B72492C6D500C34FFA /* SQLite in Frameworks */,
-				242D2275245C4BE6005DAEA8 /* DP3TSDK in Frameworks */,
 				8E81CCCF241FD813006F2437 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -567,6 +591,7 @@
 		2443947E24463A14003ED582 /* Tracing */ = {
 			isa = PBXGroup;
 			children = (
+				2801AC92255567B400C85520 /* LocalPushProtocol.swift */,
 				24780B572431B5A9003BB26C /* TracingManager.swift */,
 				2485F47B2458625F00C3D8C3 /* DatabaseSyncer.swift */,
 				24780B592431B5A9003BB26C /* TracingLocalPush.swift */,
@@ -697,7 +722,7 @@
 				DC56B8B8242EA7760077B99C /* NSOnboardingStepModel.swift */,
 				F8A6BE2324C9C74A00DE6B44 /* NSExpandableDisclaimerViewHeader.swift */,
 				F8A6BE2624C9C76F00DE6B44 /* NSExpandableDisclaimerViewBody.swift */,
-				28A36C6D24EFF67A00724225 /* NSOnboardingLanguageSelectionViewController.swift */,
+				2891548A2574D4B60099EFB1 /* NSLanguageSelectionViewController.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -726,6 +751,7 @@
 		24780AF9242DF828003BB26C /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				2801AC7D255562A100C85520 /* NSTabBarController.swift */,
 				24780B23242DFE6D003BB26C /* NSNavigationController.swift */,
 			);
 			path = Navigation;
@@ -865,12 +891,31 @@
 			path = Header;
 			sourceTree = "<group>";
 		};
+		2801AC482555628C00C85520 /* Tutorials */ = {
+			isa = PBXGroup;
+			children = (
+				2801AC492555628C00C85520 /* NSTutorialViewController.swift */,
+				2801AC4A2555628C00C85520 /* NSSettingsTutorialViewController.swift */,
+				2801AC4B2555628C00C85520 /* NSTutorialListItemView.swift */,
+			);
+			path = Tutorials;
+			sourceTree = "<group>";
+		};
 		28880E1524D4297F008E461B /* Information */ = {
 			isa = PBXGroup;
 			children = (
 				28880E1624D4297F008E461B /* NSInformationView.swift */,
 			);
 			path = Information;
+			sourceTree = "<group>";
+		};
+		2899F344255D625D00EA4105 /* Statistics */ = {
+			isa = PBXGroup;
+			children = (
+				2899F345255D625D00EA4105 /* StatisticsResponse.swift */,
+				2899F346255D625D00EA4105 /* StatisticsLoader.swift */,
+			);
+			path = Statistics;
 			sourceTree = "<group>";
 		};
 		6E33085D24502BA200913B0E /* WhatToDo */ = {
@@ -895,13 +940,13 @@
 		6E33086B245079E500913B0E /* Reports */ = {
 			isa = PBXGroup;
 			children = (
+				2801AC83255562B400C85520 /* NSReportDetailMoreDaysView.swift */,
 				6E33086C245079FF00913B0E /* NSReportsDetailNoReportsViewController.swift */,
 				6E33087224507B6A00913B0E /* NSReportsDetailNoReportsTitleView.swift */,
 				6E33086E24507A1600913B0E /* NSReportsDetailPositiveTestedViewController.swift */,
 				6E3308742450885300913B0E /* NSReportsDetailPositiveTestedTitleView.swift */,
 				6E33087624508CFF00913B0E /* NSTitleViewScrollViewController.swift */,
 				6E33087024507A2D00913B0E /* NSReportsDetailReportViewController.swift */,
-				6E330878245098E900913B0E /* NSReportsDetailReportTitleView.swift */,
 				6EC47BD32451C3C2000D7686 /* NSReportsDetailReportSingleTitleHeader.swift */,
 			);
 			path = Reports;
@@ -996,7 +1041,6 @@
 			isa = PBXGroup;
 			children = (
 				2443947D2445F8A1003ED582 /* README.md */,
-				2443947C2445F8A1003ED582 /* LICENCE.md */,
 				8E81CC97241FCC7D006F2437 /* DP3TApp */,
 				8E81CCAE241FCC7F006F2437 /* DP3TAppTests */,
 				8E81CC96241FCC7D006F2437 /* Products */,
@@ -1061,6 +1105,7 @@
 		DC286A24242CE0AD001D5344 /* Logic */ = {
 			isa = PBXGroup;
 			children = (
+				2899F344255D625D00EA4105 /* Statistics */,
 				8E81CC98241FCC7D006F2437 /* AppDelegate.swift */,
 				2443947E24463A14003ED582 /* Tracing */,
 				2485F4742455DBB000C3D8C3 /* Config */,
@@ -1074,6 +1119,7 @@
 		DC286A27242CE1D2001D5344 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				2801AC482555628C00C85520 /* Tutorials */,
 				24780AF9242DF828003BB26C /* Navigation */,
 				2443948024463B01003ED582 /* Homescreen */,
 				6E33086B245079E500913B0E /* Reports */,
@@ -1137,6 +1183,7 @@
 		DC9A81A0242CE5E000AD1548 /* Translations */ = {
 			isa = PBXGroup;
 			children = (
+				2801AC992555681000C85520 /* DebugStrings.strings */,
 				DC9A81A1242CE5E000AD1548 /* Localizable.strings */,
 				DC9A81A3242CE5E000AD1548 /* InfoPlist.strings */,
 			);
@@ -1157,7 +1204,7 @@
 		F80E735C245ADEBC00C934B8 /* Certificates */ = {
 			isa = PBXGroup;
 			children = (
-				2889B2BB24D42BF200FE1ABF /* star.azurewebsites.net.der */,
+				288F60DA258BB02D00BCD219 /* star_ws_covidalert_gov_mt.der */,
 			);
 			path = Certificates;
 			sourceTree = "<group>";
@@ -1183,8 +1230,8 @@
 			name = DP3TAppCalibration;
 			packageProductDependencies = (
 				242D21D3245C4BD8005DAEA8 /* SnapKit */,
-				F8287D16246ABCAF0022CFD9 /* DP3TSDK */,
 				F870A5B82492C6DE00C34FFA /* SQLite */,
+				28A1B2042566709300F59775 /* DP3TSDK */,
 			);
 			productName = IVC;
 			productReference = 242D2272245C4BD8005DAEA8 /* DP3TAppCalibration.app */;
@@ -1208,8 +1255,8 @@
 			name = DP3TApp;
 			packageProductDependencies = (
 				8E81CCCE241FD813006F2437 /* SnapKit */,
-				242D2274245C4BE6005DAEA8 /* DP3TSDK */,
 				F870A5B62492C6D500C34FFA /* SQLite */,
+				2801AC242555585900C85520 /* DP3TSDK */,
 			);
 			productName = IVC;
 			productReference = 8E81CC95241FCC7D006F2437 /* COVID Alert Malta.app */;
@@ -1241,7 +1288,7 @@
 			attributes = {
 				CLASSPREFIX = "";
 				LastSwiftUpdateCheck = 1130;
-				LastUpgradeCheck = 1130;
+				LastUpgradeCheck = 1210;
 				ORGANIZATIONNAME = Ubique;
 				TargetAttributes = {
 					8E81CC94241FCC7D006F2437 = {
@@ -1268,8 +1315,8 @@
 			mainGroup = 8E81CC8C241FCC7D006F2437;
 			packageReferences = (
 				8E81CCCD241FD813006F2437 /* XCRemoteSwiftPackageReference "SnapKit" */,
-				DF86B5F6245233C70019C229 /* XCRemoteSwiftPackageReference "dp3t-sdk-ios" */,
 				F870A5B52492C6D500C34FFA /* XCRemoteSwiftPackageReference "SQLite" */,
+				2801AC232555585900C85520 /* XCRemoteSwiftPackageReference "dp3t-sdk-ios" */,
 			);
 			productRefGroup = 8E81CC96241FCC7D006F2437 /* Products */;
 			projectDirPath = "";
@@ -1298,6 +1345,7 @@
 				242D2265245C4BD8005DAEA8 /* Inter-ExtraBold.ttf in Resources */,
 				242D2266245C4BD8005DAEA8 /* Inter-Black.ttf in Resources */,
 				242D2267245C4BD8005DAEA8 /* Localizable.strings in Resources */,
+				288F60DC258BB02D00BCD219 /* star_ws_covidalert_gov_mt.der in Resources */,
 				242D2268245C4BD8005DAEA8 /* Inter-Regular.ttf in Resources */,
 				242D2269245C4BD8005DAEA8 /* Impressum in Resources */,
 				242D226A245C4BD8005DAEA8 /* Inter-Medium.ttf in Resources */,
@@ -1311,14 +1359,15 @@
 				DCB4430E242DD34700F19AA5 /* Inter-SemiBold.ttf in Resources */,
 				DCB44308242DD34700F19AA5 /* Inter-Bold.ttf in Resources */,
 				DCB4430B242DD34700F19AA5 /* Inter-Light.ttf in Resources */,
-				2889B2BC24D42BF200FE1ABF /* star.azurewebsites.net.der in Resources */,
 				8E81CCA2241FCC7F006F2437 /* Assets.xcassets in Resources */,
+				2801AC9A2555681000C85520 /* DebugStrings.strings in Resources */,
 				DC9A81AC242CE5E000AD1548 /* InfoPlist.strings in Resources */,
 				DCB4430A242DD34700F19AA5 /* Inter-ExtraLight.ttf in Resources */,
 				24780B34242FDF4C003BB26C /* Launch Screen.storyboard in Resources */,
 				DCB44309242DD34700F19AA5 /* Inter-ExtraBold.ttf in Resources */,
 				DCB44307242DD34700F19AA5 /* Inter-Black.ttf in Resources */,
 				DC9A81AB242CE5E000AD1548 /* Localizable.strings in Resources */,
+				288F60DB258BB02D00BCD219 /* star_ws_covidalert_gov_mt.der in Resources */,
 				DCB4430D242DD34700F19AA5 /* Inter-Regular.ttf in Resources */,
 				6EC7E821245B27E10015A55B /* Impressum in Resources */,
 				DCB4430C242DD34700F19AA5 /* Inter-Medium.ttf in Resources */,
@@ -1468,10 +1517,12 @@
 			files = (
 				242D21DA245C4BD8005DAEA8 /* NSOnboardingInfoView.swift in Sources */,
 				242D21DB245C4BD8005DAEA8 /* NSAboutViewController.swift in Sources */,
+				2891548C2574D4B60099EFB1 /* NSLanguageSelectionViewController.swift in Sources */,
 				242D21DC245C4BD8005DAEA8 /* DebugLog.swift in Sources */,
 				242D21DD245C4BD8005DAEA8 /* TracingManager.swift in Sources */,
 				242D21DE245C4BD8005DAEA8 /* NSInformStepViewController.swift in Sources */,
 				242D21DF245C4BD8005DAEA8 /* UBButton.swift in Sources */,
+				284FAFE32588F47500288190 /* LocalPushProtocol.swift in Sources */,
 				242D21E0245C4BD8005DAEA8 /* UIStackView+NS.swift in Sources */,
 				8EFBAB2C249145070004138B /* NSSynchronizationPersistence.swift in Sources */,
 				242D21E1245C4BD8005DAEA8 /* NSTitleViewScrollViewController.swift in Sources */,
@@ -1488,6 +1539,7 @@
 				242D21EB245C4BD8005DAEA8 /* UIScrollView+UBKeyboardObserver.m in Sources */,
 				242D21EC245C4BD8005DAEA8 /* NSWhatToDoInformView.swift in Sources */,
 				242D21ED245C4BD8005DAEA8 /* NSStackScrollView.swift in Sources */,
+				284FAFED2588F48C00288190 /* NSSettingsTutorialViewController.swift in Sources */,
 				242D21EE245C4BD8005DAEA8 /* NSClickthroughStackView.swift in Sources */,
 				242D21EF245C4BD8005DAEA8 /* NSSimpleTextButton.swift in Sources */,
 				242D21F0245C4BD8005DAEA8 /* NSViewController.swift in Sources */,
@@ -1511,7 +1563,6 @@
 				242D2201245C4BD8005DAEA8 /* NSModuleBaseView.swift in Sources */,
 				F84089F12493A2EC00A66CD1 /* Keychain.swift in Sources */,
 				242D2202245C4BD8005DAEA8 /* NSOnboardingPermissionsViewController.swift in Sources */,
-				242D2203245C4BD8005DAEA8 /* NSReportsDetailReportTitleView.swift in Sources */,
 				242D2204245C4BD8005DAEA8 /* NSEncountersDetailViewController.swift in Sources */,
 				F83E31D9249A0F2000C08C31 /* Bundle+BuildInfo.swift in Sources */,
 				242D2205245C4BD8005DAEA8 /* NSOnboardingStepModel.swift in Sources */,
@@ -1531,11 +1582,14 @@
 				242D2210245C4BD8005DAEA8 /* NSHeaderActiveView.swift in Sources */,
 				F8A6BE2524C9C74A00DE6B44 /* NSExpandableDisclaimerViewHeader.swift in Sources */,
 				242D2211245C4BD8005DAEA8 /* URLSession+pinning.swift in Sources */,
+				284FAFFC2588F54D00288190 /* NSTutorialViewController.swift in Sources */,
 				242D2212245C4BD8005DAEA8 /* Environment+Endpoints.swift in Sources */,
 				F88D99DC2497957C0081790E /* UIImage+localizedImage.swift in Sources */,
+				2893B1B62588D312004205F2 /* LanguageHelper.swift in Sources */,
 				242D2213245C4BD8005DAEA8 /* NSHeaderImageBackgroundView.swift in Sources */,
 				F84089F22493A2EF00A66CD1 /* KeychainPersisted.swift in Sources */,
 				242D2214245C4BD8005DAEA8 /* NSDebugScreenSDKStatusView.swift in Sources */,
+				284FB0012588F59D00288190 /* NSTutorialListItemView.swift in Sources */,
 				242D2215245C4BD8005DAEA8 /* NSExplanationView.swift in Sources */,
 				242D2216245C4BD8005DAEA8 /* NSCheckboxControl.swift in Sources */,
 				8EF2A6E62490E26F002263C3 /* NSLastSyncronizationControl.swift in Sources */,
@@ -1547,6 +1601,7 @@
 				8EF2A6E92490F1B6002263C3 /* NSSynchronizationStatusDetailController.swift in Sources */,
 				242D221D245C4BD8005DAEA8 /* NSReportsDetailReportSingleTitleHeader.swift in Sources */,
 				242D221E245C4BD8005DAEA8 /* NSOnboardingFinishViewController.swift in Sources */,
+				284FAFF72588F49600288190 /* NSReportDetailMoreDaysView.swift in Sources */,
 				242D221F245C4BD8005DAEA8 /* NSCheckBoxView.swift in Sources */,
 				242D2220245C4BD8005DAEA8 /* NSInformGetWellViewController.swift in Sources */,
 				F8A6BE2824C9C76F00DE6B44 /* NSExpandableDisclaimerViewBody.swift in Sources */,
@@ -1584,12 +1639,14 @@
 				8EF2A6F0249124F8002263C3 /* NSSynchronizationTableViewSectionView.swift in Sources */,
 				242D223F245C4BD8005DAEA8 /* NSReportsModuleView.swift in Sources */,
 				242D2240245C4BD8005DAEA8 /* ConfigManager.swift in Sources */,
+				284FAFF22588F49200288190 /* NSInformationView.swift in Sources */,
 				242D2241245C4BD8005DAEA8 /* NSInformThankYouViewController.swift in Sources */,
 				242D2242245C4BD8005DAEA8 /* NSWhatToDoButton.swift in Sources */,
 				242D2243245C4BD8005DAEA8 /* Errors+Localized.swift in Sources */,
 				242D2244245C4BD8005DAEA8 /* NSOnboardingViewController.swift in Sources */,
 				242D2245245C4BD8005DAEA8 /* DateFormatter.swift in Sources */,
 				242D2247245C4BD8005DAEA8 /* NSInformViewController.swift in Sources */,
+				284FAFE82588F47E00288190 /* NSTabBarController.swift in Sources */,
 				242D2248245C4BD8005DAEA8 /* NSReportsDetailPositiveTestedTitleView.swift in Sources */,
 				242D2249245C4BD8005DAEA8 /* NSReportsDetailReportViewController.swift in Sources */,
 				242D224A245C4BD8005DAEA8 /* NSReportsDetailNoReportsViewController.swift in Sources */,
@@ -1630,11 +1687,14 @@
 				6E3308662450442D00913B0E /* NSWhatToDoInformView.swift in Sources */,
 				A6BBA110246BFCBC00E42EE7 /* UIDevice+ScreenType.swift in Sources */,
 				6E7C0D37242E02600017C4F9 /* NSStackScrollView.swift in Sources */,
+				2891548B2574D4B60099EFB1 /* NSLanguageSelectionViewController.swift in Sources */,
 				DCA3FFB824504B190003F5AD /* NSClickthroughStackView.swift in Sources */,
 				6EA49E2924443E69009EFCAB /* NSSimpleTextButton.swift in Sources */,
 				8E81CC9D241FCC7D006F2437 /* NSViewController.swift in Sources */,
 				DC702B0C243F6FAE0066C773 /* UBUserDefault.swift in Sources */,
 				242D2276245D62D8005DAEA8 /* UserStorage.swift in Sources */,
+				2801AC4D2555628C00C85520 /* NSSettingsTutorialViewController.swift in Sources */,
+				2899F348255D625D00EA4105 /* StatisticsLoader.swift in Sources */,
 				AAF7366B2430838A0051E34A /* NSAnimatedGraphLayer.swift in Sources */,
 				6E33087324507B6A00913B0E /* NSReportsDetailNoReportsTitleView.swift in Sources */,
 				28880E1724D4297F008E461B /* NSInformationView.swift in Sources */,
@@ -1653,7 +1713,6 @@
 				AAF73663242F2DC90051E34A /* NSModuleHeaderView.swift in Sources */,
 				24780B1A242DFDAE003BB26C /* NSModuleBaseView.swift in Sources */,
 				DC175E422430C4F900BD2AD6 /* NSOnboardingPermissionsViewController.swift in Sources */,
-				6E330879245098E900913B0E /* NSReportsDetailReportTitleView.swift in Sources */,
 				6EFB097524459B870097BD3D /* NSEncountersDetailViewController.swift in Sources */,
 				DC56B8B9242EA7760077B99C /* NSOnboardingStepModel.swift in Sources */,
 				6E33086424503D0900913B0E /* NSWhatToDoSymptomViewController.swift in Sources */,
@@ -1675,6 +1734,8 @@
 				DCA3FFBA245092D50003F5AD /* NSHeaderImageBackgroundView.swift in Sources */,
 				6E3F65FD2449F31D00980A4E /* NSDebugScreenSDKStatusView.swift in Sources */,
 				F8A6BE2A24CAB95000DE6B44 /* NSInfoBoxVisibilityManager.swift in Sources */,
+				2899F347255D625D00EA4105 /* StatisticsResponse.swift in Sources */,
+				2801AC84255562B400C85520 /* NSReportDetailMoreDaysView.swift in Sources */,
 				F8A6BE2724C9C76F00DE6B44 /* NSExpandableDisclaimerViewBody.swift in Sources */,
 				6E33086A24506E0600913B0E /* NSExplanationView.swift in Sources */,
 				8EF2A6E52490E26F002263C3 /* NSLastSyncronizationControl.swift in Sources */,
@@ -1688,7 +1749,6 @@
 				8EF2A6E82490F1B6002263C3 /* NSSynchronizationStatusDetailController.swift in Sources */,
 				F865C8A324990A6800B730BD /* NSOnboardingDisclaimerViewController.swift in Sources */,
 				2485F47E2458AC9000C3D8C3 /* FakePublishManager.swift in Sources */,
-				28A36C6E24EFF67A00724225 /* NSOnboardingLanguageSelectionViewController.swift in Sources */,
 				DF3BA22324520EE3009086E7 /* NSDebugDatabaseUploadHelper.swift in Sources */,
 				6EC47BD42451C3C2000D7686 /* NSReportsDetailReportSingleTitleHeader.swift in Sources */,
 				DCA3FFC02451975F0003F5AD /* NSOnboardingFinishViewController.swift in Sources */,
@@ -1705,13 +1765,17 @@
 				6EFB097E244603560097BD3D /* NSReportsDetailViewController.swift in Sources */,
 				6E6E518E242FB9A8006E532E /* NSAppTitleView.swift in Sources */,
 				AACFA6A3243088A4005595E6 /* NSAnimatedGraphView.swift in Sources */,
+				2801AC4E2555628C00C85520 /* NSTutorialListItemView.swift in Sources */,
 				6EFB09772445B1940097BD3D /* NSBluetoothSettingsControl.swift in Sources */,
 				DC702AFB243F6D870066C773 /* UBLabelType.swift in Sources */,
 				28A0ACB524F3A123005C35FD /* LanguageHelper.swift in Sources */,
 				AAF73666242F2EA00051E34A /* NSEncountersModuleView.swift in Sources */,
+				2801AC94255567B400C85520 /* LocalPushProtocol.swift in Sources */,
 				F8A6BE2424C9C74A00DE6B44 /* NSExpandableDisclaimerViewHeader.swift in Sources */,
 				F80E7376245AF74C00C934B8 /* UBPinnedCertificatesTrustEvaluator.swift in Sources */,
+				2801AC4C2555628C00C85520 /* NSTutorialViewController.swift in Sources */,
 				DC702B0D243F6FAE0066C773 /* UBCodable.swift in Sources */,
+				2801AC7E255562A100C85520 /* NSTabBarController.swift in Sources */,
 				8E81CC99241FCC7D006F2437 /* AppDelegate.swift in Sources */,
 				6E6E5190242FCE13006E532E /* NSFancyNumberView.swift in Sources */,
 				2462BA1924520A480046906D /* Endpoint+Request.swift in Sources */,
@@ -1800,15 +1864,15 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = "${BUILD_NUMBER}";
-				DEVELOPMENT_TEAM = XPL89PTG92;
+				DEVELOPMENT_TEAM = J6P9678B9D;
 				INFOPLIST_FILE = "DP3TApp/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "${PRIMARY_BUNDLE_IDENTIFIER}";
+				PRODUCT_BUNDLE_IDENTIFIER = mt.gov.dp3t;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "DP3T Debug";
+				PROVISIONING_PROFILE_SPECIFIER = "Contact Tracing App Dev";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG TEST_ENTITLEMENT ENABLE_TESTING ENABLE_VERBOSE ENABLE_LOGGING ENABLE_SYNC_LOGGING ENABLE_STATUS_OVERRIDE ENABLE_OS_LOG";
 				SWIFT_OBJC_BRIDGING_HEADER = "DP3TApp/Supporting Files/DP3TApp-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1826,15 +1890,15 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = "${BUILD_NUMBER}";
-				DEVELOPMENT_TEAM = XPL89PTG92;
+				DEVELOPMENT_TEAM = J6P9678B9D;
 				INFOPLIST_FILE = "DP3TApp/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "${PRIMARY_BUNDLE_IDENTIFIER}";
+				PRODUCT_BUNDLE_IDENTIFIER = mt.gov.dp3t;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "DP3T Debug";
+				PROVISIONING_PROFILE_SPECIFIER = "Contact Tracing App Dev";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "RELEASE_ABNAHME ENABLE_TESTING ENABLE_VERBOSE ENABLE_LOGGING ENABLE_OS_LOG";
 				SWIFT_OBJC_BRIDGING_HEADER = "DP3TApp/Supporting Files/DP3TApp-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -1851,15 +1915,15 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = "${BUILD_NUMBER}";
-				DEVELOPMENT_TEAM = XPL89PTG92;
+				DEVELOPMENT_TEAM = J6P9678B9D;
 				INFOPLIST_FILE = "DP3TApp/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "${PRIMARY_BUNDLE_IDENTIFIER}";
+				PRODUCT_BUNDLE_IDENTIFIER = mt.gov.dp3t;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "DP3T Debug";
+				PROVISIONING_PROFILE_SPECIFIER = "Contact Tracing App Dev";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "RELEASE_PROD ENABLE_TESTING ENABLE_LOGGING ENABLE_VERBOSE ENABLE_OS_LOG";
 				SWIFT_OBJC_BRIDGING_HEADER = "DP3TApp/Supporting Files/DP3TApp-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -1895,6 +1959,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1915,7 +1980,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				OTHER_SWIFT_FLAGS = "-D RELEASE_DEV";
@@ -1936,14 +2001,16 @@
 				CODE_SIGN_ENTITLEMENTS = "DP3TApp/Supporting Files/Entitlements.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 29;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 34;
 				DEVELOPMENT_TEAM = J6P9678B9D;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = "DP3TApp/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.9;
+				MARKETING_VERSION = 1.3.4;
 				PRODUCT_BUNDLE_IDENTIFIER = mt.gov.dp3t;
 				PRODUCT_NAME = "COVID Alert Malta";
 				PROVISIONING_PROFILE_SPECIFIER = "Contact Tracing App Dev";
@@ -1960,16 +2027,18 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "DP3TApp/Supporting Files/Entitlements.entitlements";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = "${BUILD_NUMBER}";
-				DEVELOPMENT_TEAM = JH7CQD4MLU;
+				DEVELOPMENT_TEAM = J6P9678B9D;
 				INFOPLIST_FILE = "DP3TApp/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "${PRIMARY_BUNDLE_IDENTIFIER}";
+				PRODUCT_BUNDLE_IDENTIFIER = mt.gov.dp3t;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "Contact Tracing App";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "RELEASE_ABNAHME ENABLE_TESTING ENABLE_LOGGING ENABLE_VERBOSE ENABLE_SYNC_LOGGING ENABLE_STATUS_OVERRIDE ENABLE_OS_LOG";
 				SWIFT_OBJC_BRIDGING_HEADER = "DP3TApp/Supporting Files/DP3TApp-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -2036,6 +2105,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -2056,7 +2126,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				OTHER_SWIFT_FLAGS = "-D RELEASE_DEV";
@@ -2077,14 +2147,16 @@
 				CODE_SIGN_ENTITLEMENTS = "DP3TApp/Supporting Files/Entitlements.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 29;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 34;
 				DEVELOPMENT_TEAM = J6P9678B9D;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = "DP3TApp/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.9;
+				MARKETING_VERSION = 1.3.4;
 				PRODUCT_BUNDLE_IDENTIFIER = mt.gov.dp3t;
 				PRODUCT_NAME = "COVID Alert Malta";
 				PROVISIONING_PROFILE_SPECIFIER = "Contact Tracing App Dev";
@@ -2101,16 +2173,18 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "DP3TApp/Supporting Files/Entitlements_Calibration.entitlements";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = "${BUILD_NUMBER}";
-				DEVELOPMENT_TEAM = JH7CQD4MLU;
+				DEVELOPMENT_TEAM = J6P9678B9D;
 				INFOPLIST_FILE = "DP3TApp/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "${PRIMARY_BUNDLE_IDENTIFIER}";
+				PRODUCT_BUNDLE_IDENTIFIER = mt.gov.dp3t;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "Contact Tracing App Dev";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "RELEASE_ABNAHME TEST_ENTITLEMENT ENABLE_TESTING ENABLE_LOGGING ENABLE_VERBOSE ENABLE_SYNC_LOGGING ENABLE_OS_LOG";
 				SWIFT_OBJC_BRIDGING_HEADER = "DP3TApp/Supporting Files/DP3TApp-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -2177,6 +2251,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -2197,7 +2272,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				OTHER_SWIFT_FLAGS = "-D RELEASE_ABNAHME";
@@ -2218,14 +2293,16 @@
 				CODE_SIGN_ENTITLEMENTS = "DP3TApp/Supporting Files/Entitlements.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 29;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 34;
 				DEVELOPMENT_TEAM = J6P9678B9D;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = "DP3TApp/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.9;
+				MARKETING_VERSION = 1.3.4;
 				PRODUCT_BUNDLE_IDENTIFIER = mt.gov.dp3t;
 				PRODUCT_NAME = "COVID Alert Malta";
 				PROVISIONING_PROFILE_SPECIFIER = "Contact Tracing App Dev";
@@ -2295,6 +2372,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -2320,7 +2398,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -2340,14 +2418,16 @@
 				CODE_SIGN_ENTITLEMENTS = "DP3TApp/Supporting Files/Entitlements_Calibration.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 29;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 34;
 				DEVELOPMENT_TEAM = J6P9678B9D;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = "DP3TApp/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.9;
+				MARKETING_VERSION = 1.3.4;
 				PRODUCT_BUNDLE_IDENTIFIER = mt.gov.dp3t;
 				PRODUCT_NAME = "COVID Alert Malta";
 				PROVISIONING_PROFILE_SPECIFIER = "Contact Tracing App Dev";
@@ -2408,6 +2488,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -2428,7 +2509,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				OTHER_SWIFT_FLAGS = "-D RELEASE_PROD";
@@ -2449,14 +2530,16 @@
 				CODE_SIGN_ENTITLEMENTS = "DP3TApp/Supporting Files/Entitlements.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 29;
+				COPY_PHASE_STRIP = YES;
+				CURRENT_PROJECT_VERSION = 34;
 				DEVELOPMENT_TEAM = J6P9678B9D;
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				INFOPLIST_FILE = "DP3TApp/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.9;
+				MARKETING_VERSION = 1.3.4;
 				PRODUCT_BUNDLE_IDENTIFIER = mt.gov.dp3t;
 				PRODUCT_NAME = "COVID Alert Malta";
 				PROVISIONING_PROFILE_SPECIFIER = "Contact Tracing App";
@@ -2535,6 +2618,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -2555,7 +2639,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				OTHER_SWIFT_FLAGS = "-D RELEASE_TEST";
@@ -2576,14 +2660,16 @@
 				CODE_SIGN_ENTITLEMENTS = "DP3TApp/Supporting Files/Entitlements.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 29;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 34;
 				DEVELOPMENT_TEAM = J6P9678B9D;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = "DP3TApp/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.9;
+				MARKETING_VERSION = 1.3.4;
 				PRODUCT_BUNDLE_IDENTIFIER = mt.gov.dp3t;
 				PRODUCT_NAME = "COVID Alert Malta";
 				PROVISIONING_PROFILE_SPECIFIER = "Contact Tracing App Dev";
@@ -2600,16 +2686,18 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "DP3TApp/Supporting Files/Entitlements_Calibration.entitlements";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = "${BUILD_NUMBER}";
-				DEVELOPMENT_TEAM = JH7CQD4MLU;
+				DEVELOPMENT_TEAM = J6P9678B9D;
 				INFOPLIST_FILE = "DP3TApp/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "${PRIMARY_BUNDLE_IDENTIFIER}";
+				PRODUCT_BUNDLE_IDENTIFIER = mt.gov.dp3t;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "Contact Tracing App Dev";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "RELEASE_ABNAHME ENABLE_TESTING ENABLE_LOGGING ENABLE_VERBOSE ENABLE_SYNC_LOGGING ENABLE_OS_LOG";
 				SWIFT_OBJC_BRIDGING_HEADER = "DP3TApp/Supporting Files/DP3TApp-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -2727,20 +2815,20 @@
 				minimumVersion = 5.0.1;
 			};
 		};
+		2801AC232555585900C85520 /* XCRemoteSwiftPackageReference "dp3t-sdk-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/DP-3T/dp3t-sdk-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		8E81CCCD241FD813006F2437 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 5.0.1;
-			};
-		};
-		DF86B5F6245233C70019C229 /* XCRemoteSwiftPackageReference "dp3t-sdk-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/DP-3T/dp3t-sdk-ios.git";
-			requirement = {
-				branch = develop;
-				kind = branch;
 			};
 		};
 		F870A5B52492C6D500C34FFA /* XCRemoteSwiftPackageReference "SQLite" */ = {
@@ -2759,20 +2847,20 @@
 			package = 242D21D4245C4BD8005DAEA8 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
 		};
-		242D2274245C4BE6005DAEA8 /* DP3TSDK */ = {
+		2801AC242555585900C85520 /* DP3TSDK */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DF86B5F6245233C70019C229 /* XCRemoteSwiftPackageReference "dp3t-sdk-ios" */;
+			package = 2801AC232555585900C85520 /* XCRemoteSwiftPackageReference "dp3t-sdk-ios" */;
+			productName = DP3TSDK;
+		};
+		28A1B2042566709300F59775 /* DP3TSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2801AC232555585900C85520 /* XCRemoteSwiftPackageReference "dp3t-sdk-ios" */;
 			productName = DP3TSDK;
 		};
 		8E81CCCE241FD813006F2437 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 8E81CCCD241FD813006F2437 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
-		};
-		F8287D16246ABCAF0022CFD9 /* DP3TSDK */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DF86B5F6245233C70019C229 /* XCRemoteSwiftPackageReference "dp3t-sdk-ios" */;
-			productName = DP3TSDK;
 		};
 		F870A5B62492C6D500C34FFA /* SQLite */ = {
 			isa = XCSwiftPackageProductDependency;

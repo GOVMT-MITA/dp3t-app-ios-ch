@@ -44,7 +44,7 @@ class NSEncountersModuleView: NSModuleBaseView {
         let view = UIView()
         let imageView = NSImageView(image: UIImage(named: "ic-info-blue"), dynamicColor: .ns_blue)
         let titleLabel = NSLabel(.textBold, textColor: .ns_text, numberOfLines: 0, textAlignment: .natural)
-        titleLabel.text = "tracing_active_tracking_always_info".ub_localized
+        titleLabel.text = "gaen_active_tracking_always_info".ub_localized
         view.addSubview(imageView)
         view.addSubview(titleLabel)
         imageView.snp.makeConstraints { make in

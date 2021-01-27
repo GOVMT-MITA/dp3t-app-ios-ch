@@ -14,9 +14,9 @@ class NSSplashViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .ns_background
+        view.backgroundColor = .setColorsForTheme(lightColor: .ns_background, darkColor: .ns_darkModeBackground2)
 
-        let imgView = UIImageView(image: UIImage(named: "splash"))
+        let imgView = traitCollection.userInterfaceStyle == .light ? UIImageView(image: UIImage(named: "splash")) : UIImageView(image: UIImage(named: "splash_dark"))
 
         view.addSubview(imgView)
 

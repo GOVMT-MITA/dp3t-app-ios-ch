@@ -83,14 +83,11 @@ class CertificateEvaluator: NSObject, URLSessionDelegate {
 
         let bundle = Bundle.main
 
-        if let c = bundle.getCertificate(with: "star.azurewebsites.net") {
+        if let c = bundle.getCertificate(with: "dummy-certificate") {
             let evaluator = UBPinnedCertificatesTrustEvaluator(certificates: [c], validateHost: true)
             evaluators["dummy-auth-url.com"] = evaluator
             evaluators["dummy-config-url.com"] = evaluator
             evaluators["dummy-ws-url.com"] = evaluator
-            evaluators["staging-dummy-auth-url.com"] = evaluator
-            evaluators["staging-config-auth-url.com"] = evaluator
-            evaluators["staging-ws-auth-url.com"] = evaluator
         }
 
         return UBServerTrustManager(evaluators: evaluators)

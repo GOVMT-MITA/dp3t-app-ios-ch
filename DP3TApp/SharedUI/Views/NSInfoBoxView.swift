@@ -20,7 +20,7 @@ class NSInfoBoxView: UIView {
     private let illustrationImageView = UIImageView()
 
     private let additionalLabel = NSLabel(.textBold)
-    private let externalLinkButton = NSExternalLinkButton()
+    private let externalLinkButton: NSExternalLinkButton
 
     private var externalLinkBottomConstraint: Constraint?
     private var additionalLabelBottomConstraint: Constraint?
@@ -51,7 +51,7 @@ class NSInfoBoxView: UIView {
             illustrationImageView.isHidden = true
         }
 
-        setupAccessibility(title: title ?? "", subTitle: subText ?? "")
+        setupAccessibility(title: title ?? "", subTitle: subText ?? "", additionalText: additionalText, additionalURL: additionalURL?.absoluteString)
     }
 
     // MARK: - Init
@@ -69,11 +69,13 @@ class NSInfoBoxView: UIView {
         var additionalURL: String? = nil
         var dynamicIconTintColor: UIColor? = nil
         var titleLabelType: NSLabelType = .uppercaseBold
+        var externalLinkStyle: NSExternalLinkButton.Style = .normal(color: .white)
     }
 
     init(viewModel: ViewModel) {
         leadingIconImageView = NSImageView(image: viewModel.image, dynamicColor: viewModel.dynamicIconTintColor)
         titleLabel = NSLabel(viewModel.titleLabelType)
+        externalLinkButton = NSExternalLinkButton(style: viewModel.externalLinkStyle)
 
         super.init(frame: .zero)
 
@@ -85,7 +87,7 @@ class NSInfoBoxView: UIView {
         illustrationImageView.image = viewModel.illustration
 
         setup(viewModel: viewModel)
-        setupAccessibility(title: viewModel.title, subTitle: viewModel.subText)
+        setupAccessibility(title: viewModel.title, subTitle: viewModel.subText, additionalText: viewModel.additionalText, additionalURL: viewModel.additionalURL)
     }
 
     required init?(coder _: NSCoder) {
@@ -173,7 +175,7 @@ class NSInfoBoxView: UIView {
                     make.top.equalTo(self.subtextLabel.snp.bottom).offset(NSPadding.medium + NSPadding.small)
                     make.leading.equalTo(self.titleLabel)
                     make.trailing.lessThanOrEqualTo(self.titleLabel)
-                    self.externalLinkBottomConstraint = make.bottom.equalToSuperview().inset(NSPadding.large).constraint
+                    self.externalLinkBottomConstraint = make.bottom.equalToSuperview().inset(NSPadding.medium).constraint
                 }
             } else {
                 addSubview(additionalLabel)
@@ -204,8 +206,15 @@ class NSInfoBoxView: UIView {
 // MARK: - Accessibility
 
 extension NSInfoBoxView {
-    private func setupAccessibility(title: String, subTitle: String) {
+    private func setupAccessibility(title: String, subTitle: String, additionalText: String?, additionalURL: String?) {
+        if let additionalURL = additionalURL {
+            isAccessibilityElement = false
+
+            externalLinkButton.accessibilityHint = additionalURL.contains("bag.admin.ch") ? "accessibility_faq_button_hint".ub_localized : "accessibility_faq_button_hint_non_bag".ub_localized
+            return
+        }
+
         isAccessibilityElement = true
-        accessibilityLabel = "\(title), \(subTitle)"
+        accessibilityLabel = "\(title), \(subTitle), \(additionalText ?? "")"
     }
 }

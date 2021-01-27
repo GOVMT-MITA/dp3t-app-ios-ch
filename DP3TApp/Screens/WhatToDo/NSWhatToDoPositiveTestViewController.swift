@@ -21,9 +21,12 @@ class NSWhatToDoPositiveTestViewController: NSViewController {
     private var subtitleLabel: NSLabel!
     private var titleLabel: NSLabel!
 
+    private let configTexts: ConfigResponseBody.WhatToDoPositiveTestTexts?
+
     // MARK: - Init
 
     override init() {
+        configTexts = ConfigManager.currentConfig?.whatToDoPositiveTestTexts?.value
         super.init()
         title = "inform_detail_navigation_title".ub_localized
     }
@@ -33,7 +36,7 @@ class NSWhatToDoPositiveTestViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = UIColor.ns_backgroundSecondary
+        view.backgroundColor = .setColorsForTheme(lightColor: .ns_backgroundSecondary, darkColor: .ns_background)
 
         setupStackScrollView()
         setupLayout()
@@ -87,17 +90,28 @@ class NSWhatToDoPositiveTestViewController: NSViewController {
 
         stackScrollView.addSpacerView(NSPadding.medium)
 
-        stackScrollView.addArrangedView(NSOnboardingInfoView(icon: UIImage(named: "ic-verified-user")!, text: "inform_detail_faq1_text".ub_localized, title: "inform_detail_faq1_title".ub_localized, link:"", leftRightInset: 0))
+        stackScrollView.addArrangedView(NSOnboardingInfoView(icon: UIImage(named: "ic-verified-user")!, text: "inform_detail_faq1_text".ub_localized, title: "inform_detail_faq1_title".ub_localized, link: "", leftRightInset: 0, dynamicIconTintColor: .ns_purple))
 
-        stackScrollView.addArrangedView(NSOnboardingInfoView(icon: UIImage(named: "ic-key-purple")!, text: "inform_detail_faq2_text".ub_localized, title: "inform_detail_faq2_title".ub_localized, link:"", leftRightInset: 0, dynamicIconTintColor: .ns_purple))
+        let callButton = NSExternalLinkButton(style: .normal(color: .ns_purple))
+        callButton.title = "infoline_coronavirus_number".ub_localized
+        callButton.touchUpCallback = { [weak self] in
+            self?.callButtonTouched()
+        }
+        callButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: NSPadding.large + NSPadding.medium, bottom: 0, right: 0)
+        stackScrollView.addArrangedView(callButton)
 
-        stackScrollView.addArrangedView(NSOnboardingInfoView(icon: UIImage(named: "ic-user")!, text: "inform_detail_faq3_text".ub_localized, title: "inform_detail_faq3_title".ub_localized, link:"", leftRightInset: 0, dynamicIconTintColor: .ns_purple))
+        stackScrollView.addArrangedView(NSOnboardingInfoView(icon: UIImage(named: "ic-key-purple")!, text: "inform_detail_faq2_text".ub_localized, title: "inform_detail_faq2_title".ub_localized, link: "", leftRightInset: 0, dynamicIconTintColor: .ns_purple))
 
         stackScrollView.addSpacerView(NSPadding.medium)
 
         stackScrollView.addArrangedView(NSButton.faqButton(color: .ns_purple))
 
         stackScrollView.addSpacerView(NSPadding.medium)
+    }
+
+    private func callButtonTouched() {
+        let phoneNumber = "infoline_coronavirus_number".ub_localized
+        PhoneCallHelper.call(phoneNumber)
     }
 
     private func setupAccessibility() {
@@ -107,7 +121,6 @@ class NSWhatToDoPositiveTestViewController: NSViewController {
     }
 
     // MARK: - Present
-
     private func presentInformViewController() {
         NSInformViewController.present(from: self)
     }
