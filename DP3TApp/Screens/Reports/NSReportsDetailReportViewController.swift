@@ -99,13 +99,12 @@ class NSReportsDetailReportViewController: NSTitleViewScrollViewController {
         stackScrollView.addArrangedView(notYetCalledView!)
         stackScrollView.addArrangedView(alreadyCalledView!)
         stackScrollView.addArrangedView(callAgainView!)
-        stackScrollView.addSpacerView(NSPadding.large)
 
-        stackScrollView.addSpacerView(2 * NSPadding.large)
+        stackScrollView.addSpacerView(NSPadding.large)
 
         stackScrollView.addArrangedView(NSOnboardingInfoView(icon: UIImage(named: "ic-call")!, text: "meldungen_meldungen_faq1_text".ub_localized, title: "meldungen_meldungen_faq1_title".ub_localized, link: "", leftRightInset: 0, dynamicIconTintColor: .ns_blue))
 
-        stackScrollView.addSpacerView(3 * NSPadding.large)
+        stackScrollView.addSpacerView(NSPadding.medium)
 
         stackScrollView.addArrangedView(NSButton.faqButton(color: .ns_blue))
 
@@ -189,7 +188,7 @@ class NSReportsDetailReportViewController: NSTitleViewScrollViewController {
     }
 
     private func makeCallAgainView() -> NSSimpleModuleBaseView {
-        let whiteBoxView = NSSimpleModuleBaseView(title: "meldungen_detail_call_again".ub_localized, subtitle: "meldung_detail_positive_test_box_subtitle".ub_localized, boldText: "infoline_tel_number".ub_localized, text: "meldungen_detail_guard_text".ub_localized, image: UIImage(named: "iillu-call"), subtitleColor: .ns_blue, bottomPadding: false)
+        let whiteBoxView = NSSimpleModuleBaseView(title: "meldungen_detail_call_again".ub_localized, subtitle: "meldung_detail_positive_test_box_subtitle".ub_localized, boldText: "infoline_tel_number".ub_localized, text: "meldungen_detail_guard_text".ub_localized, image: UIImage(named: "illu-call"), subtitleColor: .ns_blue, bottomPadding: false)
 
         whiteBoxView.contentView.addSpacerView(NSPadding.medium)
 
@@ -215,7 +214,7 @@ class NSReportsDetailReportViewController: NSTitleViewScrollViewController {
     private func addDeleteButton(_ whiteBoxView: NSSimpleModuleBaseView) {
         whiteBoxView.contentView.addDividerView(inset: -NSPadding.large)
 
-        let deleteButton = NSButton(title: "delete_reports_button".ub_localized, style: .borderlessUppercase(.ns_blue))
+        let deleteButton = NSButton(title: "delete_reports_button".ub_localized, style: .borderless(.ns_blue))
 
         let container = UIView()
         whiteBoxView.contentView.addArrangedView(container)

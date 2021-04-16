@@ -26,7 +26,7 @@ class ConfigManager: NSObject {
 
     @UBOptionalUserDefault(key: "config")
     static var currentConfig: ConfigResponseBody? {
-        didSet {
+        didSet {            
             UIStateManager.shared.refresh()
             if let config = currentConfig?.iOSGaenSdkConfig {
                 ConfigManager.updateSDKParameters(config: config)
@@ -145,6 +145,76 @@ class ConfigManager: NSObject {
                     ConfigManager.currentConfig = config
                     Self.lastConfigLoad = Date()
                     Self.lastConfigUrl = request.url?.absoluteString
+                    
+                    //Handle interoperability
+                    let existingConfigVersion = UserStorage.shared.configVersion
+                    let newConfigVersion = config.configVersion
+                    
+                    //Check if config differs to current one
+                    if(existingConfigVersion != newConfigVersion){
+                        UserStorage.shared.configVersion = newConfigVersion 
+                        
+                        if(SettingsHelper.getInteropState() == UIStateModel.InteroperabilityState.eu || SettingsHelper.getInteropState() == UIStateModel.InteroperabilityState.countries || SettingsHelper.getInteropState() == UIStateModel.InteroperabilityState.countries_update_pending) {
+                            //If interopPossible has become false alert user that the service is not currently available
+                            if(UserStorage.shared.interopPossible == true && config.euSharingEnabled == false) {
+                                let center = UNUserNotificationCenter.current()
+                                let content = UNMutableNotificationContent()
+                                content.title = "interop_mode_title".ub_localized
+                                content.body = "interop_mode_unavailable_text".ub_localized
+                                content.sound = UNNotificationSound.default
+                                let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+                                let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+                                center.add(request)
+                            }
+                            //If interopPossible has become true alert user that the service is now available
+                            else if(UserStorage.shared.interopPossible == false  && config.euSharingEnabled == true) {
+                                let center = UNUserNotificationCenter.current()
+                                let content = UNMutableNotificationContent()
+                                content.title = "interop_mode_title".ub_localized
+                                content.body = "interop_mode_available_text".ub_localized
+                                content.sound = UNNotificationSound.default
+                                let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+                                let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+                                center.add(request)
+                            }
+                        }
+                        
+                        UserStorage.shared.interopPossible = config.euSharingEnabled == true
+                        
+                        //Compare new config country array to existing one
+                        let existingCountries = UserStorage.shared.getInteropCountries()
+                        if(!existingCountries.elementsEqual(config.euSharingCountries, by: { (existingCountry, newCountry) -> Bool in
+                            return existingCountry.countryCode == newCountry.countryCode
+                        })) {
+                            //Send notification of country updates if user is using interoperability
+                            if(SettingsHelper.getInteropState() == UIStateModel.InteroperabilityState.eu || SettingsHelper.getInteropState() == UIStateModel.InteroperabilityState.countries || SettingsHelper.getInteropState() == UIStateModel.InteroperabilityState.countries_update_pending) {
+                                let center = UNUserNotificationCenter.current()
+                                let content = UNMutableNotificationContent()
+                                content.title = "interop_mode_title".ub_localized
+                                content.body = "interop_mode_countries_update_pending_text".ub_localized
+                                content.sound = UNNotificationSound.default
+                                let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+                                let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+                                center.add(request)
+                            }
+                            
+                            //Set new EU countries
+                            UserStorage.shared.setInteropCountries(countries: config.euSharingCountries)
+                            
+                            //Clear user country selection to maintain parity
+                            SettingsHelper.setInteropSelectedCountries(countries: [])
+                            
+                            //Update state if user is currently using 'countries'
+                            if(SettingsHelper.getInteropState() == UIStateModel.InteroperabilityState.countries) {
+                                //Update state for UI changes
+                                SettingsHelper.setInteropState(interopState: UIStateModel.InteroperabilityState.countries_update_pending)
+                            }
+                        }
+                        
+                        //Trigger UI refresh
+                        UIStateManager.shared.refresh()
+                    }
+                    
                     completion(config)
                 } else {
                     Logger.log("Failed to load config, error: \(error?.localizedDescription ?? "?")")

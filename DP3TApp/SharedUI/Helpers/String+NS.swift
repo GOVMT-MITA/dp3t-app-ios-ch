@@ -12,7 +12,7 @@ import UIKit
 
 extension String {
     var ub_localized: String {
-        let path = Bundle.main.path(forResource: LanguageHelper.getAppLocale(), ofType: "lproj")
+        let path = Bundle.main.path(forResource: SettingsHelper.getActiveLanguageCode(), ofType: "lproj")
         let bundle = Bundle(path: path!)
         
         let localized = NSLocalizedString(self, tableName: nil, bundle: bundle!, value: "", comment: "")
@@ -23,7 +23,7 @@ extension String {
     }
 
     var ub_localized_per_version: String {
-        let path = Bundle.main.path(forResource: LanguageHelper.getAppLocale(), ofType: "lproj")
+        let path = Bundle.main.path(forResource: SettingsHelper.getActiveLanguageCode(), ofType: "lproj")
         let bundle = Bundle(path: path!)
         
         var version = "14_0"
@@ -53,14 +53,14 @@ extension String {
     }
 
     private var ub_debugLocalized: String {
-        let path = Bundle.main.path(forResource: LanguageHelper.getAppLocale(), ofType: "lproj")
+        let path = Bundle.main.path(forResource: SettingsHelper.getActiveLanguageCode(), ofType: "lproj")
         let bundle = Bundle(path: path!)
         
         return NSLocalizedString(self, tableName: "DebugStrings", bundle: bundle!, value: "", comment: "")
     }
 
     static var languageKey: String {
-        LanguageHelper.getAppLocale()
+        SettingsHelper.getActiveLanguageCode()
     }
 
     var replaceSettingsString: String {

@@ -40,6 +40,9 @@ class ConfigResponseBody: UBCodable {
     public let infoBox: LocalizedValue<InfoBox>?
     public let whatToDoPositiveTestTexts: LocalizedValue<WhatToDoPositiveTestTexts>?
     public let iOSGaenSdkConfig: GAENSDKConfig?
+    public let configVersion: Int
+    public let euSharingEnabled: Bool
+    public let euSharingCountries: [EUSharingCountry]
 
     class InfoBox: UBCodable {
         let title, msg: String
@@ -73,5 +76,11 @@ class ConfigResponseBody: UBCodable {
             let linkTitle: String?
             let linkUrl: URL?
         }
+    }
+    
+    class EUSharingCountry: UBCodable {
+        let countryCode: String
+        let countryNameEN: String
+        let countryNameMT: String
     }
 }

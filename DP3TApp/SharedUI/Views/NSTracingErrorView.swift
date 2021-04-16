@@ -179,8 +179,8 @@ class NSTracingErrorView: UIView {
 
         case .tracingAuthorizationUnknown:
             return NSTracingErrorViewModel(icon: UIImage(named: "ic-bluetooth-disabled")!,
-                                           title: "tracing_permission_error_title_ios".ub_localized.replaceSettingsString,
-                                           text: "tracing_permission_error_text_ios".ub_localized.replaceSettingsString,
+                                           title: "gaen_permission_error_title_ios".ub_localized.replaceSettingsString,
+                                           text: "gaen_permission_error_text_ios".ub_localized.replaceSettingsString,
                                            buttonTitle: "onboarding_gaen_button_activate".ub_localized,
                                            action: { _ in
                                                TracingManager.shared.startTracing()
