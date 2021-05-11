@@ -17,6 +17,7 @@ struct UIStateModel: Equatable {
     var encountersDetail: EncountersDetail = EncountersDetail()
     var shouldStartAtReportsDetail = false
     var reportsDetail: ReportsDetail = ReportsDetail()
+    var interopDetail: Interoperability = Interoperability()
 
     #if ENABLE_STATUS_OVERRIDE
         var debug: Debug = Debug()
@@ -38,6 +39,15 @@ struct UIStateModel: Equatable {
         case noReport
         case exposed
         case infected
+    }
+    
+    enum InteroperabilityState: Int {
+        case legacy = -1
+        case disabled_silent = 0
+        case disabled = 1
+        case countries = 2
+        case countries_update_pending = 3
+        case eu = 4
     }
 
     struct Homescreen: Equatable {
@@ -91,7 +101,13 @@ struct UIStateModel: Equatable {
             case multipleExposuresNotCalled
         }
     }
-
+    
+    struct Interoperability: Equatable {
+        var interopPossible: Bool = false
+        var interopState: InteroperabilityState = .legacy
+        var interopSelectedCountries: [String] = []
+    }
+    
     #if ENABLE_STATUS_OVERRIDE
         struct Debug: Equatable {
             var lastSync: Date?

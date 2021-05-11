@@ -15,7 +15,6 @@ class NSViewController: UIViewController {
     // MARK: - Views
 
     private lazy var loadingView = NSLoadingView()
-    private lazy var nationalCrestImage = UIImage(named: "img_national_crest")?.withRenderingMode(.alwaysOriginal)
 
     // MARK: - Public API
 
@@ -57,9 +56,6 @@ class NSViewController: UIViewController {
         super.viewWillAppear(animated)
 
         navigationItem.backBarButtonItem = UIBarButtonItem(title: nil, style: .plain, target: nil, action: nil)
-        if navigationController?.viewControllers.count == 1 {
-            navigationItem.leftBarButtonItem = UIBarButtonItem(customView: UIImageView(image: nationalCrestImage))
-        }
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

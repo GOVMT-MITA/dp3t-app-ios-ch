@@ -61,7 +61,7 @@ class NSReportsModuleView: NSModuleBaseView {
         UIApplication.shared.open(settingsUrl)
     }))
 
-    private let tracingDisabledView = NSTracingErrorView(model: NSTracingErrorView.NSTracingErrorViewModel(icon: UIImage(named: "ic-error")!, title: "meldungen_tracing_turned_off_title".ub_localized, text: "meldungen_tracing_not_active_warning".ub_localized, buttonTitle: "activate_tracing_button".ub_localized, action: { _ in
+    private let tracingDisabledView = NSTracingErrorView(model: NSTracingErrorView.NSTracingErrorViewModel(icon: UIImage(named: "ic-error")!, title: "meldungen_tracing_turned_off_title".ub_localized, text: "meldungen_gaen_not_active_warning".ub_localized, buttonTitle: "activate_tracing_button".ub_localized, action: { _ in
         TracingManager.shared.startTracing()
     }))
 

@@ -9,6 +9,7 @@
  */
 
 import UIKit
+import DP3TSDK
 
 class UserStorage {
     static let shared = UserStorage()
@@ -58,6 +59,45 @@ class UserStorage {
 
     @KeychainPersisted(key: "seenMessages", defaultValue: [])
     private var seenMessages: [String]
+    
+    @UBUserDefault(key: "configVersion", defaultValue: 0)
+    var configVersion: Int
+    
+    @UBUserDefault(key: "interopPossible", defaultValue: false)
+    var interopPossible: Bool {
+        didSet {
+            DP3TTracing.setInteroperabilityPossible(interopPossible: interopPossible)
+        }
+    }
+    
+    @UBUserDefault(key: "interopCountriesJSON", defaultValue: "[]")
+    private var interopCountriesJSON: String
+
+    func getInteropCountries() -> [ConfigResponseBody.EUSharingCountry] {
+        do {
+            let decoder = JSONDecoder()
+            let countriesData = interopCountriesJSON.data(using: .utf8) ?? Data()
+            return try decoder.decode([ConfigResponseBody.EUSharingCountry].self, from: countriesData)
+        } catch {
+            return []
+        }
+    }
+    
+    func setInteropCountries(countries: [ConfigResponseBody.EUSharingCountry]) {
+        do {
+            let encoder = JSONEncoder()
+            let encodedCountries = try encoder.encode(countries)
+            interopCountriesJSON = String(data: encodedCountries, encoding: .utf8) ?? "[]"
+            DP3TTracing.setInteroperabilityCountries(interopCountries: countries.map({ (country) -> String in
+                return country.countryCode
+            }))
+        } catch let error {
+            print(error)
+        }
+    }
+    
+    @UBUserDefault(key: "requireInteropPromptDialog", defaultValue: true)
+    var requireInteropPromptDialog: Bool
 }
 
 class KeychainMigration {
@@ -85,6 +125,18 @@ class KeychainMigration {
 
         if let seenMessages = defaults.value(forKey: "seenMessages") as? [String] {
             keychain.set(seenMessages, for: .init(key: "seenMessages"))
+        }
+        
+        if let configVersion = defaults.value(forKey: "configVersion") as? Int {
+            keychain.set(configVersion, for: .init(key: "configVersion"))
+        }
+        
+        if let interopPossible = defaults.value(forKey: "interopPossible") as? Bool {
+            keychain.set(interopPossible, for: .init(key: "interopPossible"))
+        }
+        
+        if let interopCountriesJSON = defaults.value(forKey: "interopCountriesJSON") as? String {
+            keychain.set(interopCountriesJSON, for: .init(key: "interopCountriesJSON"))
         }
     }
 }

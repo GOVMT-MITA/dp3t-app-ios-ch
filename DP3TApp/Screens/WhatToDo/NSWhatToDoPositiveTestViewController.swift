@@ -22,6 +22,9 @@ class NSWhatToDoPositiveTestViewController: NSViewController {
     private var titleLabel: NSLabel!
 
     private let configTexts: ConfigResponseBody.WhatToDoPositiveTestTexts?
+    private let interopModuleTextView = NSInteropModuleTextView()
+    
+    private var lastState: UIStateModel = .init()
 
     // MARK: - Init
 
@@ -45,6 +48,16 @@ class NSWhatToDoPositiveTestViewController: NSViewController {
             guard let strongSelf = self else { return }
             strongSelf.presentInformViewController()
         }
+        
+        interopModuleTextView.interopSettingsButton.touchUpCallback = { [weak self] in
+            guard let strongSelf = self else { return }
+            strongSelf.presentInteropSettings()
+        }
+        
+        UIStateManager.shared.addObserver(self, block: { [weak self] state in
+            guard let strongSelf = self else { return }
+            strongSelf.updateState(state)
+        })
 
         setupAccessibility()
     }
@@ -87,7 +100,18 @@ class NSWhatToDoPositiveTestViewController: NSViewController {
         stackScrollView.addSpacerView(NSPadding.medium)
 
         stackScrollView.addArrangedView(informView)
-
+        
+        stackScrollView.addSpacerView(NSPadding.large)
+        
+        let interopTitleLabel = NSLabel(.textBold)
+        interopTitleLabel.text = "interop_mode_title".ub_localized
+        interopTitleLabel.textColor = .ns_purple
+        
+        stackScrollView.addArrangedView(interopTitleLabel)
+        stackScrollView.addSpacerView(NSPadding.medium)
+        
+        interopModuleTextView.uiState = lastState.interopDetail
+        stackScrollView.addArrangedView(interopModuleTextView)
         stackScrollView.addSpacerView(NSPadding.medium)
 
         stackScrollView.addArrangedView(NSOnboardingInfoView(icon: UIImage(named: "ic-verified-user")!, text: "inform_detail_faq1_text".ub_localized, title: "inform_detail_faq1_title".ub_localized, link: "", leftRightInset: 0, dynamicIconTintColor: .ns_purple))
@@ -119,9 +143,19 @@ class NSWhatToDoPositiveTestViewController: NSViewController {
         titleContentStackView.accessibilityTraits = [.header]
         titleContentStackView.accessibilityLabel = subtitleLabel.text!.deleteSuffix("...") + titleLabel.text!
     }
+    
+    func updateState(_ state: UIStateModel) {
+        interopModuleTextView.uiState = state.interopDetail
+        
+        lastState = state
+    }
 
     // MARK: - Present
     private func presentInformViewController() {
         NSInformViewController.present(from: self)
+    }
+    
+    private func presentInteropSettings() {
+        navigationController?.pushViewController(NSInteropSettingsViewController(), animated: true)
     }
 }

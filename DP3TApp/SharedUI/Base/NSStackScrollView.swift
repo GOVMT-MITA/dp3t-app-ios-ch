@@ -86,6 +86,24 @@ class NSStackScrollView: UIView {
             stackView.addArrangedSubview(view)
         }
     }
+    
+    func addArrangedView(_ view: UIView, spacing: CGFloat? = nil, index: Int? = nil, insets: UIEdgeInsets = .zero) {
+        let wrapperView = UIView()
+        wrapperView.ub_setContentPriorityRequired()
+        wrapperView.addSubview(view)
+        view.snp.makeConstraints { make in
+            make.edges.equalToSuperview().inset(insets)
+        }
+
+        if let idx = index {
+            stackView.insertArrangedSubview(wrapperView, at: idx)
+        } else {
+            stackView.addArrangedSubview(wrapperView)
+        }
+        if let s = spacing {
+            stackView.setCustomSpacing(s, after: wrapperView)
+        }
+    }
 
     func addArrangedViewController(_ viewController: UIViewController, parent: UIViewController?, height: CGFloat? = nil, index: Int? = nil) {
         parent?.addChild(viewController)
@@ -97,6 +115,21 @@ class NSStackScrollView: UIView {
         let extraSpacer = UIView()
         extraSpacer.backgroundColor = color
         addArrangedView(extraSpacer, height: height)
+    }
+    
+    func addDividerView(inset: CGFloat) {
+        let container = UIView()
+        let line = UIView()
+        line.backgroundColor = .ns_line
+
+        addArrangedView(container)
+        container.addSubview(line)
+
+        line.snp.makeConstraints { make in
+            make.height.equalTo(1.0 / UIScreen.main.scale)
+            make.left.right.equalToSuperview().inset(inset)
+            make.top.bottom.equalToSuperview()
+        }
     }
 
     func removeView(_ view: UIView) {

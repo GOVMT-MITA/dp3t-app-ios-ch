@@ -9,10 +9,13 @@
  */
 
 import UIKit
+import SafariServices
 
 class NSReportsDetailPositiveTestedViewController: NSTitleViewScrollViewController {
     // MARK: - Init
-
+    
+    private let quarantineButton = NSExternalLinkButton(style: .normal(color: .ns_purple))
+    
     override init() {
         super.init()
         titleView = NSReportsDetailPositiveTestedTitleView()
@@ -37,7 +40,18 @@ class NSReportsDetailPositiveTestedViewController: NSTitleViewScrollViewControll
     // MARK: - Setup
 
     private func setupLayout() {
-        let whiteBoxView = NSSimpleModuleBaseView(title: "meldung_detail_positive_test_box_title".ub_localized, subtitle: "meldung_detail_positive_test_box_subtitle".ub_localized, subview: nil, text: "meldung_detail_positive_test_box_text".ub_localized, image: UIImage(named: "illu-self-isolation"), subtitleColor: .ns_purple, bottomPadding: false)
+        
+        quarantineButton.title = "meldung_detail_positive_test_box_link".ub_localized
+        quarantineButton.accessibilityHint = "meldung_detail_positive_test_box_link".ub_localized
+        quarantineButton.touchUpCallback = { [weak self] in
+            if let url = URL(string: "meldung_detail_positive_test_box_url".ub_localized) {
+                let vc = SFSafariViewController(url: url)
+                vc.modalPresentationStyle = .popover
+                self?.present(vc, animated: true)
+            }
+        }
+        
+        let whiteBoxView = NSSimpleModuleBaseView(title: "meldung_detail_positive_test_box_title".ub_localized, subtitle: "meldung_detail_positive_test_box_subtitle".ub_localized, subview: quarantineButton, text: "meldung_detail_positive_test_box_text".ub_localized, image: UIImage(named: "illu-self-isolation"), subtitleColor: .ns_purple, bottomPadding: false)
 
         addDeleteButton(whiteBoxView)
         
@@ -45,11 +59,11 @@ class NSReportsDetailPositiveTestedViewController: NSTitleViewScrollViewControll
 
         stackScrollView.addArrangedView(whiteBoxView)
 
-        stackScrollView.addSpacerView(2 * NSPadding.large)
+        stackScrollView.addSpacerView(NSPadding.large)
 
-        stackScrollView.addArrangedView(NSOnboardingInfoView(icon: UIImage(named: "ic-tracing")!.ub_image(with: .ns_purple)!, text: "meldungen_positive_tested_faq1_text".ub_localized, title: "meldungen_positive_tested_faq1_title".ub_localized, link: "", leftRightInset: 0, dynamicIconTintColor: .ns_purple))
+        stackScrollView.addArrangedView(NSOnboardingInfoView(icon: UIImage(named: "ic-tracing")!.ub_image(with: .ns_purple)!, text: "meldungen_positive_tested_faq1_text_alt".ub_localized, title: "meldungen_positive_tested_faq1_title".ub_localized, link: "", leftRightInset: 0, dynamicIconTintColor: .ns_purple))
 
-        stackScrollView.addSpacerView(3 * NSPadding.large)
+        stackScrollView.addSpacerView(NSPadding.medium)
 
         stackScrollView.addArrangedView(NSButton.faqButton(color: .ns_purple))
 
@@ -61,7 +75,7 @@ class NSReportsDetailPositiveTestedViewController: NSTitleViewScrollViewControll
 
         whiteBoxView.contentView.addDividerView(inset: -NSPadding.large)
 
-        let deleteButton = NSButton(title: "delete_infection_button".ub_localized, style: .borderlessUppercase(.ns_purple))
+        let deleteButton = NSButton(title: "delete_infection_button".ub_localized, style: .borderless(.ns_purple))
 
         let container = UIView()
         whiteBoxView.contentView.addArrangedView(container)

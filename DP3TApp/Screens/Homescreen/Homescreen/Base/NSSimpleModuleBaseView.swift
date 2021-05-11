@@ -143,15 +143,6 @@ class NSSimpleModuleBaseView: UIView {
         contentView.snp.makeConstraints { make in
             make.top.equalTo(lastView.snp.bottom).offset(NSPadding.small)
             make.left.right.equalToSuperview().inset(sideInset)
-            /*
-             make.left.equalToSuperview().inset(sideInset)
-             if imageView.superview != nil {
-                 make.right.equalTo(imageView.snp.left).offset(-sideInset)
-             }
-             else {
-                 make.right.equalToSuperview().offset(-sideInset)
-             }
-             */
             if bottomPadding {
                 make.bottom.equalToSuperview().inset(15)
             } else {

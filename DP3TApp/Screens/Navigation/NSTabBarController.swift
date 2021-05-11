@@ -12,18 +12,28 @@ import UIKit
 
 class NSTabBarController: UITabBarController {
     var homescreen = NSHomescreenViewController()
+    var settingsScreen = NSSettingsViewController()
     
     private var languageSelectionButton = UIBarButtonItem()
 
     enum Tab: Int, CaseIterable {
-        case homescreen
+        case homescreen, settingsScreen
     }
 
-    func viewControler(for tab: Tab) -> NSViewController {
+    public func getCurrentViewController(for tab: Tab) -> NSViewController {
         switch tab {
-        case .homescreen:
-            return homescreen
+            case .homescreen:
+                return homescreen
+            case .settingsScreen:
+                return settingsScreen
         }
+    }
+    
+    public func refreshViewControllers() {
+        homescreen = NSHomescreenViewController()
+        settingsScreen = NSSettingsViewController()
+        viewControllers = Tab.allCases.map(getCurrentViewController(for:))
+        self.selectedIndex = currentTab.rawValue
     }
 
     init() {
@@ -38,12 +48,12 @@ class NSTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        viewControllers = Tab.allCases.map(viewControler(for:))
+        viewControllers = Tab.allCases.map(getCurrentViewController(for:))
 
         navigationItem.title = ("app_name".ub_localized + "        \u{200c}")
 
         // navigation bar
-        let defaultLanguageSelectionTitle = LanguageHelper.getAppLocale() == LanguageHelper.LANGUAGE_EN ? "EN/mt" : "en/MT"
+        let defaultLanguageSelectionTitle = "EN/MT"
         languageSelectionButton = UIBarButtonItem(title: defaultLanguageSelectionTitle, style: .plain, target: self, action: #selector(languageButtonPressed))
         languageSelectionButton.tintColor = .ns_text
         languageSelectionButton.accessibilityLabel = defaultLanguageSelectionTitle
@@ -66,22 +76,16 @@ class NSTabBarController: UITabBarController {
         super.viewDidAppear(animated)
         
         if !UserStorage.shared.hasCompletedOnboarding {
-            let currentLocale = LanguageHelper.getAppLocale()
-            languageSelectionButton.title = currentLocale == LanguageHelper.LANGUAGE_EN ? "EN/mt" : "en/MT"
             homescreen = NSHomescreenViewController()
-            viewControllers = Tab.allCases.map(viewControler(for:))
+            viewControllers = Tab.allCases.map(getCurrentViewController(for:))
             self.selectedIndex = currentTab.rawValue
         }
     }
     
     @objc private func languageButtonPressed() {
-        let currentLocale = LanguageHelper.getAppLocale()
-        let newLocale = currentLocale == LanguageHelper.LANGUAGE_EN ? LanguageHelper.LANGUAGE_MT : LanguageHelper.LANGUAGE_EN
-        LanguageHelper.setAppLocale(localeCode: newLocale)
-        languageSelectionButton.title = newLocale == LanguageHelper.LANGUAGE_EN ? "EN/mt" : "en/MT"
-        homescreen = NSHomescreenViewController()
-        viewControllers = Tab.allCases.map(viewControler(for:))
-        self.selectedIndex = currentTab.rawValue
+        if(self.selectedIndex != Tab.settingsScreen.rawValue) {
+            self.selectedIndex = Tab.settingsScreen.rawValue
+        }
     }
 
     @objc private func infoButtonPressed() {
@@ -101,7 +105,7 @@ class NSTabBarController: UITabBarController {
     }
 
     var currentViewController: NSViewController {
-        viewControler(for: currentTab)
+        getCurrentViewController(for: currentTab)
     }
 
     var currentNavigationController: NSNavigationController {
@@ -118,7 +122,6 @@ class NSTabBarController: UITabBarController {
         setTabBarItemColors(appearance.inlineLayoutAppearance)
         setTabBarItemColors(appearance.compactInlineLayoutAppearance)
         tabBar.standardAppearance = appearance
-        tabBar.isHidden = true
     }
 
     private func setTabBarItemColors(_ itemAppearance: UITabBarItemAppearance) {

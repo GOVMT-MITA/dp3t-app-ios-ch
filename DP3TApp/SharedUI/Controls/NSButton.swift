@@ -12,11 +12,11 @@ import UIKit
 
 class NSButton: UBButton {
     enum Style {
-        // bool fo
         case normal(UIColor)
         case uppercase(UIColor)
+        case outline(UIColor)
         case outlineUppercase(UIColor)
-        case borderlessUppercase(UIColor)
+        case borderless(UIColor)
 
         var textColor: UIColor {
             switch self {
@@ -24,9 +24,11 @@ class NSButton: UBButton {
                 return UIColor.white
             case .uppercase:
                 return UIColor.white
+            case let .outline(c):
+                return c
             case let .outlineUppercase(c):
                 return c
-            case let .borderlessUppercase(c):
+            case let .borderless(c):
                 return c
             }
         }
@@ -37,15 +39,19 @@ class NSButton: UBButton {
                 return c
             case let .uppercase(c):
                 return c
+            case .outline:
+                return .clear
             case .outlineUppercase:
                 return .clear
-            case .borderlessUppercase:
+            case .borderless:
                 return .clear
             }
         }
 
         var borderColor: UIColor {
             switch self {
+            case let .outline(c):
+                return c
             case let .outlineUppercase(c):
                 return c
             default:
@@ -62,8 +68,6 @@ class NSButton: UBButton {
             case .uppercase:
                 return true
             case .outlineUppercase:
-                return true
-            case .borderlessUppercase:
                 return true
             default:
                 return false
