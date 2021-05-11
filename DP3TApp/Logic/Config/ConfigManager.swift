@@ -201,8 +201,17 @@ class ConfigManager: NSObject {
                             //Set new EU countries
                             UserStorage.shared.setInteropCountries(countries: config.euSharingCountries)
                             
-                            //Clear user country selection to maintain parity
-                            SettingsHelper.setInteropSelectedCountries(countries: [])
+                            //Amend user country selections based on new EU countries array
+                            var userCountrySelections = SettingsHelper.getInteropSelectedCountries()
+                            if(userCountrySelections.count > 0) {
+                                let compactConfigCountries = config.euSharingCountries.map { $0.countryCode }
+                                
+                                userCountrySelections.removeAll { (countryCode) -> Bool in
+                                    return !compactConfigCountries.contains(countryCode);
+                                }
+                                    
+                                SettingsHelper.setInteropSelectedCountries(countries: userCountrySelections)
+                            }
                             
                             //Update state if user is currently using 'countries'
                             if(SettingsHelper.getInteropState() == UIStateModel.InteroperabilityState.countries) {

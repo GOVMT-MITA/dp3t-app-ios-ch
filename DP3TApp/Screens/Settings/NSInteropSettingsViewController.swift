@@ -66,7 +66,6 @@ class NSInteropSettingsViewController: NSTitleViewScrollViewController {
         if(interopState == UIStateModel.InteroperabilityState.countries_update_pending)
         {
             SettingsHelper.setInteropState(interopState: UIStateModel.InteroperabilityState.countries)
-            SettingsHelper.setInteropSelectedCountries(countries: [])
             interopState = UIStateModel.InteroperabilityState.countries
         }
     }
@@ -413,6 +412,9 @@ class NSInteropSettingsViewController: NSTitleViewScrollViewController {
         countryScrollView.bottomAnchor.constraint(equalTo: alert.view.bottomAnchor, constant: -50).isActive = true
         
         let action = UIAlertAction(title: "android_button_ok".ub_localized, style: UIAlertAction.Style.default) {(action:UIAlertAction) in
+            for (index, country) in self.interopConfigCountries.enumerated() {
+                self.interopConfigCountries[index].selected = self.interopSelectedCountries.contains(country.value)
+            }
             SettingsHelper.setInteropSelectedCountries(countries: self.interopSelectedCountries)
         }
         
