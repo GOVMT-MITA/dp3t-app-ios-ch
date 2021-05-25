@@ -137,17 +137,17 @@ class NSLanguageSelectionViewController: NSViewController {
     
     @objc
     private func setENLanguage() {
-        setLanguage(language: LanguageHelper.LANGUAGE_EN)
+        setLanguage(language: SettingsHelper.LANGUAGE_EN)
     }
     
     @objc
     private func setMTLanguage() {
-        setLanguage(language: LanguageHelper.LANGUAGE_MT)
+        setLanguage(language: SettingsHelper.LANGUAGE_MT)
     }
     
     @objc
     private func setLanguage(language: String) {
-        LanguageHelper.setAppLocale(localeCode: language)
+        SettingsHelper.setActiveLanguage(localeCode: language)
 
         let onboardingViewController = NSOnboardingViewController()
         onboardingViewController.modalPresentationStyle = .fullScreen

@@ -45,6 +45,8 @@ public enum NSLabelType: UBLabelType {
     case smallRegular
     case interRegular
     case interBold
+    case buttonLabel
+    case largeButton // used for button
 
     public var font: UIFont {
         let bfs = NSFontSize.bodyFontSize()
@@ -78,6 +80,8 @@ public enum NSLabelType: UBLabelType {
         case .smallRegular: return UIFont(name: regularFontName, size: bfs - 3.0)!
         case .interRegular: return UIFont(name: regularFontName, size: bfs - 3.0)!
         case .interBold: return UIFont(name: boldFontName, size: bfs - 3.0)!
+        case .buttonLabel: return UIFont(name: regularFontName, size: bfs)!
+        case .largeButton: return UIFont(name: boldFontName, size: bfs + 2.0)!
         }
     }
 

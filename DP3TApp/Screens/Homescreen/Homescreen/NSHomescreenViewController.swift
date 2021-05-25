@@ -18,6 +18,7 @@ class NSHomescreenViewController: NSTitleViewScrollViewController {
     private let informationView = NSInformationView()
     private let handshakesModuleView = NSEncountersModuleView()
     private let reportsView = NSReportsModuleView()
+    private let interopModuleView = NSInteropModuleView()
 
     private let whatToDoSymptomsButton = NSWhatToDoButton(title: "whattodo_title_symptoms".ub_localized, subtitle: "whattodo_subtitle_symptoms".ub_localized, image: UIImage(named: "img_symptoms"))
 
@@ -74,6 +75,11 @@ class NSHomescreenViewController: NSTitleViewScrollViewController {
         handshakesModuleView.touchUpCallback = { [weak self] in
             guard let strongSelf = self else { return }
             strongSelf.presentEncountersDetail()
+        }
+        
+        interopModuleView.touchUpCallback = { [weak self] in
+            guard let strongSelf = self else { return }
+            strongSelf.presentInteropSettings()
         }
 
         whatToDoPositiveTestButton.touchUpCallback = { [weak self] in
@@ -144,6 +150,9 @@ class NSHomescreenViewController: NSTitleViewScrollViewController {
 
         stackScrollView.addArrangedView(reportsView)
         stackScrollView.addSpacerView(NSPadding.medium)
+        
+        stackScrollView.addArrangedView(interopModuleView)
+        stackScrollView.addSpacerView(NSPadding.medium)
 
         stackScrollView.addArrangedView(whatToDoSymptomsButton)
         stackScrollView.addSpacerView(NSPadding.medium)
@@ -153,6 +162,7 @@ class NSHomescreenViewController: NSTitleViewScrollViewController {
 
         handshakesModuleView.alpha = 0
         reportsView.alpha = 0
+        interopModuleView.alpha = 0
         whatToDoSymptomsButton.alpha = 0
         whatToDoPositiveTestButton.alpha = 0
 
@@ -167,6 +177,10 @@ class NSHomescreenViewController: NSTitleViewScrollViewController {
 
             UIView.animate(withDuration: 0.3, delay: 0.5, options: [.allowUserInteraction], animations: {
                 self.reportsView.alpha = 1
+            }, completion: nil)
+            
+            UIView.animate(withDuration: 0.3, delay: 0.35, options: [.allowUserInteraction], animations: {
+                self.interopModuleView.alpha = 1
             }, completion: nil)
 
             UIView.animate(withDuration: 0.3, delay: 0.65, options: [.allowUserInteraction], animations: {
@@ -183,10 +197,12 @@ class NSHomescreenViewController: NSTitleViewScrollViewController {
         appTitleView.uiState = state.homescreen.header
         handshakesModuleView.uiState = state.homescreen.encounters
         reportsView.uiState = state.homescreen
+        interopModuleView.uiState = state.interopDetail
 
         let isInfected = state.homescreen.reports.report == .infected
         whatToDoSymptomsButton.isHidden = isInfected
         whatToDoPositiveTestButton.isHidden = isInfected
+        interopModuleView.isHidden = isInfected
 
         infoBoxView.uiState = state.homescreen.infoBox
 
@@ -201,7 +217,17 @@ class NSHomescreenViewController: NSTitleViewScrollViewController {
         }
 
         infoBoxView.isHidden = state.homescreen.infoBox == nil
-
+        
+        //Show interoperability prompt if required
+        if(UserStorage.shared.hasCompletedOnboarding && UIStateManager.shared.uiState.interopDetail.interopPossible && UIStateManager.shared.uiState.interopDetail.interopState == UIStateModel.InteroperabilityState.legacy && UserStorage.shared.requireInteropPromptDialog){
+            //Only show this once
+            UserStorage.shared.requireInteropPromptDialog = false
+            
+            let interopPromptDialog = NSInteropPromptDialogViewController()
+            interopPromptDialog.modalPresentationStyle = .fullScreen
+            navigationController?.present(interopPromptDialog, animated: true)
+        }
+        
         lastState = state
     }
 
@@ -213,6 +239,10 @@ class NSHomescreenViewController: NSTitleViewScrollViewController {
 
     func presentReportsDetail(animated: Bool = true) {
         navigationController?.pushViewController(NSReportsDetailViewController(), animated: animated)
+    }
+    
+    private func presentInteropSettings() {
+        navigationController?.pushViewController(NSInteropSettingsViewController(), animated: true)
     }
 
     #if ENABLE_TESTING

@@ -31,6 +31,11 @@ class UIStateLogic {
         // Set tracing active
         newState.encountersDetail.tracingEnabled = TracingManager.shared.isActivated
         newState.encountersDetail.tracing = tracing
+        
+        //Set interoperability
+        newState.interopDetail.interopPossible = UserStorage.shared.interopPossible
+        newState.interopDetail.interopState = SettingsHelper.getInteropState()
+        newState.interopDetail.interopSelectedCountries = SettingsHelper.getInteropSelectedCountries()
 
         // Get state of SDK tracing
         guard let tracingState = manager.tracingState else {

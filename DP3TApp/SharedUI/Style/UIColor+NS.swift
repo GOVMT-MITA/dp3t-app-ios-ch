@@ -28,7 +28,7 @@ extension UIColor {
     public static var ns_blue = UIColor(ub_hexString: blueColor)!.withHighContrastColor(color: UIColor(ub_hexString: "#2769a3")!)
     public static var ns_blueBar = UIColor(ub_hexString: blueColor)!
 
-    public static var ns_lightBlue = UIColor(ub_hexString: "#00a7d4")!.withHighContrastColor(color: UIColor(ub_hexString: "#59738A")!)
+    public static var ns_lightBlue = UIColor(ub_hexString: "#5094bf")!.withHighContrastColor(color: UIColor(ub_hexString: "#00A7D4")!)
     public static var ns_blueBackground: UIColor {
         return UIColor.setColorsForTheme(lightColor: UIColor(ub_hexString: "#eff5f9")!, darkColor: .ns_darkModeBackground2)
     }
@@ -98,7 +98,7 @@ extension UIColor {
         return UIColor { _ in UIAccessibility.isDarkerSystemColorsEnabled ? color : self }
     }
 
-    public static var ns_line = UIColor.setColorsForTheme(lightColor: UIColor(ub_hexString: "#ecebeb")!, darkColor: .ns_darkModeBackground2)
+    public static var ns_line = UIColor.setColorsForTheme(lightColor: .lightGray, darkColor: .ns_darkModeBackground2)
 
     public static var ns_dividerColor: UIColor = .setColorsForTheme(lightColor: UIColor(ub_hexString: "#e6e6e6")!, darkColor: .black)
 

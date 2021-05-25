@@ -23,37 +23,38 @@ class NSOnboardingViewController: NSViewController {
     private let step2VC = NSOnboardingStepViewController(model: NSOnboardingStepModel.step2)
     private let step3VC = NSOnboardingStepViewController(model: NSOnboardingStepModel.step3)
     private let step4VC = NSOnboardingDisclaimerViewController()
-    private let step5VC = NSOnboardingPermissionsViewController(type: .gapple)
-    private let step6VC = NSOnboardingStepViewController(model: NSOnboardingStepModel.step6)
-    private let step7VC = NSOnboardingPermissionsViewController(type: .push)
-    private let step8VC = NSOnboardingFinishViewController()
+    private let step5VC = NSOnboardingInteroperabilityViewController()
+    private let step6VC = NSOnboardingPermissionsViewController(type: .gapple)
+    private let step7VC = NSOnboardingStepViewController(model: NSOnboardingStepModel.step6)
+    private let step8VC = NSOnboardingPermissionsViewController(type: .push)
+    private let step9VC = NSOnboardingFinishViewController()
 
     private var stepViewControllers: [NSOnboardingContentViewController] {
-        [step1VC, step2VC, step3VC, step4VC, step5VC, step6VC, step7VC, step8VC]
-    }
-
-//    private var languageSelectionStepIndex: Int {
-//        return stepViewControllers.firstIndex(of: step0VC)!
-//    }
-
-    private var tracingPermissionStepIndex: Int {
-        return stepViewControllers.firstIndex(of: step5VC)!
-    }
-
-    private var pushPermissionStepIndex: Int {
-        return stepViewControllers.firstIndex(of: step7VC)!
+        [step1VC, step2VC, step3VC, step4VC, step5VC, step6VC, step7VC, step8VC, step9VC]
     }
 
     private var disclaimerStepIndex: Int {
         return stepViewControllers.firstIndex(of: step4VC)!
     }
-
-    private var finalStepIndex: Int {
+    
+    private var interoperabilityStepIndex: Int {
+        return stepViewControllers.firstIndex(of: step5VC)!
+    }
+    
+    private var tracingPermissionStepIndex: Int {
+        return stepViewControllers.firstIndex(of: step6VC)!
+    }
+    
+    private var pushPermissionStepIndex: Int {
         return stepViewControllers.firstIndex(of: step8VC)!
     }
 
+    private var finalStepIndex: Int {
+        return stepViewControllers.firstIndex(of: step9VC)!
+    }
+
     private var stepsWithoutContinue: [Int] {
-        [tracingPermissionStepIndex, pushPermissionStepIndex, finalStepIndex]
+        [tracingPermissionStepIndex, pushPermissionStepIndex, interoperabilityStepIndex, finalStepIndex]
     }
 
     private let continueContainer = UIView()
@@ -181,13 +182,27 @@ class NSOnboardingViewController: NSViewController {
     }
 
     private func setupButtons() {
-        step5VC.permissionButton.touchUpCallback = { [weak self] in
+        
+        step5VC.interopButton.touchUpCallback = {
+            let interopModal = NSModalViewController(contentViewController: NSInteropSettingsViewController(), hasCloseButton: true)
+            self.present(NSNavigationController(rootViewController: interopModal), animated: true) {
+                self.step5VC.continueButton.title = ("onboarding_continue_button".ub_localized)
+                self.step5VC.continueButton.titleLabel?.font = NSLabelType.button.font
+                self.step5VC.continueButton.style = .normal(.ns_blue)
+            }
+        }
+        
+        step5VC.continueButton.touchUpCallback = {
+            self.setOnboardingStep(self.currentStep + 1, animated: true)
+        }
+        
+        step6VC.permissionButton.touchUpCallback = { [weak self] in
             TracingManager.shared.requestTracingPermission { _ in
                 self?.animateToNextStep()
             }
         }
 
-        step7VC.permissionButton.touchUpCallback = {
+        step8VC.permissionButton.touchUpCallback = {
             UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { _, _ in
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     self.setOnboardingStep(self.currentStep + 1, animated: true)
@@ -195,7 +210,7 @@ class NSOnboardingViewController: NSViewController {
             }
         }
 
-        step8VC.finishButton.touchUpCallback = finishAnimation
+        step9VC.finishButton.touchUpCallback = finishAnimation
         
         continueContainer.backgroundColor = .setColorsForTheme(lightColor: .ns_background, darkColor: .ns_backgroundTertiary)
         continueContainer.ub_addShadow(radius: 4, opacity: 0.1, xOffset: 0, yOffset: -1)
@@ -245,7 +260,7 @@ class NSOnboardingViewController: NSViewController {
             view.insertSubview(vc.view, belowSubview: finishButton)
             vc.view.snp.makeConstraints { make in
                 make.top.leading.trailing.equalToSuperview()
-                if vc is NSOnboardingPermissionsViewController || vc is NSOnboardingFinishViewController {
+                if vc is NSOnboardingPermissionsViewController || vc is NSOnboardingInteroperabilityViewController || vc is NSOnboardingFinishViewController {
                     make.bottom.equalToSuperview()
                 } else {
                     make.bottom.equalTo(continueContainer.snp.top)
@@ -290,7 +305,7 @@ class NSOnboardingViewController: NSViewController {
         guard splashVC.view.alpha == 0 else {
             return false
         }
-        if [/*languageSelectionStepIndex,*/ pushPermissionStepIndex, tracingPermissionStepIndex, disclaimerStepIndex].contains(currentStep) {
+        if [pushPermissionStepIndex, tracingPermissionStepIndex, disclaimerStepIndex, interoperabilityStepIndex].contains(currentStep) {
             // Disable swipe forward on permission screens
             return false
         }
@@ -302,7 +317,7 @@ class NSOnboardingViewController: NSViewController {
         guard splashVC.view.alpha == 0 else {
             return false
         }
-        if currentStep == pushPermissionStepIndex + 1 || currentStep == tracingPermissionStepIndex + 1 { // Disable swipe back to permission screens
+        if currentStep == pushPermissionStepIndex + 1 || currentStep == tracingPermissionStepIndex + 1 || currentStep == interoperabilityStepIndex + 1 { // Disable swipe back to permission screens
             return false
         }
         setOnboardingStep(currentStep - 1, animated: true)
